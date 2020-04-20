@@ -3,20 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E13E7952240E8C2800371FF3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E7951240E8C2800371FF3 /* main.swift */; };
-		E13E795A240E8C9900371FF3 /* Guaka in Frameworks */ = {isa = PBXBuildFile; productRef = E13E7959240E8C9900371FF3 /* Guaka */; };
-		E13E7960240E93BA00371FF3 /* setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E795C240E93BA00371FF3 /* setup.swift */; };
-		E13E7961240E93BA00371FF3 /* information.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E795D240E93BA00371FF3 /* information.swift */; };
-		E13E7962240E93BA00371FF3 /* root.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13E795E240E93BA00371FF3 /* root.swift */; };
-		E13E7966240E95FB00371FF3 /* SourceKittenFramework in Frameworks */ = {isa = PBXBuildFile; productRef = E13E7965240E95FB00371FF3 /* SourceKittenFramework */; };
+		E146B9CF24420341008F179B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146B9CE24420341008F179B /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E13E794C240E8C2800371FF3 /* CopyFiles */ = {
+		E146B9C924420341008F179B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -28,101 +23,81 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E13E794E240E8C2800371FF3 /* Bubo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Bubo; sourceTree = BUILT_PRODUCTS_DIR; };
-		E13E7951240E8C2800371FF3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		E13E795C240E93BA00371FF3 /* setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = setup.swift; sourceTree = "<group>"; };
-		E13E795D240E93BA00371FF3 /* information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = information.swift; sourceTree = "<group>"; };
-		E13E795E240E93BA00371FF3 /* root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = root.swift; sourceTree = "<group>"; };
+		E146B9CB24420341008F179B /* Bubo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Bubo; sourceTree = BUILT_PRODUCTS_DIR; };
+		E146B9CE24420341008F179B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E13E794B240E8C2800371FF3 /* Frameworks */ = {
+		E146B9C824420341008F179B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E13E795A240E8C9900371FF3 /* Guaka in Frameworks */,
-				E13E7966240E95FB00371FF3 /* SourceKittenFramework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E13E7945240E8C2800371FF3 = {
+		E146B9C224420341008F179B = {
 			isa = PBXGroup;
 			children = (
-				E13E7950240E8C2800371FF3 /* Bubo */,
-				E13E794F240E8C2800371FF3 /* Products */,
+				E146B9CD24420341008F179B /* Bubo */,
+				E146B9CC24420341008F179B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E13E794F240E8C2800371FF3 /* Products */ = {
+		E146B9CC24420341008F179B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E13E794E240E8C2800371FF3 /* Bubo */,
+				E146B9CB24420341008F179B /* Bubo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E13E7950240E8C2800371FF3 /* Bubo */ = {
+		E146B9CD24420341008F179B /* Bubo */ = {
 			isa = PBXGroup;
 			children = (
-				E13E795B240E923700371FF3 /* cli */,
-				E13E7951240E8C2800371FF3 /* main.swift */,
+				E146B9CE24420341008F179B /* main.swift */,
 			);
 			path = Bubo;
-			sourceTree = "<group>";
-		};
-		E13E795B240E923700371FF3 /* cli */ = {
-			isa = PBXGroup;
-			children = (
-				E13E795D240E93BA00371FF3 /* information.swift */,
-				E13E795E240E93BA00371FF3 /* root.swift */,
-				E13E795C240E93BA00371FF3 /* setup.swift */,
-			);
-			path = cli;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E13E794D240E8C2800371FF3 /* Bubo */ = {
+		E146B9CA24420341008F179B /* Bubo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E13E7955240E8C2800371FF3 /* Build configuration list for PBXNativeTarget "Bubo" */;
+			buildConfigurationList = E146B9D224420341008F179B /* Build configuration list for PBXNativeTarget "Bubo" */;
 			buildPhases = (
-				E13E794A240E8C2800371FF3 /* Sources */,
-				E13E794B240E8C2800371FF3 /* Frameworks */,
-				E13E794C240E8C2800371FF3 /* CopyFiles */,
+				E146B9C724420341008F179B /* Sources */,
+				E146B9C824420341008F179B /* Frameworks */,
+				E146B9C924420341008F179B /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Bubo;
-			packageProductDependencies = (
-				E13E7959240E8C9900371FF3 /* Guaka */,
-				E13E7965240E95FB00371FF3 /* SourceKittenFramework */,
-			);
 			productName = Bubo;
-			productReference = E13E794E240E8C2800371FF3 /* Bubo */;
+			productReference = E146B9CB24420341008F179B /* Bubo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E13E7946240E8C2800371FF3 /* Project object */ = {
+		E146B9C324420341008F179B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Valentin Hartig";
 				TargetAttributes = {
-					E13E794D240E8C2800371FF3 = {
+					E146B9CA24420341008F179B = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
-			buildConfigurationList = E13E7949240E8C2800371FF3 /* Build configuration list for PBXProject "Bubo" */;
+			buildConfigurationList = E146B9C624420341008F179B /* Build configuration list for PBXProject "Bubo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,36 +105,29 @@
 				en,
 				Base,
 			);
-			mainGroup = E13E7945240E8C2800371FF3;
-			packageReferences = (
-				E13E7958240E8C9900371FF3 /* XCRemoteSwiftPackageReference "Guaka" */,
-				E13E7964240E95FB00371FF3 /* XCRemoteSwiftPackageReference "SourceKitten" */,
-			);
-			productRefGroup = E13E794F240E8C2800371FF3 /* Products */;
+			mainGroup = E146B9C224420341008F179B;
+			productRefGroup = E146B9CC24420341008F179B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E13E794D240E8C2800371FF3 /* Bubo */,
+				E146B9CA24420341008F179B /* Bubo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E13E794A240E8C2800371FF3 /* Sources */ = {
+		E146B9C724420341008F179B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E13E7952240E8C2800371FF3 /* main.swift in Sources */,
-				E13E7962240E93BA00371FF3 /* root.swift in Sources */,
-				E13E7961240E93BA00371FF3 /* information.swift in Sources */,
-				E13E7960240E93BA00371FF3 /* setup.swift in Sources */,
+				E146B9CF24420341008F179B /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		E13E7953240E8C2800371FF3 /* Debug */ = {
+		E146B9D024420341008F179B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -219,7 +187,7 @@
 			};
 			name = Debug;
 		};
-		E13E7954240E8C2800371FF3 /* Release */ = {
+		E146B9D124420341008F179B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -272,7 +240,7 @@
 			};
 			name = Release;
 		};
-		E13E7956240E8C2800371FF3 /* Debug */ = {
+		E146B9D324420341008F179B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -281,7 +249,7 @@
 			};
 			name = Debug;
 		};
-		E13E7957240E8C2800371FF3 /* Release */ = {
+		E146B9D424420341008F179B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -293,57 +261,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E13E7949240E8C2800371FF3 /* Build configuration list for PBXProject "Bubo" */ = {
+		E146B9C624420341008F179B /* Build configuration list for PBXProject "Bubo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E13E7953240E8C2800371FF3 /* Debug */,
-				E13E7954240E8C2800371FF3 /* Release */,
+				E146B9D024420341008F179B /* Debug */,
+				E146B9D124420341008F179B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E13E7955240E8C2800371FF3 /* Build configuration list for PBXNativeTarget "Bubo" */ = {
+		E146B9D224420341008F179B /* Build configuration list for PBXNativeTarget "Bubo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E13E7956240E8C2800371FF3 /* Debug */,
-				E13E7957240E8C2800371FF3 /* Release */,
+				E146B9D324420341008F179B /* Debug */,
+				E146B9D424420341008F179B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E13E7958240E8C9900371FF3 /* XCRemoteSwiftPackageReference "Guaka" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nsomar/Guaka";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.1;
-			};
-		};
-		E13E7964240E95FB00371FF3 /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jpsim/SourceKitten";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.29.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E13E7959240E8C9900371FF3 /* Guaka */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E13E7958240E8C9900371FF3 /* XCRemoteSwiftPackageReference "Guaka" */;
-			productName = Guaka;
-		};
-		E13E7965240E95FB00371FF3 /* SourceKittenFramework */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E13E7964240E95FB00371FF3 /* XCRemoteSwiftPackageReference "SourceKitten" */;
-			productName = SourceKittenFramework;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = E13E7946240E8C2800371FF3 /* Project object */;
+	rootObject = E146B9C324420341008F179B /* Project object */;
 }
