@@ -1,12 +1,8 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 21.04.20.
 //
 
 import ArgumentParser
-import ShellOut
 import Foundation
 
 // Main command
@@ -20,7 +16,6 @@ struct Bubo: ParsableCommand {
     var version: Bool
     
     func run() throws {
-        let fileManagement: FileManagment = FileManagment()
         if version {
             print("Version: \(versionNumber)")
         } else {

@@ -1,7 +1,4 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 21.04.20.
 //
 
@@ -15,8 +12,8 @@ struct Anchorrc: Codable {
     public var repositories: [URL]
     public var lastUpdated: String
     
-    init(url: URL, projectName: String, creator: String, creationTimestamp: String, repositories: [URL], lastUpdated: String) {
-        self.creationTimestamp = creationTimestamp
+    init(url: URL, projectName: String, creator: String, repositories: [URL], lastUpdated: String) {
+        self.creationTimestamp = Date().description(with: .current)
         self.creator = creator
         self.lastUpdated = lastUpdated
         self.projectName = projectName

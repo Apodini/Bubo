@@ -1,12 +1,8 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 21.04.20.
 //
 
 import ArgumentParser
-import ShellOut
 import Foundation
 
 
@@ -29,13 +25,7 @@ extension Bubo {
         
         func run() {
             let fileManagement = FileManagment()
-            
-            if fileManagement.checkInit() { // Check if the root repo has been initialised
-                fileManagement.initNewRepo(name: projectName) // Init new anchor repo
-            } else {
-                fileManagement.initBubo() // Init root repo
-                fileManagement.initNewRepo(name: projectName) // Init new anchor repo
-            }
+            fileManagement.initNewRepo(name: projectName)
         }
     }
 }
