@@ -42,26 +42,38 @@ extension FileManagment {
         return buborc
     }
     
-    func decodeRootConfig() -> Void {
-        // Create directory path for bubos root directory
-        guard let filePath = getBuboRepoDir() else {
-            NSLog("ERROR: Can't get bubo root path")
+    func encodeRootConfig(configFile: Buborc) -> Void {
+        let fileManager: FileManager = FileManager()
+        guard let configPath = getBuboConfigPath() else {
+            NSLog("ERROR: Can't get bubo config path")
             return
         }
-        if self.fileManager.fileExists(atPath: filePath.path) {
-            // Create path for root config file
-            let configPath = URL(fileURLWithPath: filePath
-            .appendingPathComponent("buborc")
-                .appendingPathExtension("json").path)
-            
-            if self.fileManager.fileExists(atPath: configPath.path) {
-                // Decode config file data
-                guard let decoded = decodeDatafromJSON(path: configPath.absoluteURL) else {
-                    NSLog("ERROR: Failed to decode root configuration")
-                    return
-                }
-                rootConfig = decoded
-            }
+        let encode = encodeDataToJSON(config: rootConfig)
+        do {
+            try fileManager.removeItem(at: configPath)
+        } catch {
+            NSLog("ERROR: Can't removee buborc at path \(configPath)")
         }
+        let isCreated = fileManager.createFile(atPath: configPath.path, contents: encode, attributes: nil)
+        if isCreated {
+            rootConfig = configFile
+            NSLog("buborc overwritten at path: \(configPath)")
+        } else {
+            NSLog("ERROR: buborc can't be overwritten at path: \(configPath)")
+            return
+        }
+    }
+    
+    func decodeRootConfig() -> Void {
+        // Create directory path for bubos root directory
+        guard let configPath = getBuboConfigPath() else {
+            NSLog("ERROR: Can't get bubo config path")
+            return
+        }
+        guard let decoded = decodeDatafromJSON(path: configPath.absoluteURL) else {
+            NSLog("ERROR: Failed to decode root configuration")
+            return
+        }
+        rootConfig = decoded
     }
 }

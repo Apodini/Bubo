@@ -24,6 +24,25 @@ class FileManagment {
         return filePath
     }
     
+    func getBuboConfigPath() -> URL? {
+        // Create directory path for bubos root directory
+        guard let filePath = getBuboRepoDir() else {
+            NSLog("ERROR: Can't get bubo root path")
+            return nil
+        }
+        if self.fileManager.fileExists(atPath: filePath.path) {
+            // Create path for root config file
+            let configPath = URL(fileURLWithPath: filePath
+                .appendingPathComponent("buborc")
+                .appendingPathExtension("json").path)
+            
+            if self.fileManager.fileExists(atPath: configPath.path) {
+                return configPath
+            }
+        }
+        return nil
+    }
+    
     
     func updateBuborc(config: Buborc, path: URL) {
         // Compare existing config file with new one and update existing

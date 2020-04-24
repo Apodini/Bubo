@@ -1,10 +1,10 @@
  //
-//  Created by Valentin Hartig on 20.04.20.
-//
-
-import Foundation
-
-public struct Buborc: Codable {
+ //  Created by Valentin Hartig on 20.04.20.
+ //
+ 
+ import Foundation
+ 
+ public struct Buborc: Codable {
     public var version: String
     public var projects: [URL]?
     public var rootRepoUrl: URL?
@@ -22,13 +22,8 @@ public struct Buborc: Codable {
         var rootPath: URL? = URL(string: fileManager.currentDirectoryPath)
         // Try to get one of the standard root repo locations
         if rootPath == nil {
-            rootPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-            if rootPath == nil {
-                NSLog("ERROR: Can't init root repo path")
-                rootPath = nil
-            } else {
-                rootPath = rootPath?.appendingPathComponent("BuboProjects")
-            }
+            NSLog("ERROR: Can't init root repo path")
+            rootPath = nil
         } else {
             rootPath = rootPath?.appendingPathComponent("BuboProjects")
         }
@@ -37,4 +32,4 @@ public struct Buborc: Codable {
         self.rootRepoUrl = rootPath
         self.initialisationDate = Date().description(with: .current)
     }
-}
+ }
