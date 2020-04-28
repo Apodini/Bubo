@@ -25,7 +25,10 @@ extension Bubo {
         
         func run() {
             let fileManagement = FileManagment()
-            fileManagement.initNewRepo(name: projectName)
+            guard fileManagement.initNewRepo(name: projectName) else {
+                errorMessage(msg: "Could not initialise new Projekt \(projectName)")
+                return
+            }
         }
     }
 }

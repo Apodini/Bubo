@@ -3,6 +3,7 @@
 //
 
 import ArgumentParser
+import ColorizeSwift
 import Foundation
 
 // Main command
@@ -15,11 +16,18 @@ struct Bubo: ParsableCommand {
     @Flag(help: "Display current Verison of Bubo")
     var version: Bool
     
+    // Display bubo initstatus with --initialisation
+    @Flag(help: "Display initialisation status")
+    var initialisation: Bool
+    
     func run() throws {
         if version {
-            print("Version: \(versionNumber)")
-        } else {
-            print("Please refer to Bubo -h for more information")
+            print("Version: \(versionNumber)".bold())
         }
+        if initialisation {
+            print(" InitStatus: \(initStatus) ".black() .backgroundColor(.green))
+
+        }
+        print("Please refer to Bubo -h for more information".bold())
     }
 }

@@ -14,7 +14,7 @@ extension FileManagment {
         do {
             try data = encoder.encode(config)
         } catch {
-            NSLog("ERROR: Couldn't encode buborc")
+            errorMessage(msg: "Couldn't encode root configuration file")
         }
         return data
     }
@@ -25,7 +25,7 @@ extension FileManagment {
         do {
             try data = encoder.encode(config)
         } catch {
-            NSLog("ERROR: Couldn't encode buborc")
+            errorMessage(msg: "Couldn't encode root configuration file")
         }
         return data
     }
@@ -36,7 +36,7 @@ extension FileManagment {
         do {
             try buborc = decoder.decode(Buborc.self, from: Data(contentsOf: path))
         } catch {
-            NSLog("ERROR: Couldn't decode \(path)")
+            errorMessage(msg: "Couldn't decode root configuration file at path  \(path)")
             buborc = nil
         }
         return buborc
@@ -45,21 +45,21 @@ extension FileManagment {
     func encodeRootConfig(configFile: Buborc) -> Void {
         let fileManager: FileManager = FileManager()
         guard let configPath = getBuboConfigPath() else {
-            NSLog("ERROR: Can't get bubo config path")
+            errorMessage(msg: "Can't get Bubo config path")
             return
         }
         let encode = encodeDataToJSON(config: rootConfig)
         do {
             try fileManager.removeItem(at: configPath)
         } catch {
-            NSLog("ERROR: Can't removee buborc at path \(configPath)")
+            errorMessage(msg: "Can't remove root configuration file at path \(configPath)")
         }
         let isCreated = fileManager.createFile(atPath: configPath.path, contents: encode, attributes: nil)
         if isCreated {
             rootConfig = configFile
-            NSLog("buborc overwritten at path: \(configPath)")
+            successMessage(msg: "Root configuration file overwritten at path: \(configPath)")
         } else {
-            NSLog("ERROR: buborc can't be overwritten at path: \(configPath)")
+            errorMessage(msg: "Root configuration file can't be overwritten at path: \(configPath)")
             return
         }
     }
@@ -67,11 +67,11 @@ extension FileManagment {
     func decodeRootConfig() -> Void {
         // Create directory path for bubos root directory
         guard let configPath = getBuboConfigPath() else {
-            NSLog("ERROR: Can't get bubo config path")
+            errorMessage(msg: "Can't get root configuration file path")
             return
         }
         guard let decoded = decodeDatafromJSON(path: configPath.absoluteURL) else {
-            NSLog("ERROR: Failed to decode root configuration")
+            errorMessage(msg: "Failed to decode root configuration file")
             return
         }
         rootConfig = decoded

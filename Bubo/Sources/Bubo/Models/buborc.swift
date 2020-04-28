@@ -22,7 +22,7 @@
         var rootPath: URL? = URL(string: fileManager.currentDirectoryPath)
         // Try to get one of the standard root repo locations
         if rootPath == nil {
-            NSLog("ERROR: Can't init root repo path")
+            errorMessage(msg: "Can't init root repo path")
             rootPath = nil
         } else {
             rootPath = rootPath?.appendingPathComponent("BuboProjects")

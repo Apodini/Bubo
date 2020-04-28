@@ -18,7 +18,7 @@ class FileManagment {
     // ----------------------- Root repository initialisation functions
     func getBuboRepoDir() -> URL? {
         guard let filePath = rootConfig.rootRepoUrl else {
-            NSLog("ERROR: Can't get root repo url path in getBuboRepoDir()")
+            errorMessage(msg: "Can't get Bubo root path")
             return nil
         }
         return filePath
@@ -27,7 +27,6 @@ class FileManagment {
     func getBuboConfigPath() -> URL? {
         // Create directory path for bubos root directory
         guard let filePath = getBuboRepoDir() else {
-            NSLog("ERROR: Can't get bubo root path")
             return nil
         }
         if self.fileManager.fileExists(atPath: filePath.path) {
@@ -38,6 +37,8 @@ class FileManagment {
             
             if self.fileManager.fileExists(atPath: configPath.path) {
                 return configPath
+            } else {
+                errorMessage(msg: "Root configuration does not exist at path \(configPath)")
             }
         }
         return nil
@@ -46,6 +47,6 @@ class FileManagment {
     
     func updateBuborc(config: Buborc, path: URL) {
         // Compare existing config file with new one and update existing
-        NSLog("buborc at path \(path) updated")
+        successMessage(msg: "buborc at path \(path) updated")
     }
 }
