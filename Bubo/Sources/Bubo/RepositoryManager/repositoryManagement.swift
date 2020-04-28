@@ -4,3 +4,13 @@
 
 import Foundation
 import ShellOut
+
+
+class RepositoryManagement {
+    
+    
+    func addGitRepo(projectName: String, gitRepoURL: String) -> Bool {
+        // TODO
+        return true
+    }
+}

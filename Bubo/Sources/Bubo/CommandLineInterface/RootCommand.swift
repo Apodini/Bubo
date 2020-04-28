@@ -10,7 +10,7 @@ import Foundation
 struct Bubo: ParsableCommand {
     static let configuration = CommandConfiguration(
     abstract: "Bubo is a tool to aid developers with the decomposiotion of systems into microservices.",
-    subcommands: [New.self])
+    subcommands: [New.self, Add.self, List.self])
     
     // Display bubo version with --version
     @Flag(help: "Display current Verison of Bubo")
