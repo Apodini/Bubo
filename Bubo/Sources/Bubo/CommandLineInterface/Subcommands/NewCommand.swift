@@ -11,22 +11,22 @@ import Foundation
 extension Bubo {
     struct New: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Create a new Bubo Project.")
+            abstract: "Create a new Bubo project.")
         
-        @Argument(help: "The name of the new bubo project")
+        @Argument(help: "The name of the new bubo project.")
         var projectName: String
         
         // Validate Input
         func validate() throws {
             guard projectName.count <= 255 else {
-                throw ValidationError("'<name>' is to long")
+                throw ValidationError("Project name is too long.")
             }
         }
         
         func run() {
             let fileManagement = FileManagment()
             guard fileManagement.initNewRepo(name: projectName) else {
-                errorMessage(msg: "Could not initialise new Projekt \(projectName)")
+                errorMessage(msg: "Could not initialise new project \(projectName).")
                 return
             }
         }

@@ -17,7 +17,7 @@ public func warningMessage(msg: String) -> Void {
 }
 
 public func successMessage(msg: String) -> Void {
-    print("✓ \(msg)" .green())
+        print("✓ \(msg)" .green())
 }
 
 public func headerMessage(msg: String) -> Void {
