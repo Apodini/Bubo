@@ -11,6 +11,8 @@ extension Bubo {
             abstract: "List all Bubo projects.")
         
         func run() {
+            let colorBubo = "Bubo".blue()
+            headerMessage(msg: "All \(colorBubo) projects")
             guard let projects = rootConfig.projects else {
                 errorMessage(msg: "Can't list projects because Bubo has not been initialised.")
                 return

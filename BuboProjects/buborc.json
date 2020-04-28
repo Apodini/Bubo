@@ -1,1 +1,12 @@
-{"rootRepoUrl":"\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects","initialisationDate":"Tuesday, 28. April 2020 at 15:46:27 Central European Summer Time","projects":{"Nick":"\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/Nick"},"version":"0.0.1"}
+{
+    "rootRepoUrl": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects",
+    "initialisationDate": "Tuesday, 28. April 2020 at 18:06:42 Central European Summer Time",
+    "projects": {
+        "monolith5": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/monolith5",
+        "monolith6": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/monolith6",
+        "monolith3": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/monolith3",
+        "monolith4": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/monolith4",
+        "monolith": "\/Users\/valentinhartig\/Projects\/Bachelor_Arbeit\/software\/BuboProjects\/monolith"
+    },
+    "version": "0.0.1"
+}

@@ -12,10 +12,12 @@ struct Bubo: ParsableCommand {
         abstract: "Bubo is a tool to aid developers with the decomposiotion of systems into microservices.",
         subcommands: [
             New.self,
-            Add.self,
+            AddService.self,
             List.self,
             ListServices.self,
-            UpdateServices.self
+            UpdateServices.self,
+            Remove.self,
+            RemoveService.self
     ])
     
     // Display bubo version with --version

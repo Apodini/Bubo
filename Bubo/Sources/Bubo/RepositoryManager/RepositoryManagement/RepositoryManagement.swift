@@ -31,26 +31,27 @@ class RepositoryManagement {
         if fileManager.fileExists(atPath: servicesURL.path) {
             do {
                 let directoryItems: [URL] = try fileManager.contentsOfDirectory(at: servicesURL, includingPropertiesForKeys: nil)
-                var services: [Service] = []
+                var services: [String:Service] = [:]
                 for url in directoryItems {
                     guard let service = createService(serviceURL: url) else {
                         errorMessage(msg: "Can't update services because generating a serrvice for \(url.path) is not possible")
                         return false
                     }
-                    services.append(service)
+                    
+                    services[service.name] = service
                 }
                 successMessage(msg: "Observe services in services directory of \(projectName)")
-                var updatedServices: [Service] = []
+                var updatedServices: [String:Service] = [:]
                 // Compare old services with new services
-                    for newService in services {
-                        if prevServices.contains(newService) {
-                            for oldService in prevServices {
+                for (_,newService) in services {
+                        if prevServices.values.contains(newService) {
+                            for (_, oldService) in prevServices {
                                 if oldService == newService {
-                                    updatedServices.append(oldService)
+                                    updatedServices[oldService.name] = oldService
                                 }
                             }
                         } else {
-                            updatedServices.append(newService)
+                            updatedServices[newService.name] = newService
                         }
                     }
                 successMessage(msg: "Compare state of services")

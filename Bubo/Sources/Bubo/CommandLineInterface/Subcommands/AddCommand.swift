@@ -10,7 +10,7 @@ import ArgumentParser
 
 // Command to create a new bubo repository
 extension Bubo {
-    struct Add: ParsableCommand {
+    struct AddService: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Add a new service to an existing Bubo project.")
         @Flag(help: "Initialise new project with passed name if not eexisiting.")
