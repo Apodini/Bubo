@@ -8,19 +8,19 @@ import Foundation
 extension FileManagment {
     // ----------------------- New repository initialisation functions
     func initNewRepo(name: String) -> Bool {
-        NSLog("Starting initialisation of new repo")
+        headerMessage(msg: "Starting initialisation of \(name)")
         // Create the directory name
         var dirName = name
         dirName.append("Anchor")
         // Create the directory path
         guard let rootPath = getBuboRepoDir() else {
-            NSLog("ERROR: Can't get root path in initNewRepo()")
+            errorMessage(msg: "Can't get root path in initNewRepo()")
             return false
         }
         let repoPath = rootPath.appendingPathComponent("\(name)")
         
         guard !self.fileManager.fileExists(atPath: repoPath.path) else {
-            NSLog("A Project with this name already exists!")
+            warningMessage(msg: "A Project with this name already exists! Please delete existing project.")
             return false
         }
         
@@ -37,7 +37,6 @@ extension FileManagment {
                     url: repoPath,
                     projectName: name,
                     creator: "NSFullUserName()",
-                    repositories: [],
                     lastUpdated: Date().description(with: .current)
                 )
                 if !self.fileManager.fileExists(atPath: configPath.path) {
@@ -46,23 +45,23 @@ extension FileManagment {
                     let isCreated = self.fileManager
                         .createFile(atPath: configPath.path, contents: data, attributes: nil)
                     if isCreated {
-                        NSLog("anchorrc created at path: \(configPath)")
+                        successMessage(msg: "Project config file created at path: \(configPath)")
                         if rootConfig.projects == nil {
-                            rootConfig.projects = []
+                            rootConfig.projects = [:]
                         }
-                        rootConfig.projects?.append(repoPath)
+                        rootConfig.projects?[name] = repoPath
                         encodeRootConfig(configFile: rootConfig)
                     } else {
-                        NSLog("ERROR: anchorrc can't be created at path: \(configPath)")
+                        errorMessage(msg: "Project config file can't be created at path: \(configPath)")
                         return false
                     }
                 }
             }
         } catch {
-            NSLog("Couldn't create \(dirName) directory")
+            errorMessage(msg: "Couldn't create \(name) project")
             return false
         }
-        NSLog("\(dirName) directory is \(repoPath)")
+        successMessage(msg: "Project \(name) is located at \(repoPath)")
         return true
     }
 }

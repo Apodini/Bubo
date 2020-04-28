@@ -1,22 +1,23 @@
 import ArgumentParser
 import Foundation
 
+public var initStatus: Bool = false
 public var versionNumber = "0.0.1"
 public var rootConfig: Buborc = Buborc(
     version: versionNumber,
-    projects: []
+    projects: [:]
 )
 
+
 class Main {
-    public var initStatus: Bool
     
     init() {
-        
         let fileManagement = FileManagment()
-        self.initStatus = fileManagement.checkInit()
-        NSLog("InitStatus: \(self.initStatus)")
-        if !self.initStatus {
-            self.initStatus = fileManagement.initBubo(configFile: rootConfig)
+        // Check if a root config fo the current directory is present
+        initStatus = fileManagement.checkInit()
+        if !initStatus {
+            // not present: initialise Bubo
+            initStatus = fileManagement.initBubo(configFile: rootConfig)
         } else {
             fileManagement.decodeRootConfig()
         }
@@ -24,4 +25,4 @@ class Main {
     }
 }
 
-Main()
+let main = Main()

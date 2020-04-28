@@ -8,24 +8,17 @@ extension FileManagment {
     
     // Checks if the root repository of the application has been initialised
     func checkInit() -> Bool {
-        guard let filePath = self.getBuboRepoDir() else {
+        guard getBuboConfigPath() != nil else {
             return false
         }
-        let configPath = filePath
-            .appendingPathComponent("buborc")
-            .appendingPathExtension("json")
-        if self.fileManager.fileExists(atPath: configPath.path) {
-            return true // Initialised if root config file exists
-        } else {
-            return false // Not initialised if root config file is not existent
-        }
+        return true // Initialised if root config file exists
     }
     
     func initBubo(configFile: Buborc) -> Bool {
-        NSLog("Starting initialisation of root repo")
+        headerMessage(msg: "Starting initialisation of Bubo")
         // Create directory path for bubos root directory
         guard let filePath = getBuboRepoDir() else {
-            NSLog("ERROR: Can't initialise Bubo in standard repositories. Please initialise Bubo manually.")
+            errorMessage(msg: "Can't initialise Bubo in standard repositories. Please initialise Bubo manually.")
             return false
         }
         
@@ -42,24 +35,24 @@ extension FileManagment {
                 if !self.fileManager.fileExists(atPath: configPath.path) {
                     // Encode config file data
                     let data: Data = encodeDataToJSON(config: configFile)
-                    NSLog("Data has been encoded in JSON \(data)")
+                    successMessage(msg: "Root configuration has been encoded in JSON \(data)")
                     // Try to generate config file at above metioned path
                     let isCreated = fileManager.createFile(atPath: configPath.path, contents: data, attributes: nil)
                     if isCreated {
                         rootConfig = configFile
-                        NSLog("buborc created at path: \(configPath)")
+                        successMessage(msg: "Root configuration file created at path: \(configPath)")
                     } else {
-                        NSLog("ERROR: buborc can't be created at path: \(configPath)")
+                        errorMessage(msg: "Root configuration file can't be created at path: \(configPath)")
                         return false
                     }
                 } else {
                     updateBuborc(config: configFile, path: configPath)
                 }
             } catch {
-                NSLog("Couldn't create bubo roor directory at path \(filePath.path)")
+                errorMessage(msg: "Couldn't create Bubo root directory at path \(filePath.path)")
                 return false
             }
-            NSLog("Root directory is \(filePath)")
+            successMessage(msg: "Root directory is \(filePath)")
             return true
         }
         return true

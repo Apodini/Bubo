@@ -6,18 +6,18 @@
  
  public struct Buborc: Codable {
     public var version: String
-    public var projects: [URL]?
+    public var projects: [String:URL]?
     public var rootRepoUrl: URL?
     public var initialisationDate: String
     
-    init(version: String, projects: [URL], rootRepoUrl: URL) {
+    init(version: String, projects: [String:URL], rootRepoUrl: URL) {
         self.version = version
         self.projects = projects
         self.rootRepoUrl = rootRepoUrl
         self.initialisationDate = Date().description(with: .current)
     }
     
-    init(version: String, projects: [URL]) {
+    init(version: String, projects: [String:URL]) {
         let fileManager = FileManager()
         var rootPath: URL? = URL(string: fileManager.currentDirectoryPath)
         // Try to get one of the standard root repo locations
