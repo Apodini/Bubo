@@ -18,7 +18,8 @@ class Main {
         initStatus = fileManagement.checkInit()
         if !initStatus {
             // not present: initialise Bubo
-            initStatus = fileManagement.initBubo(configFile: rootConfig)
+            fileManagement.initBubo(configFile: rootConfig)
+            initStatus = fileManagement.checkInit()
         } else {
             fileManagement.decodeRootConfig()
         }

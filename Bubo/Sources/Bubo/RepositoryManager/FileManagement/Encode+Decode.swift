@@ -48,7 +48,7 @@ extension FileManagment {
         do {
             try config = decoder.decode(Anchorrc.self, from: Data(contentsOf: url))
         } catch {
-            errorMessage(msg: "Couldn't decode project configuration file at path  \(url)")
+            errorMessage(msg: "Couldn't decode project configuration file at path \(url)")
             config = nil
         }
         return config
@@ -56,7 +56,7 @@ extension FileManagment {
     
     func encodeRootConfig(configFile: Buborc) -> Void {
         let fileManager: FileManager = FileManager()
-        guard let configPath = getBuboConfigPath() else {
+        guard let configPath = getRootConfigPath() else {
             errorMessage(msg: "Can't get Bubo config path")
             return
         }
@@ -78,7 +78,7 @@ extension FileManagment {
     
     func decodeRootConfig() -> Void {
         // Create directory path for bubos root directory
-        guard let configPath = getBuboConfigPath() else {
+        guard let configPath = getRootConfigPath() else {
             errorMessage(msg: "Can't get root configuration file path")
             return
         }

@@ -15,7 +15,7 @@ extension RepositoryManagement {
         // Check if the project with projectName exists and created if the --new flag is set and it dosen't exist
         if !(projectNames?.contains(projectName) ?? false) {
             if createNewProject {
-                fileManagement.initNewRepo(name: projectName)
+                fileManagement.initProjectWithName(name: projectName)
                 successMessage(msg: "Creating new project \(projectName)")
             } else {
                 warningMessage(msg: "Can't add service because \(projectName) is not existing. Use Bubo new \(projectName) to initialise the new project or use the --new option on th add command")

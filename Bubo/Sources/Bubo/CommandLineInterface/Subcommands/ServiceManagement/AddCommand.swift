@@ -13,7 +13,7 @@ extension Bubo {
     struct AddService: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Add a new service to an existing Bubo project.")
-        @Flag(help: "Initialise new project with passed name if not eexisiting.")
+        @Flag(help: "Initialise new project with passed name if not exisiting.")
         var new: Bool
         
         @Argument(help: "The name of the Bubo project that the service should be added to.")

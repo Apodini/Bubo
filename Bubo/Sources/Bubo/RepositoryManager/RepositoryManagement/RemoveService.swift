@@ -13,9 +13,9 @@ extension RepositoryManagement {
             errorMessage(msg: "Can't remove service \(serviceName) in \(projectName) because it's not possible to decode the projects runtime configuration")
             return
         }
-        var projects = projectConfig.repositories
+        var services = projectConfig.repositories
         
-        guard let service = projects.removeValue(forKey: serviceName) else {
+        guard let service = services.removeValue(forKey: serviceName) else {
             errorMessage(msg: "No service named \(serviceName) in project \(projectName)")
             return
         }
@@ -24,7 +24,7 @@ extension RepositoryManagement {
         do {
             try fileManager.removeItem(at: fileURL)
             successMessage(msg: "Removed service \(serviceName) from project \(projectName)")
-            projectConfig.repositories = projects
+            projectConfig.repositories = services
             projectConfig.lastUpdated = Date().description(with: .current)
             fileManagement.encodeProjectConfig(projectName: projectName, configData: projectConfig)
             return

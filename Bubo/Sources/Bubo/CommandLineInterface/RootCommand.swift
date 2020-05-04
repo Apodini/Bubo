@@ -17,7 +17,9 @@ struct Bubo: ParsableCommand {
             ListServices.self,
             UpdateServices.self,
             Remove.self,
-            RemoveService.self
+            RemoveService.self,
+            Open.self,
+            Pull.self,
     ])
     
     // Display bubo version with --version

@@ -16,17 +16,17 @@ class FileManagment {
     
     
     // ----------------------- Root repository initialisation functions
-    func getBuboRepoDir() -> URL? {
-        guard let filePath = rootConfig.rootRepoUrl else {
+    func getRootDir() -> URL? {
+        guard let filePath = rootConfig.rootUrl else {
             errorMessage(msg: "Can't get Bubo root path")
             return nil
         }
         return filePath
     }
     
-    func getBuboConfigPath() -> URL? {
+    func getRootConfigPath() -> URL? {
         // Create directory path for bubos root directory
-        guard let filePath = getBuboRepoDir() else {
+        guard let filePath = getRootDir() else {
             return nil
         }
         if self.fileManager.fileExists(atPath: filePath.path) {
@@ -44,7 +44,7 @@ class FileManagment {
         return nil
     }
     
-    func updateBuborc(config: Buborc, path: URL) {
+    func updateRootConfig(config: Buborc, path: URL) {
         // Compare existing config file with new one and update existing
         successMessage(msg: "buborc at path \(path) updated")
     }
