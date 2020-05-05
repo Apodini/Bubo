@@ -13,7 +13,7 @@ extension RepositoryManagement {
             return
         }
         if projects.isEmpty {
-            errorMessage("No projects have been created. Use the Bubo new command to create an repository.")
+            errorMessage(msg: "No projects have been created. Use the Bubo new command to create an repository.")
             return
         } else {
             let fileManagement = FileManagment()

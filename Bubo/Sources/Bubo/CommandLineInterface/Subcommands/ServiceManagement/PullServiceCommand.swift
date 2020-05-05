@@ -8,12 +8,12 @@ import ArgumentParser
 extension Bubo {
     struct Pull: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Pull a service of a specific project.")
+            abstract: "Pull a service of a specific project")
         
-        @Argument(help: "The name of the bubo project.")
+        @Argument(help: "The name of the bubo project")
         var projectName: String
         
-        @Argument(help: "The name of the service to pull.")
+        @Argument(help: "The name of the service to pull")
         var serviceName: String?
         
         @Flag(help: "Pull all services")
@@ -39,7 +39,7 @@ extension Bubo {
                 repositoryManagement.pullAllServices(projectName: projectName)
             } else {
                 guard serviceName != nil else {
-                    errorMessage(msg: "Please specifiy a service you want to pull.")
+                    errorMessage(msg: "Please specifiy a service you want to pull")
                     return
                 }
                 repositoryManagement.pullService(projectName: projectName, serviceName: serviceName!)

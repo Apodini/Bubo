@@ -10,6 +10,7 @@ extension Bubo {
         static let configuration = CommandConfiguration(
             abstract: "List all Bubo projects.")
         
+        
         func run() {
             let colorBubo = "Bubo".blue()
             headerMessage(msg: "All \(colorBubo) projects")

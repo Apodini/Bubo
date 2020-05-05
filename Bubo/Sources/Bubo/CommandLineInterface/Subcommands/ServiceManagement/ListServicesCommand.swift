@@ -8,7 +8,7 @@ import ArgumentParser
 extension Bubo {
     struct ListServices: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "List all services of a specific project.")
+            abstract: "List all services of a specific project")
         
         @Argument(help: "The name of the new bubo project")
         var projectName: String

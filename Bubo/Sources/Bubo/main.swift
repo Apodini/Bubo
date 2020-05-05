@@ -2,10 +2,8 @@ import ArgumentParser
 import Foundation
 
 public var initStatus: Bool = false
-public var globalVerbose: Bool = false
-public var versionNumber = "0.0.1"
 public var rootConfig: Buborc = Buborc(
-    version: versionNumber,
+    version: "0.0.1",
     projects: [:]
 )
 

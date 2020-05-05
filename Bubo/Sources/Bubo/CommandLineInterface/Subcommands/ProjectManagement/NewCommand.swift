@@ -12,9 +12,9 @@ extension Bubo {
     struct New: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Create a new Bubo project.",
-            discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option." )
+            discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option" )
         
-        @Option(help: "Creates the new project in a dedicated directory and gives it a specified project name.")
+        @Option(name: [.customShort("n"), .customLong("name")],help: "Creates the new project in a dedicated directory and gives it a specified project name")
         var projectName: String?
         
         // Validate Input

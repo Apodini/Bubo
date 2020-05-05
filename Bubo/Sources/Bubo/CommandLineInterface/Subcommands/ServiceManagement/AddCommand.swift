@@ -12,17 +12,17 @@ import ArgumentParser
 extension Bubo {
     struct AddService: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Add a new service to an existing Bubo project.")
-        @Flag(help: "Initialise new project with passed name if not exisiting.")
+            abstract: "Add a new service to an existing Bubo project")
+        @Flag(help: "Initialise new project with passed name if not exisiting")
         var new: Bool
         
-        @Argument(help: "The name of the Bubo project that the service should be added to.")
+        @Argument(help: "The name of the Bubo project that the service should be added to")
         var projectName: String
         
-        @Argument(help: "The name of the service that is added.")
+        @Argument(help: "The name of the service that is added")
         var serviceName: String
         
-        @Argument(help: "The URL to the git repository that is added to the project.")
+        @Argument(help: "The URL to the git repository that is added to the project")
         var gitURL: String
         
         // Validate Input
