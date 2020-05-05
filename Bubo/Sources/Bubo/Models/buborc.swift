@@ -28,7 +28,7 @@
         }
         // Try to get one of the standard root repo locations
         if rootPath == nil {
-            errorMessage(msg: "Can't init root repo path")
+            errorMessage(msg: "Can't initialise root repository in home directory")
             rootPath = nil
         } else {
             rootPath = rootPath?.appendingPathComponent(".bubo")

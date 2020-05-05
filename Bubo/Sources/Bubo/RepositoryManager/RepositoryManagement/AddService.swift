@@ -15,26 +15,26 @@ extension RepositoryManagement {
         // Check if the project with projectName exists and created if the --new flag is set and it dosen't exist
         if !(projectNames?.contains(projectName) ?? false) {
             if createNewProject {
+                outputMessage(msg: "Creating new project \(projectName)")
                 fileManagement.initProjectWithName(name: projectName)
-                successMessage(msg: "Creating new project \(projectName)")
             } else {
                 warningMessage(msg: "Can't add service because \(projectName) is not existing. Use Bubo new \(projectName) to initialise the new project or use the --new option on th add command")
                 return false
             }
         }
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't get projects from runtime configuration.")
+            errorMessage(msg: "Can't add service to \(projectName) because no projects exists in root configuration")
             return false
         }
         
         guard let projectURL = projects[projectName] else {
-            errorMessage(msg: "Can't get project URL from bubo runtime configuration")
+            errorMessage(msg: "Can't add service to \(projectName) because no with this name exists in root configuration")
             return false
         }
         
         if let url = URL(string: gitRepoURL) {
             do {
-                try shellOut(to:
+                let gitMessage = try shellOut(to:
                     .gitClone(
                         url: url,
                         to: projectURL
@@ -43,8 +43,9 @@ extension RepositoryManagement {
                             .path
                     )
                 )
-                successMessage(msg: "Repository has been cloned")
-                self.updateServices(projectName: projectName)
+                outputMessage(msg: gitMessage)
+                outputMessage(msg: "Repository has been cloned")
+                self.refreshServices(projectName: projectName)
             } catch {
                 errorMessage(msg: "Can't clone repositoy from \(url.path)")
                 let error = error as! ShellOutError
@@ -56,6 +57,7 @@ extension RepositoryManagement {
             errorMessage(msg: "Can't clone repositoy from \(gitRepoURL). The provided URL is not parsable")
             return false
         }
+        successMessage(msg: "Added service \(serviceName) to project \(projectName)")
         return true
     }
 }

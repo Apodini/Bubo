@@ -8,36 +8,37 @@ import Foundation
 extension FileManagment {
     
     // ----------------------- Encode and Decode functions
-    func encodeDataToJSON(config: Buborc) -> Data {
+    
+    func encodeDataToJSON(config: Buborc) -> Optional<Data> {
         let encoder = JSONEncoder()
-        var data: Data = Data.init()
         do {
-            try data = encoder.encode(config)
+            let data: Data = try encoder.encode(config)
+            return data
         } catch {
-            errorMessage(msg: "Couldn't encode root configuration file")
+            errorMessage(msg: "Encoder couldn't encode root configuration file")
+            return nil
         }
-        return data
     }
     
-    func encodeDataToJSON(config: Anchorrc) -> Data {
+    func encodeDataToJSON(config: Anchorrc) -> Optional<Data> {
         let encoder = JSONEncoder()
-        var data: Data = Data.init()
         do {
-            try data = encoder.encode(config)
+            let data: Data = try encoder.encode(config)
+            return data
         } catch {
-            errorMessage(msg: "Couldn't encode root configuration file")
+            errorMessage(msg: "Encoder couldn't encode project configuration file")
+            return nil
         }
-        return data
     }
     
-    func decodeDatafromJSON(path: URL) -> Optional<Buborc> {
+    func decodeDatafromJSON(url: URL) -> Optional<Buborc> {
         let decoder = JSONDecoder()
         var config: Buborc?
         do {
-            try config = decoder.decode(Buborc.self, from: Data(contentsOf: path))
+            try config = decoder.decode(Buborc.self, from: Data(contentsOf: url))
         } catch {
-            errorMessage(msg: "Couldn't decode root configuration file at path  \(path)")
-            config = nil
+            errorMessage(msg: "Decoder couldn't decode root configuration file at path \(url.path)")
+            return nil
         }
         return config
     }
@@ -48,30 +49,33 @@ extension FileManagment {
         do {
             try config = decoder.decode(Anchorrc.self, from: Data(contentsOf: url))
         } catch {
-            errorMessage(msg: "Couldn't decode project configuration file at path \(url)")
-            config = nil
+            errorMessage(msg: "Decoder couldn't decode project configuration file at path \(url.path)")
+            return nil
         }
         return config
     }
     
     func encodeRootConfig(configFile: Buborc) -> Void {
+        // outputMessage(msg: "Encoding bubo root configuration file")
         let fileManager: FileManager = FileManager()
-        guard let configPath = getRootConfigPath() else {
-            errorMessage(msg: "Can't get Bubo config path")
+        guard let configURL = getRootConfigPath() else {
+            abortMessage(msg: "Encoding of root configuration")
             return
         }
         let encode = encodeDataToJSON(config: rootConfig)
         do {
-            try fileManager.removeItem(at: configPath)
+            try fileManager.removeItem(at: configURL)
         } catch {
-            errorMessage(msg: "Can't remove root configuration file at path \(configPath)")
+            errorMessage(msg: "Root configuration file can't be overwritten at path: \(configURL.path)")
+            return
         }
-        let isCreated = fileManager.createFile(atPath: configPath.path, contents: encode, attributes: nil)
+        let isCreated = fileManager.createFile(atPath: configURL.path, contents: encode, attributes: nil)
         if isCreated {
             rootConfig = configFile
-            successMessage(msg: "Root configuration file overwritten at path: \(configPath)")
+            // successMessage(msg: "Root configuration file encoded")
+            return
         } else {
-            errorMessage(msg: "Root configuration file can't be overwritten at path: \(configPath)")
+            errorMessage(msg: "Root configuration file can't be overwritten at path: \(configURL.path)")
             return
         }
     }
@@ -79,11 +83,11 @@ extension FileManagment {
     func decodeRootConfig() -> Void {
         // Create directory path for bubos root directory
         guard let configPath = getRootConfigPath() else {
-            errorMessage(msg: "Can't get root configuration file path")
+            abortMessage(msg: "Decoding of root configuration file")
             return
         }
-        guard let decoded = decodeDatafromJSON(path: configPath.absoluteURL) else {
-            errorMessage(msg: "Failed to decode root configuration file")
+        guard let decoded = decodeDatafromJSON(url: configPath.absoluteURL) else {
+            abortMessage(msg: "Decoding of root configuration file")
             return
         }
         rootConfig = decoded
@@ -91,7 +95,7 @@ extension FileManagment {
     
     func decodeProjectConfig(projectName: String) -> Optional<Anchorrc> {
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't get projects from runtime configuration.")
+            errorMessage(msg: "Can't decode project configuration for \(projectName) because no projects exists in root configuration")
             return nil
         }
         
@@ -102,7 +106,7 @@ extension FileManagment {
             return nil
         }
         guard let configURL = projects[projectName]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
-            errorMessage(msg: "Can't get projects configuration file path")
+            errorMessage(msg: "Can't get projects configuration file path. Does the project exist?")
             return nil
         }
         let fileURL = URL(fileURLWithPath: configURL.path)
@@ -111,9 +115,9 @@ extension FileManagment {
     
     func encodeProjectConfig(projectName: String, configData: Anchorrc) -> Void {
         let fileManager: FileManager = FileManager()
-
+        
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't get projects from runtime configuration.")
+            errorMessage(msg: "Can't encode project configuration for \(projectName) because no projects exists in root configuration")
             return
         }
         
@@ -124,10 +128,15 @@ extension FileManagment {
             return
         }
         guard let configURL = projects[projectName]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
-            errorMessage(msg: "Can't get projects configuration file path for \(projectName)")
+            errorMessage(msg: "Can't get projects configuration file path for \(projectName). Does the project exist?")
             return
         }
-        let encode = encodeDataToJSON(config: configData)
+        
+        guard let encode = encodeDataToJSON(config: configData) else {
+            abortMessage(msg: "Encoding of project configuration")
+            return
+        }
+        
         let configFileURL = URL(fileURLWithPath: configURL.path)
         do {
             try fileManager.removeItem(at: configFileURL)
@@ -136,7 +145,7 @@ extension FileManagment {
         }
         let isCreated = fileManager.createFile(atPath: configURL.path, contents: encode, attributes: nil)
         if isCreated {
-            successMessage(msg: "Project configuration file for \(projectName) overwritten at path: \(configURL)")
+            // successMessage(msg: "Project configuration file for \(projectName) overwritten at path: \(configURL)")
         } else {
             errorMessage(msg: "Project configuration file for \(projectName) can't be overwritten at path: \(configURL)")
             return

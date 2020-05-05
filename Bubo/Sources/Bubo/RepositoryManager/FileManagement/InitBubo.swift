@@ -18,7 +18,8 @@ extension FileManagment {
         headerMessage(msg: "Starting initialisation of Bubo")
         // Create directory path for bubos root directory
         guard let rootDirURL = getRootDir() else {
-            errorMessage(msg: "Can't initialise Bubo in standard repositories. Please initialise Bubo manually.")
+            // errorMessage(msg: "Can't initialise Bubo in standard repositories. Please initialise Bubo manually.")
+            abortMessage(msg: "Bubo initialisation")
             return
         }
         
@@ -31,28 +32,29 @@ extension FileManagment {
             do {
                 // Try to generate the root directory at path
                 try self.fileManager.createDirectory(atPath: rootDirURL.path, withIntermediateDirectories: true, attributes: nil)
+                outputMessage(msg: "Root diectory created at \(rootDirURL.path)")
                 // Create config file Data
                 if !self.fileManager.fileExists(atPath: configURL.path) {
                     // Encode config file data
-                    let data: Data = encodeDataToJSON(config: configFile)
-                    successMessage(msg: "Root configuration has been encoded in JSON \(data)")
+                    guard let data: Data = encodeDataToJSON(config: configFile) else {
+                        abortMessage(msg: "Bubo initialisation")
+                        return
+                    }
                     // Try to generate config file at above metioned path
                     let isCreated = fileManager.createFile(atPath: configURL.path, contents: data, attributes: nil)
                     if isCreated {
                         rootConfig = configFile
-                        successMessage(msg: "Root configuration file created at path: \(configURL)")
+                        outputMessage(msg: "Root configuration file created at path: \(configURL.path)")
                     } else {
-                        errorMessage(msg: "Root configuration file can't be created at path: \(configURL)")
+                        errorMessage(msg: "Root configuration file can't be created at path: \(configURL.path)")
                         return
                     }
-                } else {
-                    updateRootConfig(config: configFile, path: configURL)
                 }
             } catch {
                 errorMessage(msg: "Couldn't create Bubo root directory at path \(rootDirURL.path)")
                 return
             }
-            successMessage(msg: "Root directory is \(rootDirURL)")
+            successMessage(msg: "Bubo has been successfully initialisd")
         }
     }
 }

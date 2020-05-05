@@ -8,12 +8,13 @@ import ShellOut
 extension FileManagment {
     
     func openProject(projectName: String) -> Void {
+        headerMessage(msg: "Opening directory of \(projectName)")
         guard let projects = rootConfig.projects  else {
-            errorMessage(msg: "Can't fetch Bubo projects.")
+            errorMessage(msg: "Can't fetch Bubo projects")
             return
         }
         guard let url = projects[projectName] else {
-            errorMessage(msg: "Can't open \(projectName). It is nor registered in Bubo runtime configuration.")
+            errorMessage(msg: "Can't open \(projectName). It is nor registered in Bubo runtime configuration")
             return
         }
         

@@ -11,7 +11,7 @@ extension FileManagment {
         headerMessage(msg: "Starting initialisation of new project in current directory")
         // Create the directory path
         guard let projectURL = URL(string: fileManager.currentDirectoryPath) else {
-            errorMessage(msg: "Can't get root path in initNewRepo()")
+            errorMessage(msg: "Can't get current directory path")
             return false
         }
         let name = self.fileManager.displayName(atPath: projectURL.path)
@@ -43,11 +43,15 @@ extension FileManagment {
             }
             
             // Try to generate config file and log progress
-            let data: Data = encodeDataToJSON(config: configData)
+            guard let data = encodeDataToJSON(config: configData) else {
+                abortMessage(msg: "Project initialisation")
+                return false
+            }
+            
             let isCreated = self.fileManager
                 .createFile(atPath: configURL.path, contents: data, attributes: nil)
             if isCreated {
-                successMessage(msg: "Project config file created at path: \(configURL.path)")
+                outputMessage(msg: "Project config file created at path: \(configURL.path)")
                 if rootConfig.projects == nil {
                     rootConfig.projects = [:]
                 }
@@ -59,7 +63,7 @@ extension FileManagment {
             }
             
         }
-        successMessage(msg: "Project \(name) is located at \(projectURL.path)")
+        successMessage(msg: "Project \(name) has been initialised and is located at \(projectURL.path)")
         return true
     }
     
@@ -68,7 +72,7 @@ extension FileManagment {
         headerMessage(msg: "Starting initialisation of \(name)")
         // Create the directory path
         guard let currentDirURL = URL(string: fileManager.currentDirectoryPath) else {
-            errorMessage(msg: "Can't get root path in initNewRepo()")
+            errorMessage(msg: "Can't get current directory path")
             return false
         }
         
@@ -77,20 +81,21 @@ extension FileManagment {
                 return false
             }
             
-            errorMessage(msg: "Can't create project because a project with the name \(name) already exists at path \(url). Bubo does not support duplicate project names in the current release. Please consideer a different name.")
+            errorMessage(msg: "Can't create project because a project with the name \(name) already exists at path \(url). Bubo does not support duplicate project names in the current release. Please consideer a different name")
             return false
         }
         
         let projectURL = currentDirURL.appendingPathComponent("\(name)")
         
         guard !self.fileManager.fileExists(atPath: projectURL.path) else {
-            warningMessage(msg: "A Project with this name already exists! Please delete existing project.")
+            warningMessage(msg: "A directory with this name already exists! Please delete existing directory")
             return false
         }
         
         do {
             // Generate the directory at the directory path
             try self.fileManager.createDirectory(atPath: projectURL.path, withIntermediateDirectories: true, attributes: nil)
+            outputMessage(msg: "Created project directory at path \(projectURL.path)")
                 // Create the path for the config file of the new repo
                 let configURL = projectURL
                     .appendingPathComponent("anchorrc")
@@ -103,18 +108,21 @@ extension FileManagment {
                 )
                 if !self.fileManager.fileExists(atPath: configURL.path) {
                     // Try to generate config file and log progress
-                    let data: Data = encodeDataToJSON(config: configData)
+                    guard let data = encodeDataToJSON(config: configData) else {
+                        abortMessage(msg: "Project initialisation")
+                        return false
+                    }
                     let isCreated = self.fileManager
                         .createFile(atPath: configURL.path, contents: data, attributes: nil)
                     if isCreated {
-                        successMessage(msg: "Project config file created at path: \(configURL)")
+                        outputMessage(msg: "Project configuration file created at path: \(configURL)")
                         if rootConfig.projects == nil {
                             rootConfig.projects = [:]
                         }
                         rootConfig.projects?[name] = projectURL
                         encodeRootConfig(configFile: rootConfig)
                     } else {
-                        errorMessage(msg: "Project config file can't be created at path: \(configURL)")
+                        errorMessage(msg: "Project configuration file can't be created at path: \(configURL)")
                         return false
                     }
                 }
@@ -122,7 +130,7 @@ extension FileManagment {
             errorMessage(msg: "Couldn't create \(name) project at path \(projectURL.path)")
             return false
         }
-        successMessage(msg: "Project \(name) is located at \(projectURL)")
+        successMessage(msg: "Project \(name) has been initialised and is located at \(projectURL.path)")
         return true
     }
 }

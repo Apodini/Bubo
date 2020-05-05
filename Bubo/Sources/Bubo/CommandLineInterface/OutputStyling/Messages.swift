@@ -9,7 +9,7 @@ import Foundation
 import ColorizeSwift
 
 public func errorMessage(msg: String) -> Void {
-    print("ERROR: \(msg)".red())
+    print("ERROR: \(msg)" .red())
 }
 
 public func warningMessage(msg: String) -> Void {
@@ -22,4 +22,12 @@ public func successMessage(msg: String) -> Void {
 
 public func headerMessage(msg: String) -> Void {
     print(msg .bold())
+}
+
+public func outputMessage(msg: String) -> Void {
+    print(msg .dim())
+}
+
+public func abortMessage(msg: String) -> Void {
+    print("ABORT: \(msg)" .red())
 }

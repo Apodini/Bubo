@@ -9,30 +9,33 @@ extension RepositoryManagement {
     
     func pullService(projectName: String, serviceName: String) -> Void {
         headerMessage(msg: "Pulling service \(serviceName) in \(projectName)")
+        self.refreshServices(projectName: projectName)
+        
         let fileManagement = FileManagment()
         let fileManager = FileManager.default
         guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            errorMessage(msg: "Can't pull service \(serviceName) in \(projectName) because it's not possible to decode the projects runtime configuration")
+            abortMessage(msg: "Pull service \(serviceName) in \(projectName)")
             return
         }
+
         let services = projectConfig.repositories
         
         guard let service = services[serviceName] else {
-            errorMessage(msg: "No service named \(serviceName) in project \(projectName)")
+            errorMessage(msg: "No service named \(serviceName) exists in project \(projectName)")
             return
         }
         
         if fileManager.changeCurrentDirectoryPath(service.url.path) {
             do {
                 let output = try shellOut(to: "git pull")
-                print(output)
-                successMessage(msg: "Pulled \(serviceName) in \(projectName) successful.")
+                outputMessage(msg: output)
+                successMessage(msg: "Pulled \(serviceName) in \(projectName) successfully")
                 return
             } catch {
                 let error = error as! ShellOutError
                 print(error.message) // Prints STDERR
                 print(error.output) // Prints STDOUT
-                errorMessage(msg: "Failed to pull project \(projectName).")
+                errorMessage(msg: "Failed to pull project \(projectName)")
                 return
             }
         } else {
@@ -42,10 +45,11 @@ extension RepositoryManagement {
     
     func pullAllServices(projectName: String) -> Void {
         headerMessage(msg: "Pulling all services in \(projectName)")
+        self.refreshServices(projectName: projectName)
         let fileManagement = FileManagment()
         let fileManager = FileManager.default
         guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            errorMessage(msg: "Can't pull services in \(projectName) because it's not possible to decode the projects runtime configuration")
+            abortMessage(msg: "Pull all services in \(projectName)")
             return
         }
         let services = projectConfig.repositories
@@ -54,18 +58,19 @@ extension RepositoryManagement {
             if fileManager.changeCurrentDirectoryPath(service.url.path) {
                 do {
                     let output = try shellOut(to: "git pull")
-                    print(output)
-                    successMessage(msg: "Pulled \(serviceName) in \(projectName) successful.")
+                    outputMessage(msg: output)
+                    outputMessage(msg: "Pulled \(serviceName) in \(projectName) successfully")
                 } catch {
                     let error = error as! ShellOutError
                     print(error.message) // Prints STDERR
                     print(error.output) // Prints STDOUT
-                    errorMessage(msg: "Failed to pull project \(projectName).")
+                    errorMessage(msg: "Failed to pull project \(projectName)")
                     return
                 }
             } else {
                 errorMessage(msg: "Failed to open the direectory of service \(service.name)")
             }
         }
+        successMessage(msg: "Pulled all services in \(projectName) successfully")
     }
 }

@@ -27,7 +27,7 @@ extension Bubo {
         
         func run() {
             let repositoryManagement = RepositoryManagement()
-            if repositoryManagement.updateServices(projectName: projectName) {
+            if repositoryManagement.refreshServices(projectName: projectName) {
                 successMessage(msg: "\(projectName) has been updated successfully.")
             } else {
                 errorMessage(msg: "Updating \(projectName) failed.")

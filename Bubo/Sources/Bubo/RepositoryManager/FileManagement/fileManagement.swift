@@ -18,7 +18,7 @@ class FileManagment {
     // ----------------------- Root repository initialisation functions
     func getRootDir() -> URL? {
         guard let filePath = rootConfig.rootUrl else {
-            errorMessage(msg: "Can't get Bubo root path")
+            errorMessage(msg: "Can't get Bubo root repository path")
             return nil
         }
         return filePath
@@ -38,28 +38,23 @@ class FileManagment {
             if self.fileManager.fileExists(atPath: configPath.path) {
                 return configPath
             } else {
-                errorMessage(msg: "Root configuration does not exist at path \(configPath)")
+                errorMessage(msg: "Can't get URL for root configuration file: Configuration does not exist at path \(configPath)")
             }
         }
         return nil
     }
     
-    func updateRootConfig(config: Buborc, path: URL) {
-        // Compare existing config file with new one and update existing
-        successMessage(msg: "buborc at path \(path) updated")
-    }
     
     func getProjectURL(projectName: String) -> Optional<URL> {
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't get projects from runtime configuration.")
+            errorMessage(msg: "Can't get project URL for \(projectName) because no projects exists in root configuration")
             return nil
         }
         
         let projectNames = rootConfig.projects?.keys
         
-        // Check if the project with projectName exists and created if the --new flag is set and it dosen't exist
         if !(projectNames?.contains(projectName) ?? false) {
-            errorMessage(msg: "Can't add service because \(projectName) is not existing. Use Bubo new \(projectName) to initialise the new project or use the --new option on th add command")
+            errorMessage(msg: "Can't get URL for \(projectName) because it is not registered in root configuration. Use Bubo new \(projectName) to initialise the new project")
             return nil
         }
         return projects[projectName]

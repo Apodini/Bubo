@@ -20,10 +20,10 @@ extension FileManagment {
         let fileURL = URL(fileURLWithPath: url.path)
         do {
             try fileManager.removeItem(at: fileURL)
-            successMessage(msg: "Removed project \(projectName)")
             rootConfig.projects = projects
             let fileManagement = FileManagment()
             fileManagement.encodeRootConfig(configFile: rootConfig)
+            successMessage(msg: "Removed project \(projectName)")
             return
         } catch {
             errorMessage(msg: "Failed to remove project \(projectName)")

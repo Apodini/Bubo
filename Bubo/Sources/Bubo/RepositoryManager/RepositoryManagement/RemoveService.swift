@@ -10,7 +10,7 @@ extension RepositoryManagement {
         let fileManagement = FileManagment()
         let fileManager = FileManager.default
         guard var projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            errorMessage(msg: "Can't remove service \(serviceName) in \(projectName) because it's not possible to decode the projects runtime configuration")
+            abortMessage(msg: "Removing service \(serviceName) in project \(projectName)")
             return
         }
         var services = projectConfig.repositories

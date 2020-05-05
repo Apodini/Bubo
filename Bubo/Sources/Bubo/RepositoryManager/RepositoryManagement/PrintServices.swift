@@ -9,15 +9,16 @@ extension RepositoryManagement {
         let colorProjektName = projectName.blue()
         headerMessage(msg: "Services in project \(colorProjektName)")
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't list prrojects because Bubo ha not been initialised.")
+            errorMessage(msg: "Can't list services of \(projectName) because no projects exists in root configuration")
             return
         }
         if projects.isEmpty {
-            print("No projects have been created. Use the Bubo new command to create an repository.")
+            errorMessage("No projects have been created. Use the Bubo new command to create an repository.")
+            return
         } else {
             let fileManagement = FileManagment()
             guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-                errorMessage(msg: "Can't update services of \(projectName) because it's not possible to decode the projects runtime configuration.")
+                abortMessage(msg: "List services for \(projectName)")
                 return
             }
             let services = projectConfig.repositories
