@@ -11,7 +11,7 @@ import Foundation
 extension Bubo {
     struct Remove: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Remove a Bubo project.",
+            abstract: "Remove a Bubo project",
             discussion: "Removes a Bubo project and ALL its contents permanently. Please be careful with this command"
         )
         

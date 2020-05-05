@@ -8,7 +8,7 @@ import ArgumentParser
 extension Bubo {
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "List all Bubo projects.")
+            abstract: "List all Bubo projects")
         
         
         func run() {

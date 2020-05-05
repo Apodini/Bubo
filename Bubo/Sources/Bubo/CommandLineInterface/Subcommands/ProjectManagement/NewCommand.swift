@@ -11,7 +11,7 @@ import Foundation
 extension Bubo {
     struct New: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Create a new Bubo project.",
+            abstract: "Create a new Bubo project",
             discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option" )
         
         @Option(name: [.customShort("n"), .customLong("name")],help: "Creates the new project in a dedicated directory and gives it a specified project name")
@@ -22,7 +22,7 @@ extension Bubo {
             if projectName != nil {
                 let name = projectName!
                 guard name.count <= 255 else {
-                    throw ValidationError("Project name is too long.")
+                    throw ValidationError("Project name is too long!")
                 }
             }
         }
