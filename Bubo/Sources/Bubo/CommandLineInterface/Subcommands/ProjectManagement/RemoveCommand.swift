@@ -16,20 +16,22 @@ extension Bubo {
         )
         
         @Argument(help: "The name of the Bubo project that should be removed")
-        var projectName: String
+        var projectName: String?
         
         @Flag(help: "Remove the procject permanently from disk (not recommended)")
         var permanently: Bool
         
-        // Validate Input
         func validate() throws {
-            guard projectName.count <= 255 else {
-                throw ValidationError("Project name is too long")
+            if projectName != nil {
+                let name = projectName!
+                guard name.count <= 255 else {
+                    throw ValidationError("Project name is too long!")
+                }
             }
         }
         
         func run() {
-            let fileManagement = FileManagment()
+            let fileManagement = FileManagement()
             if permanently {
                 fileManagement.removeProject(projectName: projectName)
             } else {

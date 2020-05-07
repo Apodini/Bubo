@@ -7,28 +7,17 @@ import ShellOut
 import ColorizeSwift
 
 extension RepositoryManagement {
-    func addGitRepo(projectName: String, serviceName: String, gitRepoURL: String, createNewProject: Bool) -> Bool {
-        headerMessage(msg: "Adding new service to \(projectName)")
-        let fileManagement = FileManagment()
-        let projectNames = rootConfig.projects?.keys
+    func addGitRepo(projectName: String?, serviceName: String, gitRepoURL: String) -> Bool {
         
-        // Check if the project with projectName exists and created if the --new flag is set and it dosen't exist
-        if !(projectNames?.contains(projectName) ?? false) {
-            if createNewProject {
-                outputMessage(msg: "Creating new project \(projectName)")
-                fileManagement.initProjectWithName(name: projectName)
-            } else {
-                warningMessage(msg: "Can't add service because \(projectName) is not existing. Use Bubo new \(projectName) to initialise the new project or use the --new option on th add command")
-                return false
-            }
-        }
-        guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't add service to \(projectName) because no projects exists in root configuration")
+        guard var (projectHandle, projects) = fileManagement.fetchProjects(projectName: projectName) else {
+            abortMessage(msg: "Deregistering project")
             return false
         }
+        headerMessage(msg: "Adding new service to \(projectHandle)")
+
         
-        guard let projectURL = projects[projectName] else {
-            errorMessage(msg: "Can't add service to \(projectName) because no with this name exists in root configuration")
+        guard let projectURL = projects[projectHandle] else {
+            errorMessage(msg: "Can't add service to \(projectHandle) because no with this name exists in root configuration")
             return false
         }
         
@@ -43,11 +32,11 @@ extension RepositoryManagement {
                             .path
                     )
                 )
-                outputMessage(msg: gitMessage)
+                // outputMessage(msg: gitMessage)
                 outputMessage(msg: "Repository has been cloned")
-                self.refreshServices(projectName: projectName)
+                self.refreshServices(projectName: projectHandle)
             } catch {
-                errorMessage(msg: "Can't clone repositoy from \(url.path)")
+                errorMessage(msg: "Can't clone repository from \(url.path)")
                 let error = error as! ShellOutError
                 print(error.message) // Prints STDERR
                 print(error.output) // Prints STDOUT
@@ -57,7 +46,7 @@ extension RepositoryManagement {
             errorMessage(msg: "Can't clone repositoy from \(gitRepoURL). The provided URL is not parsable")
             return false
         }
-        successMessage(msg: "Added service \(serviceName) to project \(projectName)")
+        successMessage(msg: "Added service \(serviceName) to project \(projectHandle)")
         return true
     }
 }

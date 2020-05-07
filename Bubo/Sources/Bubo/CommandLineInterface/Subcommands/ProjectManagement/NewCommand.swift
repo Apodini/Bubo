@@ -14,7 +14,7 @@ extension Bubo {
             abstract: "Create a new Bubo project",
             discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option" )
         
-        @Option(name: [.customShort("n"), .customLong("name")],help: "Creates the new project in a dedicated directory and gives it a specified project name")
+        @Argument(help: "Creates the new project in a dedicated directory and gives it a specified project name")
         var projectName: String?
         
         // Validate Input
@@ -28,15 +28,8 @@ extension Bubo {
         }
         
         func run() {
-            let fileManagement = FileManagment()
-            
-            if projectName == nil {
-                fileManagement.initProject()
-            } else {
-                fileManagement.initProjectWithName(name: projectName!)
-            }
-            
-            
+            let fileManagement = FileManagement()
+            fileManagement.initProject(name: projectName)
         }
     }
 }

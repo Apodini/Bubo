@@ -11,17 +11,19 @@ extension Bubo {
             abstract: "Opens a specific project in the finder")
         
         @Argument(help: "The name of the Bubo project that should be opened")
-        var projectName: String
+        var projectName: String?
         
-        // Validate Input
         func validate() throws {
-            guard projectName.count <= 255 else {
-                throw ValidationError("Project name is too long")
+            if projectName != nil {
+                let name = projectName!
+                guard name.count <= 255 else {
+                    throw ValidationError("Project name is too long!")
+                }
             }
         }
         
         func run() {
-            let fileManagement = FileManagment()
+            let fileManagement = FileManagement()
             fileManagement.openProject(projectName: projectName)
         }
     }

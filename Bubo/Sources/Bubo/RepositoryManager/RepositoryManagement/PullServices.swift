@@ -7,21 +7,24 @@ import ShellOut
 
 extension RepositoryManagement {
     
-    func pullService(projectName: String, serviceName: String) -> Void {
-        headerMessage(msg: "Pulling service \(serviceName) in \(projectName)")
-        self.refreshServices(projectName: projectName)
+    func pullService(projectName: String?, serviceName: String) -> Void {
         
-        let fileManagement = FileManagment()
-        let fileManager = FileManager.default
-        guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            abortMessage(msg: "Pull service \(serviceName) in \(projectName)")
+        guard let (projectHandle,_) = fileManagement.fetchProjects(projectName: projectName) else {
+            abortMessage(msg: "Deregistering project")
+            return
+        }
+        
+        headerMessage(msg: "Pulling service \(serviceName) in \(projectHandle)")
+        self.refreshServices(projectName: projectHandle)
+        guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectHandle) else {
+            abortMessage(msg: "Pull service \(serviceName) in \(projectHandle)")
             return
         }
 
         let services = projectConfig.repositories
         
         guard let service = services[serviceName] else {
-            errorMessage(msg: "No service named \(serviceName) exists in project \(projectName)")
+            errorMessage(msg: "No service named \(serviceName) exists in project \(projectHandle)")
             return
         }
         
@@ -29,13 +32,13 @@ extension RepositoryManagement {
             do {
                 let output = try shellOut(to: "git pull")
                 outputMessage(msg: output)
-                successMessage(msg: "Pulled \(serviceName) in \(projectName) successfully")
+                successMessage(msg: "Pulled \(serviceName) in \(projectHandle) successfully")
                 return
             } catch {
                 let error = error as! ShellOutError
                 print(error.message) // Prints STDERR
                 print(error.output) // Prints STDOUT
-                errorMessage(msg: "Failed to pull project \(projectName)")
+                errorMessage(msg: "Failed to pull project \(projectHandle)")
                 return
             }
         } else {
@@ -43,13 +46,16 @@ extension RepositoryManagement {
         }
     }
     
-    func pullAllServices(projectName: String) -> Void {
-        headerMessage(msg: "Pulling all services in \(projectName)")
-        self.refreshServices(projectName: projectName)
-        let fileManagement = FileManagment()
-        let fileManager = FileManager.default
+    func pullAllServices(projectName: String?) -> Void {
+        guard var (projectHandle, projects) = fileManagement.fetchProjects(projectName: projectName) else {
+            abortMessage(msg: "Deregistering project")
+            return
+        }
+        
+        headerMessage(msg: "Pulling all services in \(projectHandle)")
+        self.refreshServices(projectName: projectHandle)
         guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            abortMessage(msg: "Pull all services in \(projectName)")
+            abortMessage(msg: "Pull all services in \(projectHandle)")
             return
         }
         let services = projectConfig.repositories
@@ -59,18 +65,18 @@ extension RepositoryManagement {
                 do {
                     let output = try shellOut(to: "git pull")
                     outputMessage(msg: output)
-                    outputMessage(msg: "Pulled \(serviceName) in \(projectName) successfully")
+                    outputMessage(msg: "Pulled \(serviceName) in \(projectHandle) successfully")
                 } catch {
                     let error = error as! ShellOutError
                     print(error.message) // Prints STDERR
                     print(error.output) // Prints STDOUT
-                    errorMessage(msg: "Failed to pull project \(projectName)")
+                    errorMessage(msg: "Failed to pull project \(projectHandle)")
                     return
                 }
             } else {
                 errorMessage(msg: "Failed to open the direectory of service \(service.name)")
             }
         }
-        successMessage(msg: "Pulled all services in \(projectName) successfully")
+        successMessage(msg: "Pulled all services in \(projectHandle) successfully")
     }
 }

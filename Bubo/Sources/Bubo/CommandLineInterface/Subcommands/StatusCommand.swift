@@ -20,7 +20,7 @@ extension Bubo {
         func run() {
             if verbose {
                 rootConfig.verbose = !rootConfig.verbose
-                let fileManagement = FileManagment()
+                let fileManagement = FileManagement()
                 fileManagement.encodeRootConfig(configFile: rootConfig) // persist change in root config
             }
             let colorBubo = "Bubo" .blue()

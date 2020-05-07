@@ -14,21 +14,11 @@ struct Bubo: ParsableCommand {
         subcommands: [
             Status.self,
             New.self,
-            AddService.self,
             List.self,
-            ListServices.self,
-            UpdateServices.self,
             Remove.self,
-            RemoveService.self,
             Open.self,
-            Pull.self,
+            Service.self
     ])
-    
-    
-    
-    func run() throws {
-        print("Please refer to Bubo -h for more information".bold())
-    }
 }
 
 

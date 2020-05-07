@@ -7,20 +7,30 @@ import ShellOut
 
 
 class RepositoryManagement {
+    public var fileManager: FileManager
+    public var fileManagement: FileManagement
+
+
+    init() {
+        fileManagement = FileManagement()
+        fileManager = FileManager.default
+    }
     
     // Checks the projects service directory for new services or deleted services
-    func refreshServices(projectName: String) -> Bool {
-        outputMessage(msg: "Refreshing services for \(projectName)")
-        let fileManagement = FileManagment()
-        let fileManager = FileManager.default
-        guard var projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
+    func refreshServices(projectName: String?) -> Bool {
+        guard let (projectHandle,_) = fileManagement.fetchProjects(projectName: projectName) else {
+            abortMessage(msg: "Deregistering project")
+            return false
+        }
+        outputMessage(msg: "Refreshing services for \(projectHandle)")
+        guard var projectConfig = fileManagement.decodeProjectConfig(projectName: projectHandle) else {
             abortMessage(msg: "Refresh services")
             return false
         }
         
         let prevServices = projectConfig.repositories
         
-        guard let projectURL = fileManagement.getProjectURL(projectName: projectName) else {
+        guard let projectURL = fileManagement.getProjectURL(projectName: projectHandle) else {
             abortMessage(msg: "Refresh services")
             return false
         }
@@ -30,7 +40,7 @@ class RepositoryManagement {
         
         if fileManager.fileExists(atPath: servicesURL.path) {
             do {
-                outputMessage(msg: "Generating services for all items in \(projectName)s service directory")
+                outputMessage(msg: "Generating services for all items in \(projectHandle)s service directory")
                 let directoryItems: [URL] = try fileManager.contentsOfDirectory(at: servicesURL, includingPropertiesForKeys: nil)
                 var services: [String:Service] = [:]
                 for url in directoryItems {
@@ -55,18 +65,18 @@ class RepositoryManagement {
                             outputMessage(msg: "Added new service \(newService.name)")
                         }
                     }
-                outputMessage(msg: "Update configuration file for \(projectName)")
+                outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)
-                fileManagement.encodeProjectConfig(projectName: projectName, configData: projectConfig)
-                successMessage(msg: "Refreshed services for \(projectName)")
+                fileManagement.encodeProjectConfig(projectName: projectHandle, configData: projectConfig)
+                successMessage(msg: "Refreshed services for \(projectHandle)")
                 return true
             } catch {
                 errorMessage(msg: "Can't fetch contents of the projects services directory at path \(servicesURL.path)")
                 return false
             }
         } else {
-            errorMessage(msg: "Project \(projectName) has no services directory. Please check if the driectory exists or clone a new sevice with Bubo add projectName gitURL")
+            errorMessage(msg: "Project \(projectHandle) has no services directory. Please check if the driectory exists or clone a new sevice with Bubo add projectName gitURL")
             return false
         }
     }

@@ -5,13 +5,13 @@
 import Foundation
 import ArgumentParser
 
-extension Bubo {
+extension Bubo.Service {
     struct Pull: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Pull a service of a specific project")
         
-        @Argument(help: "The name of the bubo project")
-        var projectName: String
+        @Option(name: [.customShort("n"), .long], help: "The name of the bubo project")
+        var projectName: String?
         
         @Argument(help: "The name of the service to pull")
         var serviceName: String?
@@ -21,8 +21,11 @@ extension Bubo {
         
         // Validate Input
         func validate() throws {
-            guard projectName.count <= 255 else {
-                throw ValidationError("Project name is too long!")
+            if projectName != nil {
+                let name = projectName!
+                guard name.count <= 255 else {
+                    throw ValidationError("Project name is too long!")
+                }
             }
             
             if serviceName != nil {

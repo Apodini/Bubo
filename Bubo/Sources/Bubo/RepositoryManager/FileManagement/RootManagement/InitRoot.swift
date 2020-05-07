@@ -4,17 +4,8 @@
 
 import Foundation
 
-extension FileManagment {
-    
-    // Checks if the root repository of the application has been initialised
-    func checkInit() -> Bool {
-        guard getRootConfigPath() != nil else {
-            return false
-        }
-        return true // Initialised if root config file exists
-    }
-    
-    func initBubo(configFile: Buborc) -> Void {
+extension FileManagement {
+    func initRoot(configFile: Buborc) -> Void {
         headerMessage(msg: "Starting initialisation of Bubo")
         // Create directory path for bubos root directory
         guard let rootDirURL = getRootDir() else {

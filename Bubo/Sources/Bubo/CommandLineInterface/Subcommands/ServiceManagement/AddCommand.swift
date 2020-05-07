@@ -9,15 +9,13 @@ import Foundation
 import ArgumentParser
 
 // Command to create a new bubo repository
-extension Bubo {
-    struct AddService: ParsableCommand {
+extension Bubo.Service {
+    struct Add: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Add a new service to an existing Bubo project")
-        @Flag(help: "Initialise new project with passed name if not exisiting")
-        var new: Bool
         
-        @Argument(help: "The name of the Bubo project that the service should be added to")
-        var projectName: String
+        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project that the service should be added to")
+        var projectName: String?
         
         @Argument(help: "The name of the service that is added")
         var serviceName: String
@@ -27,8 +25,10 @@ extension Bubo {
         
         // Validate Input
         func validate() throws {
-            guard projectName.count <= 255 else {
-                throw ValidationError("Project name is to long")
+            if projectName != nil {
+                guard projectName!.count <= 255 else {
+                    throw ValidationError("Project name is to long")
+                }
             }
             
             guard serviceName.count <= 255 else {
@@ -38,7 +38,7 @@ extension Bubo {
         
         func run() {
             let repoManagement = RepositoryManagement()
-            repoManagement.addGitRepo(projectName: projectName, serviceName: serviceName, gitRepoURL: gitURL, createNewProject: new)
+            repoManagement.addGitRepo(projectName: projectName, serviceName: serviceName, gitRepoURL: gitURL)
         }
     }
 }

@@ -4,18 +4,14 @@
 
 import Foundation
 
-class FileManagment {
-    // ----------------------- Declarations
-    public var fileManager: FileManager
+class FileManagement {
     
-    // ----------------------- Initialisation
+    public var fileManager: FileManager
     
     init() {
         self.fileManager = FileManager.default
     }
     
-    
-    // ----------------------- Root repository initialisation functions
     func getRootDir() -> URL? {
         guard let filePath = rootConfig.rootUrl else {
             errorMessage(msg: "Can't get Bubo root repository path")
