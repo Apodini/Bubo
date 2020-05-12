@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     // Fetches the projects and checks if the project exists
     public func fetchProjects(projectName: String?) -> (projectHandle: String, projects: [String:URL])? {
         

@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func initRoot(configFile: Buborc) -> Void {
         headerMessage(msg: "Starting initialisation of Bubo")
         // Create directory path for bubos root directory

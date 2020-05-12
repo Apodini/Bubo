@@ -32,7 +32,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            let repositoryManagement = RepositoryManagement()
+            let repositoryManagement = ResourceManager()
             repositoryManagement.removeService(projectName: projectName, serviceName: ServiceName)
         }
     }

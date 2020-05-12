@@ -11,15 +11,15 @@ public var rootConfig: Buborc = Buborc(
 class Main {
     
     init() {
-        let fileManagement = FileManagement()
+        let resourceManager = ResourceManager()
         // Check if a root config fo the current directory is present
-        initStatus = fileManagement.checkInit()
+        initStatus = resourceManager.checkInit()
         if !initStatus {
             // not present: initialise Bubo
-            fileManagement.initRoot(configFile: rootConfig)
-            initStatus = fileManagement.checkInit()
+            resourceManager.initRoot(configFile: rootConfig)
+            initStatus = resourceManager.checkInit()
         } else {
-            fileManagement.decodeRootConfig()
+            resourceManager.decodeRootConfig()
         }
         Bubo.main()
     }

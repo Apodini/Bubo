@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func encodeDataToJSON(config: Buborc) -> Optional<Data> {
         let encoder = JSONEncoder()
         do {

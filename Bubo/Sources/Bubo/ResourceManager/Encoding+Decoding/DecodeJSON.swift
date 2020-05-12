@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func decodeDatafromJSON(url: URL) -> Optional<Buborc> {
         let decoder = JSONDecoder()
         var config: Buborc?

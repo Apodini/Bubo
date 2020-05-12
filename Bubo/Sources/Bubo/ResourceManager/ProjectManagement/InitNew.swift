@@ -5,7 +5,7 @@
 import Foundation
 
 
-extension FileManagement {
+extension ResourceManager {
   // ----------------------- New project initialisation
     func initProject(name: String?) -> Bool {
         let projectHandle: String

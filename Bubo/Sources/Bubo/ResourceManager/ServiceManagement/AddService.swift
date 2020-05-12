@@ -6,20 +6,14 @@ import Foundation
 import ShellOut
 import ColorizeSwift
 
-extension RepositoryManagement {
+extension ResourceManager {
     func addGitRepo(projectName: String?, serviceName: String, gitRepoURL: String) -> Bool {
         
-        guard var (projectHandle, projects) = fileManagement.fetchProjects(projectName: projectName) else {
-            abortMessage(msg: "Deregistering project")
+        guard let (projectHandle, projectURL) = self.getProjectURL(projectName: projectName) else {
+            abortMessage(msg: "Refresh services")
             return false
         }
         headerMessage(msg: "Adding new service to \(projectHandle)")
-
-        
-        guard let projectURL = projects[projectHandle] else {
-            errorMessage(msg: "Can't add service to \(projectHandle) because no with this name exists in root configuration")
-            return false
-        }
         
         if let url = URL(string: gitRepoURL) {
             do {

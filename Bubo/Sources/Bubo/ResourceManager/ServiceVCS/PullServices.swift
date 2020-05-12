@@ -5,21 +5,18 @@
 import Foundation
 import ShellOut
 
-extension RepositoryManagement {
+extension ResourceManager {
     
     func pullService(projectName: String?, serviceName: String) -> Void {
         
-        guard let (projectHandle,_) = fileManagement.fetchProjects(projectName: projectName) else {
-            abortMessage(msg: "Deregistering project")
+        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+            abortMessage(msg: "Pull service \(serviceName)")
             return
         }
         
         headerMessage(msg: "Pulling service \(serviceName) in \(projectHandle)")
         self.refreshServices(projectName: projectHandle)
-        guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectHandle) else {
-            abortMessage(msg: "Pull service \(serviceName) in \(projectHandle)")
-            return
-        }
+        
 
         let services = projectConfig.repositories
         
@@ -47,17 +44,13 @@ extension RepositoryManagement {
     }
     
     func pullAllServices(projectName: String?) -> Void {
-        guard var (projectHandle, projects) = fileManagement.fetchProjects(projectName: projectName) else {
-            abortMessage(msg: "Deregistering project")
+        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+            abortMessage(msg: "Pull all services")
             return
         }
-        
         headerMessage(msg: "Pulling all services in \(projectHandle)")
         self.refreshServices(projectName: projectHandle)
-        guard let projectConfig = fileManagement.decodeProjectConfig(projectName: projectName) else {
-            abortMessage(msg: "Pull all services in \(projectHandle)")
-            return
-        }
+        
         let services = projectConfig.repositories
         
         for (serviceName,service) in services {

@@ -28,8 +28,8 @@ extension Bubo {
         }
         
         func run() {
-            let fileManagement = FileManagement()
-            fileManagement.initProject(name: projectName)
+            let resourceManager = ResourceManager()
+            resourceManager.initProject(name: projectName)
         }
     }
 }

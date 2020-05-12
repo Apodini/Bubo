@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func encodeProjectConfig(projectName: String, configData: Anchorrc) -> Void {
         let fileManager: FileManager = FileManager()
         

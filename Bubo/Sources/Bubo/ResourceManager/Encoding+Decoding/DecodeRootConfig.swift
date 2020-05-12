@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func decodeRootConfig() -> Void {
         // Create directory path for bubos root directory
         guard let configPath = getRootConfigPath() else {

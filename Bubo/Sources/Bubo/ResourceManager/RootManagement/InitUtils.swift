@@ -1,17 +1,11 @@
 //
-//  Created by Valentin Hartig on 20.04.20.
+//  Created by Valentin Hartig on 12.05.20.
 //
 
 import Foundation
 
-class FileManagement {
-    
-    public var fileManager: FileManager
-    
-    init() {
-        self.fileManager = FileManager.default
-    }
-    
+extension ResourceManager {
+    // Fetch root directory for initialisation
     func getRootDir() -> URL? {
         guard let filePath = rootConfig.rootUrl else {
             errorMessage(msg: "Can't get Bubo root repository path")
@@ -20,6 +14,7 @@ class FileManagement {
         return filePath
     }
     
+    // Fetch root config path for initialisation check and decoding of configurations
     func getRootConfigPath() -> URL? {
         // Create directory path for bubos root directory
         guard let filePath = getRootDir() else {
@@ -38,21 +33,5 @@ class FileManagement {
             }
         }
         return nil
-    }
-    
-    
-    func getProjectURL(projectName: String) -> Optional<URL> {
-        guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't get project URL for \(projectName) because no projects exists in root configuration")
-            return nil
-        }
-        
-        let projectNames = rootConfig.projects?.keys
-        
-        if !(projectNames?.contains(projectName) ?? false) {
-            errorMessage(msg: "Can't get URL for \(projectName) because it is not registered in root configuration. Use Bubo new \(projectName) to initialise the new project")
-            return nil
-        }
-        return projects[projectName]
     }
 }

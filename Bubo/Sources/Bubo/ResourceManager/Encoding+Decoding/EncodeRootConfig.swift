@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func encodeRootConfig(configFile: Buborc) -> Void {
         // outputMessage(msg: "Encoding bubo root configuration file")
         let fileManager: FileManager = FileManager()

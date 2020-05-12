@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func removeProject(projectName: String?) -> Void {
         
         guard var (projectHandle, projects) = self.fetchProjects(projectName: projectName) else {

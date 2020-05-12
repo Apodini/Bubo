@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     
     public func setProjects(projects: [String:URL]) -> Void {
         rootConfig.projects = projects

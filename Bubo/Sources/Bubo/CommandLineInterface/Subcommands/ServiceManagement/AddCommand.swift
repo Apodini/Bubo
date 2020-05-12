@@ -37,7 +37,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            let repoManagement = RepositoryManagement()
+            let repoManagement = ResourceManager()
             repoManagement.addGitRepo(projectName: projectName, serviceName: serviceName, gitRepoURL: gitURL)
         }
     }

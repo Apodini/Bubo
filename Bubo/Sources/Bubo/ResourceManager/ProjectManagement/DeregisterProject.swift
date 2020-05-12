@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     func deregisterProject(projectName: String?) -> Void {
         headerMessage(msg: "Deregistering project")
 

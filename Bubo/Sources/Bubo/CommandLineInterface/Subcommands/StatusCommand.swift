@@ -20,8 +20,8 @@ extension Bubo {
         func run() {
             if verbose {
                 rootConfig.verbose = !rootConfig.verbose
-                let fileManagement = FileManagement()
-                fileManagement.encodeRootConfig(configFile: rootConfig) // persist change in root config
+                let resourceManager = ResourceManager()
+                resourceManager.encodeRootConfig(configFile: rootConfig) // persist change in root config
             }
             let colorBubo = "Bubo" .blue()
             headerMessage(msg: "Status of \(colorBubo) root configuration \n".underline())

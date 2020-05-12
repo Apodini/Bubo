@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManagement {
+extension ResourceManager {
     // Checks if the root repository of the application has been initialised
     func checkInit() -> Bool {
         guard getRootConfigPath() != nil else {

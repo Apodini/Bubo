@@ -31,11 +31,11 @@ extension Bubo {
         }
         
         func run() {
-            let fileManagement = FileManagement()
+            let resourceManager = ResourceManager()
             if permanently {
-                fileManagement.removeProject(projectName: projectName)
+                resourceManager.removeProject(projectName: projectName)
             } else {
-                fileManagement.deregisterProject(projectName: projectName)
+                resourceManager.deregisterProject(projectName: projectName)
             }
         }
     }

@@ -36,7 +36,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            let repositoryManagement = RepositoryManagement()
+            let repositoryManagement = ResourceManager()
             
             if all {
                 repositoryManagement.pullAllServices(projectName: projectName)

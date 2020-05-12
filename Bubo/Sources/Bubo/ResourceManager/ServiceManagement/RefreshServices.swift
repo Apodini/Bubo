@@ -1,42 +1,23 @@
 //
-//  Created by Valentin Hartig on 20.04.20.
+//  Created by Valentin Hartig on 12.05.20.
 //
 
 import Foundation
-import ShellOut
 
-
-class RepositoryManagement {
-    public var fileManager: FileManager
-    public var fileManagement: FileManagement
-
-
-    init() {
-        fileManagement = FileManagement()
-        fileManager = FileManager.default
-    }
-    
+extension ResourceManager {
     // Checks the projects service directory for new services or deleted services
     func refreshServices(projectName: String?) -> Bool {
-        guard let (projectHandle,_) = fileManagement.fetchProjects(projectName: projectName) else {
-            abortMessage(msg: "Deregistering project")
-            return false
-        }
-        outputMessage(msg: "Refreshing services for \(projectHandle)")
-        guard var projectConfig = fileManagement.decodeProjectConfig(projectName: projectHandle) else {
-            abortMessage(msg: "Refresh services")
-            return false
-        }
+        guard var (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+               abortMessage(msg: "Refresh services")
+               return false
+           }
         
+        outputMessage(msg: "Refreshing services for \(projectHandle)")
+       
         let prevServices = projectConfig.repositories
         
-        guard let projectURL = fileManagement.getProjectURL(projectName: projectHandle) else {
-            abortMessage(msg: "Refresh services")
-            return false
-        }
-        
         // There should never be other files except the services in the services diectory!
-        let servicesURL = projectURL.appendingPathComponent("services")
+        let servicesURL = projectConfig.url.appendingPathComponent("services")
         
         if fileManager.fileExists(atPath: servicesURL.path) {
             do {
@@ -44,7 +25,7 @@ class RepositoryManagement {
                 let directoryItems: [URL] = try fileManager.contentsOfDirectory(at: servicesURL, includingPropertiesForKeys: nil)
                 var services: [String:Service] = [:]
                 for url in directoryItems {
-                    guard let service = createService(serviceURL: url) else {
+                    guard let service = fetchServiceFromURL(serviceURL: url) else {
                         abortMessage(msg: "Refresh services")
                         return false
                     }
@@ -68,7 +49,7 @@ class RepositoryManagement {
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)
-                fileManagement.encodeProjectConfig(projectName: projectHandle, configData: projectConfig)
+                self.encodeProjectConfig(projectName: projectHandle, configData: projectConfig)
                 successMessage(msg: "Refreshed services for \(projectHandle)")
                 return true
             } catch {
@@ -78,25 +59,6 @@ class RepositoryManagement {
         } else {
             errorMessage(msg: "Project \(projectHandle) has no services directory. Please check if the driectory exists or clone a new sevice with Bubo add projectName gitURL")
             return false
-        }
-    }
-    
-    func createService(serviceURL: URL) -> Service? {
-        let fileManager = FileManager.default
-        let name = fileManager.displayName(atPath: serviceURL.path)
-    
-        do {
-            let gitURLstring = try shellOut(to: "git -C \(serviceURL.path) config --get remote.origin.url")
-            guard let gitURL = URL(string: gitURLstring) else {
-                errorMessage(msg: "Can't parse the git remote URL \(gitURLstring) for service \(serviceURL.path) into the URL format")
-                abortMessage(msg: "Service creation")
-                return nil
-            }
-            return Service(name: name, url: serviceURL, gitURL: gitURL)
-        } catch {
-            errorMessage(msg: "Can't read the git remote URL for \(serviceURL.path)")
-            abortMessage(msg: "Service creation")
-            return nil
         }
     }
 }
