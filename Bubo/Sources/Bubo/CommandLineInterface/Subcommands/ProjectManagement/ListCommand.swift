@@ -10,7 +10,6 @@ extension Bubo {
         static let configuration = CommandConfiguration(
             abstract: "List all Bubo projects")
         
-        
         func run() {
             let colorBubo = "Bubo".blue()
             headerMessage(msg: "All \(colorBubo) projects")
@@ -22,9 +21,9 @@ extension Bubo {
                 print("No projects have been created. Use the Bubo new command to create a project.")
             } else {
                 for (projectName, projectURL) in projects {
-                    let name = projectName.blue().underline()
+                    let tmpName = projectName.blue().underline()
                     let url = projectURL.path.yellow()
-                    print("\(name) -> \(url)")
+                    print("\(tmpName) -> \(url)")
                 }
             }
         }

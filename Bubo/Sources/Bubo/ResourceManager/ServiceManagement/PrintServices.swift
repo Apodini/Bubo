@@ -6,7 +6,7 @@ import Foundation
 
 extension ResourceManager {
     func printServices(projectName: String?) -> Void {
-        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
             abortMessage(msg: "List services")
             return
         }

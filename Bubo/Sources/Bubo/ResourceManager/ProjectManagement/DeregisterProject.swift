@@ -5,10 +5,10 @@
 import Foundation
 
 extension ResourceManager {
-    func deregisterProject(projectName: String?) -> Void {
+    func deregisterProject(pName: String?) -> Void {
         headerMessage(msg: "Deregistering project")
 
-        guard var (projectHandle, projects) = self.fetchProjects(projectName: projectName) else {
+        guard var (projectHandle, projects) = self.fetchProjects(pName: pName) else {
             abortMessage(msg: "Deregistering project")
             return
         }

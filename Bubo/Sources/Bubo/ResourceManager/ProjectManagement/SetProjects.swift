@@ -8,6 +8,6 @@ extension ResourceManager {
     
     public func setProjects(projects: [String:URL]) -> Void {
         rootConfig.projects = projects
-        self.encodeRootConfig(configFile: rootConfig)
+        self.encodeRootConfig(config: rootConfig)
     }
 }

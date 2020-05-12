@@ -15,13 +15,13 @@ extension Bubo.Service {
             discussion: "Tipp: Only use this command when you manually add a new service to the services directory of your project."
             )
         
-        @Option(name: [.customShort("n"), .long], help: "The name of the project you want to refresh")
-        var projectName: String?
+       @OptionGroup()
+        var options: Bubo.OptionsPNonly
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
@@ -30,7 +30,7 @@ extension Bubo.Service {
         
         func run() {
             let repositoryManagement = ResourceManager()
-            repositoryManagement.refreshServices(projectName: projectName)
+            repositoryManagement.refreshServices(projectName: options.projectName)
         }
     }
 }

@@ -14,31 +14,28 @@ extension Bubo.Service {
         static let configuration = CommandConfiguration(
             abstract: "Add a new service to an existing Bubo project")
         
-        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project that the service should be added to")
-        var projectName: String?
-        
-        @Argument(help: "The name of the service that is added")
-        var serviceName: String
+        @OptionGroup()
+        var options: Bubo.Options
         
         @Argument(help: "The URL to the git repository that is added to the project")
         var gitURL: String
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                guard projectName!.count <= 255 else {
+            if options.projectName != nil {
+                guard options.projectName!.count <= 255 else {
                     throw ValidationError("Project name is to long")
                 }
             }
             
-            guard serviceName.count <= 255 else {
+            guard options.serviceName.count <= 255 else {
                 throw ValidationError("Service name is to long")
             }
         }
         
         func run() {
             let repoManagement = ResourceManager()
-            repoManagement.addGitRepo(projectName: projectName, serviceName: serviceName, gitRepoURL: gitURL)
+            repoManagement.addGitRepo(projectName: options.projectName, serviceName: options.serviceName, gitRepoURL: gitURL)
         }
     }
 }

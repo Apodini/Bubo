@@ -9,7 +9,7 @@ extension ResourceManager {
     
     func pullService(projectName: String?, serviceName: String) -> Void {
         
-        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
             abortMessage(msg: "Pull service \(serviceName)")
             return
         }
@@ -44,7 +44,7 @@ extension ResourceManager {
     }
     
     func pullAllServices(projectName: String?) -> Void {
-        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+        guard let (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
             abortMessage(msg: "Pull all services")
             return
         }

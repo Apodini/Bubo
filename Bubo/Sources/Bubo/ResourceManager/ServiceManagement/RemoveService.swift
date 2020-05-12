@@ -6,7 +6,7 @@ import Foundation
 
 extension ResourceManager {
     func removeService(projectName: String?, serviceName: String) -> Void {
-        guard var (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+        guard var (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
             abortMessage(msg: "Removing service \(serviceName)")
             return
         }
@@ -26,7 +26,7 @@ extension ResourceManager {
             successMessage(msg: "Removed service \(serviceName) from project \(projectHandle)")
             projectConfig.repositories = services
             projectConfig.lastUpdated = Date().description(with: .current)
-            self.encodeProjectConfig(projectName: projectHandle, configData: projectConfig)
+            self.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
             return
         } catch {
             errorMessage(msg: "Failed to remove service \(serviceName) from project \(projectHandle)")

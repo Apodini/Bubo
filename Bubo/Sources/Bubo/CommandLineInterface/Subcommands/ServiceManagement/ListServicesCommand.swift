@@ -10,14 +10,14 @@ extension Bubo.Service {
         static let configuration = CommandConfiguration(
             abstract: "List all services of a specific project")
         
-        @Option(name: [.customShort("n"), .long], help: "The name of the new bubo project")
-        var projectName: String?
+        @OptionGroup()
+        var options: Bubo.OptionsPNonly
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
-                guard name.count <= 255 else {
+            if options.projectName != nil {
+                let tmp = name!
+                guard tmp.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
             }
@@ -25,7 +25,7 @@ extension Bubo.Service {
         
         func run() {
             let repositoryManagement = ResourceManager()
-            repositoryManagement.printServices(projectName: projectName)
+            repositoryManagement.printServices(projectName: options.projectName)
         }
     }
 }

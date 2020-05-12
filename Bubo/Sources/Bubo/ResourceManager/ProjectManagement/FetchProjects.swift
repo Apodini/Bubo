@@ -6,11 +6,11 @@ import Foundation
 
 extension ResourceManager {
     // Fetches the projects and checks if the project exists
-    public func fetchProjects(projectName: String?) -> (projectHandle: String, projects: [String:URL])? {
+    public func fetchProjects(pName: String?) -> (projectHandle: String, projects: [String:URL])? {
         
         let projectHandle: String
-        if projectName != nil {
-            projectHandle = projectName!
+        if pName != nil {
+            projectHandle = pName!
         } else {
             projectHandle = fileManager.displayName(atPath: fileManager.currentDirectoryPath)
         }

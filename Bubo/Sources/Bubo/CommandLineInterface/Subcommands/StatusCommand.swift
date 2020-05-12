@@ -19,16 +19,16 @@ extension Bubo {
         
         func run() {
             if verbose {
-                rootConfig.verbose = !rootConfig.verbose
+                rootConfig.verboseMode = !rootConfig.verboseMode
                 let resourceManager = ResourceManager()
-                resourceManager.encodeRootConfig(configFile: rootConfig) // persist change in root config
+                resourceManager.encodeRootConfig(config: rootConfig) // persist change in root config
             }
             let colorBubo = "Bubo" .blue()
             headerMessage(msg: "Status of \(colorBubo) root configuration \n".underline())
             print("\(makeBold(string: "Initialisation Status")): \(initStatus)")
             print("\(makeBold(string: "Initialisation Date")): \(rootConfig.initialisationDate)")
             print("\(makeBold(string: "Version")): \(rootConfig.version)")
-            print("\(makeBold(string: "Verbose")): \(rootConfig.verbose)")
+            print("\(makeBold(string: "Verbose")): \(rootConfig.verboseMode)")
             print("\(makeBold(string: "Location")): \(rootConfig.rootUrl?.path ?? "None")")
             print("\(makeBold(string: "Number of Projects")): \(rootConfig.projects?.count ?? 0)")
         }

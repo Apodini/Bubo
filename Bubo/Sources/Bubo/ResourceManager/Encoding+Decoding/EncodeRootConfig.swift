@@ -8,7 +8,7 @@
 import Foundation
 
 extension ResourceManager {
-    func encodeRootConfig(configFile: Buborc) -> Void {
+    func encodeRootConfig(config: Buborc) -> Void {
         // outputMessage(msg: "Encoding bubo root configuration file")
         let fileManager: FileManager = FileManager()
         guard let configURL = getRootConfigPath() else {
@@ -24,7 +24,7 @@ extension ResourceManager {
         }
         let isCreated = fileManager.createFile(atPath: configURL.path, contents: encode, attributes: nil)
         if isCreated {
-            rootConfig = configFile
+            rootConfig = config
             // successMessage(msg: "Root configuration file encoded")
             return
         } else {

@@ -7,7 +7,7 @@ import Foundation
 extension ResourceManager {
     // Checks the projects service directory for new services or deleted services
     func refreshServices(projectName: String?) -> Bool {
-        guard var (projectHandle, projectConfig) = self.decodeProjectConfig(projectName: projectName) else {
+        guard var (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
                abortMessage(msg: "Refresh services")
                return false
            }
@@ -49,7 +49,7 @@ extension ResourceManager {
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)
-                self.encodeProjectConfig(projectName: projectHandle, configData: projectConfig)
+                self.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
                 successMessage(msg: "Refreshed services for \(projectHandle)")
                 return true
             } catch {

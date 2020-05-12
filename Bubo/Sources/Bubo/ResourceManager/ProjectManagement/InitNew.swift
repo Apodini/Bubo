@@ -7,7 +7,7 @@ import Foundation
 
 extension ResourceManager {
   // ----------------------- New project initialisation
-    func initProject(name: String?) -> Bool {
+    func initProject(pName: String?) -> Bool {
         let projectHandle: String
         let projectURL: URL
         var inNewDirectory: Bool
@@ -19,8 +19,8 @@ extension ResourceManager {
         }
         
         // Prepare initialisation
-        if name != nil { // in new directory
-            projectHandle = name!
+        if pName != nil { // in new directory
+            projectHandle = pName!
             inNewDirectory = true
         } else { // in current directroy
             projectHandle = fileManager.displayName(atPath: currentDirURL.path)
@@ -89,7 +89,7 @@ extension ResourceManager {
                 rootConfig.projects = [:]
             }
             rootConfig.projects?[projectHandle] = projectURL
-            encodeRootConfig(configFile: rootConfig)
+            encodeRootConfig(config: rootConfig)
         } else {
             errorMessage(msg: "Project config file can't be created at path: \(configURL.path)")
             return false

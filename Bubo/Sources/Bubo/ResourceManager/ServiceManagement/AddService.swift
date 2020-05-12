@@ -8,7 +8,7 @@ import ColorizeSwift
 
 extension ResourceManager {
     func addGitRepo(projectName: String?, serviceName: String, gitRepoURL: String) -> Bool {
-        
+
         guard let (projectHandle, projectURL) = self.getProjectURL(projectName: projectName) else {
             abortMessage(msg: "Refresh services")
             return false
@@ -17,7 +17,7 @@ extension ResourceManager {
         
         if let url = URL(string: gitRepoURL) {
             do {
-                let gitMessage = try shellOut(to:
+                try shellOut(to:
                     .gitClone(
                         url: url,
                         to: projectURL
@@ -26,7 +26,6 @@ extension ResourceManager {
                             .path
                     )
                 )
-                // outputMessage(msg: gitMessage)
                 outputMessage(msg: "Repository has been cloned")
                 self.refreshServices(projectName: projectHandle)
             } catch {

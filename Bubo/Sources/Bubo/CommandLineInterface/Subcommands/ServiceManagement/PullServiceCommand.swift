@@ -10,42 +10,36 @@ extension Bubo.Service {
         static let configuration = CommandConfiguration(
             abstract: "Pull a service of a specific project")
         
-        @Option(name: [.customShort("n"), .long], help: "The name of the bubo project")
-        var projectName: String?
-        
-        @Argument(help: "The name of the service to pull")
-        var serviceName: String?
+        @OptionGroup()
+        var options: Bubo.Options
         
         @Flag(help: "Pull all services")
         var all: Bool
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
             }
-            
-            if serviceName != nil {
-                guard serviceName!.count <= 255 else {
+                guard options.serviceName.count <= 255 else {
                     throw ValidationError("Service name is too long!")
                 }
-            }
         }
         
         func run() {
             let repositoryManagement = ResourceManager()
             
             if all {
-                repositoryManagement.pullAllServices(projectName: projectName)
+                repositoryManagement.pullAllServices(projectName: options.projectName)
             } else {
-                guard serviceName != nil else {
+                guard serviceName == nil else {
                     errorMessage(msg: "Please specifiy a service you want to pull")
                     return
                 }
-                repositoryManagement.pullService(projectName: projectName, serviceName: serviceName!)
+                repositoryManagement.pullService(projectName: options.projectName, serviceName: options.serviceName)
             }
         }
     }

@@ -5,7 +5,7 @@
 import Foundation
 
 extension ResourceManager {
-    func encodeDataToJSON(config: Buborc) -> Optional<Data> {
+    func encodeDataToJSON(config: Buborc) -> Data? {
         let encoder = JSONEncoder()
         do {
             let data: Data = try encoder.encode(config)
@@ -16,7 +16,7 @@ extension ResourceManager {
         }
     }
     
-    func encodeDataToJSON(config: Anchorrc) -> Optional<Data> {
+    func encodeDataToJSON(config: Anchorrc) -> Data? {
         let encoder = JSONEncoder()
         do {
             let data: Data = try encoder.encode(config)

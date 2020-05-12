@@ -14,7 +14,7 @@ class ResourceManager {
     
     
     func getProjectURL(projectName: String?) -> (String, URL)? {
-        guard let (projectHandle, projects) = fetchProjects(projectName: projectName) else {
+        guard let (projectHandle, projects) = fetchProjects(pName: projectName) else {
             return nil
         }
         guard let projectURL = projects[projectHandle] else {
@@ -65,7 +65,7 @@ class ResourceManager {
                 return nil
             }
             
-            guard let (_, projectConfig) = self.decodeProjectConfig(projectName: before) else {
+            guard let (_, projectConfig) = self.decodeProjectConfig(pName: before) else {
                 abortMessage(msg: "Service URL Resolving")
                 return nil
             }

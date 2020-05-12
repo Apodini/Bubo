@@ -17,8 +17,23 @@ struct Bubo: ParsableCommand {
             List.self,
             Remove.self,
             Open.self,
-            Service.self
+            Service.self,
+            Analysis.self
     ])
+    struct Options: ParsableArguments {
+        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project")
+        var projectName: String?
+        
+        @Argument(help: "The name of the service living inside the Bubo project")
+        var serviceName: String
+    }
+    
+    struct OptionsPNonly: ParsableArguments {
+        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project")
+        var projectName: String?
+    }
 }
+
+
 
 

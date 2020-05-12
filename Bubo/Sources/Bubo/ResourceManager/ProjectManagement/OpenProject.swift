@@ -7,9 +7,9 @@ import ShellOut
 
 extension ResourceManager {
     
-    func openProject(projectName: String?) -> Void {
+    func openProject(pName: String?) -> Void {
         
-        guard let (projectHandle, projectURL) = self.getProjectURL(projectName: projectName) else {
+        guard let (projectHandle, projectURL) = self.getProjectURL(projectName: pName) else {
             abortMessage(msg: "Refresh services")
             return
         }

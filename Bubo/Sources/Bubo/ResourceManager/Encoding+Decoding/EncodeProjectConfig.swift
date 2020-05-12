@@ -8,22 +8,22 @@
 import Foundation
 
 extension ResourceManager {
-    func encodeProjectConfig(projectName: String, configData: Anchorrc) -> Void {
+    func encodeProjectConfig(pName: String, configData: Anchorrc) -> Void {
         let fileManager: FileManager = FileManager()
         
         guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't encode project configuration for \(projectName) because no projects exists in root configuration")
+            errorMessage(msg: "Can't encode project configuration for \(pName) because no projects exists in root configuration")
             return
         }
         
         let projectNames = rootConfig.projects?.keys
         
-        if !(projectNames?.contains(projectName) ?? false) {
-            errorMessage(msg: "Can't encode project configuration because \(projectName) is not existing. Use Bubo new \(projectName) to initialise the new project or use the --new option on th add command")
+        if !(projectNames?.contains(pName) ?? false) {
+            errorMessage(msg: "Can't encode project configuration because \(pName) is not existing. Use Bubo new \(pName) to initialise the new project or use the --new option on th add command")
             return
         }
-        guard let configURL = projects[projectName]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
-            errorMessage(msg: "Can't get projects configuration file path for \(projectName). Does the project exist?")
+        guard let configURL = projects[pName]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
+            errorMessage(msg: "Can't get projects configuration file path for \(pName). Does the project exist?")
             return
         }
         
@@ -36,13 +36,13 @@ extension ResourceManager {
         do {
             try fileManager.removeItem(at: configFileURL)
         } catch {
-            errorMessage(msg: "Can't remove project configuration file for \(projectName) at path \(configURL)")
+            errorMessage(msg: "Can't remove project configuration file for \(pName) at path \(configURL)")
         }
         let isCreated = fileManager.createFile(atPath: configURL.path, contents: encode, attributes: nil)
         if isCreated {
             // successMessage(msg: "Project configuration file for \(projectName) overwritten at path: \(configURL)")
         } else {
-            errorMessage(msg: "Project configuration file for \(projectName) can't be overwritten at path: \(configURL)")
+            errorMessage(msg: "Project configuration file for \(pName) can't be overwritten at path: \(configURL)")
             return
         }
     }

@@ -11,9 +11,13 @@ extension ResourceManager {
         let name = fileManager.displayName(atPath: serviceURL.path)
     
         do {
-            let gitURLstring = try shellOut(to: "git -C \(serviceURL.path) config --get remote.origin.url")
+            let gitURLstring =
+                try shellOut(to: "git -C \(serviceURL.path) config --get remote.origin.url")
             guard let gitURL = URL(string: gitURLstring) else {
-                errorMessage(msg: "Can't parse the git remote URL \(gitURLstring) for service \(serviceURL.path) into the URL format")
+                errorMessage(msg:
+                    "Can't parse the git remote URL" +
+                    "\(gitURLstring) for service \(serviceURL.path)" +
+                    "into the URL format")
                 abortMessage(msg: "Service creation")
                 return nil
             }

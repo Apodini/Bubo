@@ -15,16 +15,13 @@ extension Bubo.Service {
             discussion: "Removes a service from Bubo project and deregisters it from the project runtime configuration. Please be careful with this command."
         )
         
-        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project")
-        var projectName: String?
-        
-        @Argument(help: "The name of the service living inside the Bubo project")
-        var ServiceName: String
+        @OptionGroup()
+        var options: Bubo.Options
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
@@ -33,7 +30,7 @@ extension Bubo.Service {
         
         func run() {
             let repositoryManagement = ResourceManager()
-            repositoryManagement.removeService(projectName: projectName, serviceName: ServiceName)
+            repositoryManagement.removeService(projectName: options.projectName, serviceName: options.serviceName)
         }
     }
 }

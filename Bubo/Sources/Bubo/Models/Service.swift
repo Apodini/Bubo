@@ -15,6 +15,8 @@ public struct Service: Codable, Equatable {
     var dateCloned: String
     var lastPull: String
     var status: Bool // Is the service actively included in analysis?
+    var files: [File]
+    
     
     init(name: String, url: URL, gitURL: URL) {
         self.name = name
@@ -23,6 +25,7 @@ public struct Service: Codable, Equatable {
         self.dateCloned = Date().description(with: .current)
         self.lastPull = Date().description(with: .current)
         self.status = true
+        self.files = []
     }
     
     public static func == (lhs: Service, rhs: Service) -> Bool {

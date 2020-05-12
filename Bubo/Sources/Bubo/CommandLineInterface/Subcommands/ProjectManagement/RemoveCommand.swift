@@ -15,15 +15,15 @@ extension Bubo {
             discussion: "Removes a Bubo project and ALL its contents permanently. Please be careful with this command"
         )
         
-        @Argument(help: "The name of the Bubo project that should be removed")
-        var projectName: String?
+        @OptionGroup()
+        var options: Bubo.OptionsPNonly
         
         @Flag(help: "Remove the procject permanently from disk (not recommended)")
         var permanently: Bool
         
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
@@ -33,9 +33,9 @@ extension Bubo {
         func run() {
             let resourceManager = ResourceManager()
             if permanently {
-                resourceManager.removeProject(projectName: projectName)
+                resourceManager.removeProject(pName: options.projectName)
             } else {
-                resourceManager.deregisterProject(projectName: projectName)
+                resourceManager.deregisterProject(pName: options.projectName)
             }
         }
     }

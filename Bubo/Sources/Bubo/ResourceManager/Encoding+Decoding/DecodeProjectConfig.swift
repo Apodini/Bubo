@@ -9,8 +9,8 @@ import Foundation
 
 
 extension ResourceManager {
-    func decodeProjectConfig(projectName: String?) -> (String, Anchorrc)? {
-        guard let (projectHandle, projectURL) = self.getProjectURL(projectName: projectName) else {
+    func decodeProjectConfig(pName: String?) -> (String, Anchorrc)? {
+        guard let (projectHandle, projectURL) = self.getProjectURL(projectName: pName) else {
             abortMessage(msg: "Refresh services")
             return nil
         }

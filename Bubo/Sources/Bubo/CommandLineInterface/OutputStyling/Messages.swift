@@ -25,7 +25,7 @@ public func headerMessage(msg: String) -> Void {
 }
 
 public func outputMessage(msg: String) -> Void {
-    if rootConfig.verbose {
+    if rootConfig.verboseMode {
         print(msg .dim())
     }
 }

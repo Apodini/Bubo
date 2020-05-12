@@ -5,7 +5,11 @@
 import Foundation
 
 class ServiceManager {
-    init() {
+    public let resourceManager: ResourceManager;
+    public let fileManager: FileManager;
 
+    init() {
+        self.resourceManager = ResourceManager()
+        self.fileManager = FileManager.default
     }
 }

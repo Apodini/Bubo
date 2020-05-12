@@ -14,13 +14,13 @@ extension Bubo {
             abstract: "Create a new Bubo project",
             discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option" )
         
-        @Argument(help: "Creates the new project in a dedicated directory and gives it a specified project name")
-        var projectName: String?
+        @OptionGroup()
+        var options: Bubo.OptionsPNonly
         
         // Validate Input
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
@@ -29,7 +29,7 @@ extension Bubo {
         
         func run() {
             let resourceManager = ResourceManager()
-            resourceManager.initProject(name: projectName)
+            resourceManager.initProject(pName: options.projectName)
         }
     }
 }

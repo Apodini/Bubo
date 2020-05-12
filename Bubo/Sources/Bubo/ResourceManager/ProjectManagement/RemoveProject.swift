@@ -5,9 +5,9 @@
 import Foundation
 
 extension ResourceManager {
-    func removeProject(projectName: String?) -> Void {
+    func removeProject(pName: String?) -> Void {
         
-        guard var (projectHandle, projects) = self.fetchProjects(projectName: projectName) else {
+        guard var (projectHandle, projects) = self.fetchProjects(pName: pName) else {
                    abortMessage(msg: "Deregistering project")
                    return
         }

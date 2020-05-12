@@ -10,12 +10,12 @@ extension Bubo {
         static let configuration = CommandConfiguration(
             abstract: "Opens a specific project in the finder")
         
-        @Argument(help: "The name of the Bubo project that should be opened")
-        var projectName: String?
+        @OptionGroup()
+        var options: Bubo.OptionsPNonly
         
         func validate() throws {
-            if projectName != nil {
-                let name = projectName!
+            if options.projectName != nil {
+                let name = options.projectName!
                 guard name.count <= 255 else {
                     throw ValidationError("Project name is too long!")
                 }
@@ -24,7 +24,7 @@ extension Bubo {
         
         func run() {
             let resourceManager = ResourceManager()
-            resourceManager.openProject(projectName: projectName)
+            resourceManager.openProject(pName: options.projectName)
         }
     }
 }

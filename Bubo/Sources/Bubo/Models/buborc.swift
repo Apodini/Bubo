@@ -6,7 +6,7 @@
  
  public struct Buborc: Codable {
     public var version: String
-    public var verbose: Bool
+    public var verboseMode: Bool
     public var projects: [String:URL]?
     public var rootUrl: URL?
     public var initialisationDate: String
@@ -16,7 +16,7 @@
         self.projects = projects
         self.rootUrl = rootRepoUrl
         self.initialisationDate = Date().description(with: .current)
-        self.verbose = false
+        self.verboseMode = false
     }
     
     init(version: String, projects: [String:URL]) {
@@ -35,7 +35,7 @@
         } else {
             rootPath = rootPath?.appendingPathComponent(".bubo")
         }
-        self.verbose = false
+        self.verboseMode = false
         self.version = version
         self.projects = projects
         self.rootUrl = rootPath
