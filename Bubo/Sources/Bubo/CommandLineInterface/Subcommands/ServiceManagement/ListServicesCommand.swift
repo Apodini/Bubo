@@ -15,11 +15,8 @@ extension Bubo.Service {
         
         // Validate Input
         func validate() throws {
-            if options.projectName != nil {
-                let tmp = name!
-                guard tmp.count <= 255 else {
-                    throw ValidationError("Project name is too long!")
-                }
+            guard let projectName = options.projectName, projectName.count <= 255 else {
+                throw ValidationError("Project name is too long!")
             }
         }
         
