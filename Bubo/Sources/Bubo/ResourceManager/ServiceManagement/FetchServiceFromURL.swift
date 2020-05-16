@@ -21,7 +21,8 @@ extension ResourceManager {
                 abortMessage(msg: "Service creation")
                 return nil
             }
-            return Service(name: name, url: serviceURL, gitURL: gitURL)
+            let files = fileCrawler(startURL: serviceURL)
+            return Service(name: name, url: serviceURL, gitURL: gitURL, files: files)
         } catch {
             errorMessage(msg: "Can't read the git remote URL for \(serviceURL.path)")
             abortMessage(msg: "Service creation")

@@ -28,7 +28,6 @@ extension Bubo.Analysis {
         }
         
         func run() {
-            let serviceManager = ServiceManager()
             let resourceManager = ResourceManager()
             
             guard let (projectHandle, projektConfig) = resourceManager.decodeProjectConfig(pName: options.projectName) else {
@@ -39,9 +38,9 @@ extension Bubo.Analysis {
                 errorMessage(msg: "I hate error messages!!!!")
                 return
             }
-            headerMessage(msg: "Found following urls for service \(options.projectName)")
-            for file in serviceManager.fileCrawler(startURL: service.url) {
-                print(file.fileURL.path)
+            headerMessage(msg: "Found following urls for service \(options.serviceName)")
+            for file in resourceManager.fileCrawler(startURL: service.url) {
+                print("Name: \(file.fileName)\nPath: \(file.fileURL.path)\n")
             }
         }
     }

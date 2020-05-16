@@ -16,16 +16,27 @@ public struct Service: Codable, Equatable {
     var lastPull: String
     var status: Bool // Is the service actively included in analysis?
     var files: [File]
+    var packageDotSwift: File?
+    var swiftVersion: File?
     
     
-    init(name: String, url: URL, gitURL: URL) {
+    init(name: String, url: URL, gitURL: URL, files: [File]) {
         self.name = name
         self.url = url
         self.gitURL = gitURL
         self.dateCloned = Date().description(with: .current)
         self.lastPull = Date().description(with: .current)
         self.status = true
-        self.files = []
+        self.files = files
+        
+        for file in self.files {
+            if file.fileName == ".swift-version" {
+                self.swiftVersion = file
+            }
+            if file.fileName == "Package.swift" {
+                self.packageDotSwift = file
+            }
+        }
     }
     
     public static func == (lhs: Service, rhs: Service) -> Bool {

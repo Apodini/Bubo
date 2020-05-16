@@ -7,20 +7,22 @@
 
 import Foundation
 
-extension ServiceManager {
+extension ResourceManager {
     func fileCrawler(startURL: URL) -> [File] {
-        var sourceFiles: [File] = []
+        var files: [File] = []
         do {
             let serviceContents = try fileManager.contentsOfDirectory(at: startURL, includingPropertiesForKeys: nil)
             for url in serviceContents {
                 var isDir : ObjCBool = false
                 if fileManager.fileExists(atPath: url.path, isDirectory: &isDir) {
                     if isDir.boolValue {
-                        sourceFiles.append(contentsOf: fileCrawler(startURL: url))
-                    } else {
-                        if url.pathExtension == "swift" {
-                            sourceFiles.append(File(url: url))
+                        if url.lastPathComponent.first != "." {
+                            files.append(contentsOf: fileCrawler(startURL: url))
+                        } else {
+                            outputMessage(msg: "Crawler: Skipping directory \(url.path)")
                         }
+                    } else {
+                        files.append(File(url: url, name: url.lastPathComponent))
                     }
                 }
             }
@@ -28,6 +30,6 @@ extension ServiceManager {
             errorMessage(msg: "Can't read contents of directory at path: \(startURL)")
             return []
         }
-        return sourceFiles
+        return files
     }
 }
