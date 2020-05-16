@@ -38,7 +38,8 @@ extension ResourceManager {
                         if prevServices.values.contains(newService) {
                             for (_, oldService) in prevServices {
                                 if oldService == newService {
-                                    updatedServices[oldService.name] = oldService
+                                    let tmpService = Service(name: oldService.name, url: newService.url, gitURL: newService.gitURL, files: newService.files, dateCloned: oldService.dateCloned, lastUpdated: newService.lastUpdated)
+                                    updatedServices[tmpService.name] = tmpService
                                 }
                             }
                         } else {
