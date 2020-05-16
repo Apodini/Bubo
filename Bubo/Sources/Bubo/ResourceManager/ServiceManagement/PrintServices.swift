@@ -18,10 +18,13 @@ extension ResourceManager {
             warningMessage(msg: "No services have been added to \(projectHandle). Add new services to the project with the add command.")
             return
         }
-        for (_, service) in services {
-            let name = service.name .blue().underline()
-            let url = service.gitURL.absoluteString.yellow()
-            print("\(name) -> \(url)")
+        let sortedServices = services.keys.sorted()
+        for serviceName in sortedServices {
+            let name = serviceName.blue().underline()
+            let service = services[serviceName]
+            if service != nil {
+                print("\(name) -> \(service!.gitURL.absoluteString.yellow())")
+            }
         }
     }
 }
