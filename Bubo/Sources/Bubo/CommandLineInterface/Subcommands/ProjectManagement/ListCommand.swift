@@ -20,10 +20,13 @@ extension Bubo {
             if projects.isEmpty {
                 print("No projects have been created. Use the Bubo new command to create a project.")
             } else {
-                for (projectName, projectURL) in projects {
-                    let tmpName = projectName.blue().underline()
-                    let url = projectURL.path.yellow()
-                    print("\(tmpName) -> \(url)")
+                let sortedProjects = projects.keys.sorted()
+                for projectName in sortedProjects {
+                    let name = projectName.blue().underline()
+                    let url = projects[projectName]
+                    if url != nil {
+                        print("\(name) -> \(url!.path.yellow())")
+                    }
                 }
             }
         }
