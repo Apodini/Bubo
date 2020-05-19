@@ -4,10 +4,18 @@
 
 import Foundation
 import SwiftGraph
+import SwiftSyntax
 
-class GraphBuilder {
+class GraphBuilder: SyntaxVisitor {
     
-    init() {
-        
+    // Th graph that is 
+    var graph: UnweightedGraph<Node>
+    
+    override init() {
+        graph = UnweightedGraph()
     }
+    
+    // Override visit methode for syntaxtrees here to build the graph
+    
+  
 }

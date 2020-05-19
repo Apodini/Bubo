@@ -1,14 +1,15 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  Created by Valentin Hartig on 17.05.20.
 //
+
 
 import Foundation
 import ArgumentParser
 
 extension Bubo.Analysis {
-    struct Crawl: ParsableCommand {
+    struct Parse: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Output all files of a service",
+            abstract: "Parses all files of a service and outputs the graph",
             discussion: "This command is only for testing the new features")
         
         @OptionGroup()
@@ -30,7 +31,7 @@ extension Bubo.Analysis {
         
         func run() {
             let resourceManager = ResourceManager()
-            
+            let serviceManager = ServiceManager()
             guard let (projectHandle, projektConfig) = resourceManager.decodeProjectConfig(pName: options.projectName) else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
@@ -39,10 +40,8 @@ extension Bubo.Analysis {
                 errorMessage(msg: "I hate error messages!!!!")
                 return
             }
-            headerMessage(msg: "Found following urls for service \(options.serviceName)")
-            for file in resourceManager.fileCrawler(startURL: service.url) {
-                print("Name: \(file.fileName)\nPath: \(file.fileURL.path)\n")
-            }
+            headerMessage(msg: "Parsing graph for \(options.serviceName)")
+            print(serviceManager.parser.parse(service: service).graph)
         }
     }
 }

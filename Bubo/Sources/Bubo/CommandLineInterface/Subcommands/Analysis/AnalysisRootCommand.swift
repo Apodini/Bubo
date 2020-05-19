@@ -10,7 +10,8 @@ extension Bubo {
         static let configuration = CommandConfiguration(
             abstract: "All analysises performed on service or project",
             subcommands: [
-                Crawl.self
+                Crawl.self,
+                Parse.self
         ])
     }
 }
