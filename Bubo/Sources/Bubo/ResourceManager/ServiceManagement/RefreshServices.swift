@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ShellOut
 
 extension ResourceManager {
     // Checks the projects service directory for new services or deleted services
@@ -47,6 +48,21 @@ extension ResourceManager {
                             outputMessage(msg: "Added new service \(newService.name)")
                         }
                     }
+                outputMessage(msg: "Rebuilding services")
+                for (_, service) in updatedServices {
+                    if fileManager.changeCurrentDirectoryPath(service.url.path) {
+                        do {
+                            try shellOut(to: .buildSwiftPackage())
+                            outputMessage(msg: "Build service \(service.name)")
+                        } catch {
+                            let error = error as! ShellOutError
+                            errorMessage(msg: "Failed to build \(service.name). Can't index service if it's not build")
+                            warningMessage(msg: error.message) // Prints STDERR
+                            warningMessage(msg: error.output) // Prints STDOUT
+                        }
+                    }
+                }
+                outputMessage(msg: "Rebuild complete")
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)
