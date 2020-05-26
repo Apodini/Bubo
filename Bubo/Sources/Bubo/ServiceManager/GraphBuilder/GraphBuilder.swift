@@ -16,6 +16,4 @@ class GraphBuilder: SyntaxVisitor {
     }
     
     // Override visit methode for syntaxtrees here to build the graph
-    
-  
 }

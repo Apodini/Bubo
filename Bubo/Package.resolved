@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "IndexStoreDB",
+        "repositoryURL": "https://github.com/apple/indexstore-db.git",
+        "state": {
+          "branch": "swift-5.2-branch",
+          "revision": "99472b2b84b1e72f0bf4b55f2ba0b921b16ed945",
+          "version": null
+        }
+      },
+      {
         "package": "ShellOut",
         "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
         "state": {

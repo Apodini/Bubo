@@ -25,5 +25,4 @@ class Parser {
         }
         return Graph(service: service, sourceFileSyntaxes: sourceFileSyntaxes)
     }
-    
 }
