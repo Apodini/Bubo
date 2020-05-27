@@ -40,5 +40,13 @@ class ServiceManager {
         }
         self.indexingServer = IndexingServer(indexDatabase: self.indexDatabase)
     }
+    
+    public func createDependencyGraph() -> Graph {
+        let tokens: [Token] = self.parser.tokens
+        let tokenExtensions: [String:Token] = self.parser.tokenExtensions
+        
+        for <#item#> in <#items#> {
+            <#code#>
+        }
     }
 }
