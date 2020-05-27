@@ -13,7 +13,6 @@ class IndexDatabase {
     /// The directory containing the original, unmodified project.
     init(indexDBConfig: IndexDatabaseConfiguration) throws {
         self.indexDBConfig = indexDBConfig
-        
         if let storePath = indexDBConfig.indexStorePath,
             let dbPath = indexDBConfig.indexDatabasePath {
             do {
@@ -23,9 +22,9 @@ class IndexDatabase {
                     databasePath: URL(fileURLWithPath: dbPath).path,
                     library: lib,
                     listenToUnitEvents: false)
-                outputMessage(msg: "opened IndexStoreDB at \(dbPath) with store path \(storePath)")
+                outputMessage(msg: "Opened IndexStoreDB at \(dbPath) with store path \(storePath)")
             } catch {
-                errorMessage(msg: "failed to open IndexStoreDB: \(error.localizedDescription)")
+                errorMessage(msg: "Failed to open IndexStoreDB: \(error.localizedDescription)")
             }
         }
     }

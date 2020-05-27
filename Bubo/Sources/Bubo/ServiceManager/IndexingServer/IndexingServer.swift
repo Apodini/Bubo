@@ -7,6 +7,7 @@ class IndexingServer {
     
     init(indexDatabase: IndexDatabase? = nil) {
         self.indexDatabase = indexDatabase
+        outputMessage(msg: "IndexingServer initialised")
     }
     
     func findWorkspaceSymbols(matching: String) -> [SymbolOccurrence] {
@@ -18,9 +19,7 @@ class IndexingServer {
           subsequence: true,
           ignoreCase: true
         ) { symbol in
-            if !symbol.location.isSystem &&
-                !symbol.roles.contains(.accessorOf) &&
-                symbol.roles.contains(.definition) {
+            if !symbol.location.isSystem {
             symbolOccurrenceResults.append(symbol)
           }
           return true

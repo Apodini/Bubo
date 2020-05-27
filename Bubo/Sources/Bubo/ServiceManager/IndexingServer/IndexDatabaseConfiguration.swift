@@ -8,8 +8,8 @@ struct IndexDatabaseConfiguration {
     // The path to put the index database, if any.
     var indexDatabasePath: String?
     
-    init(indexStorePath: String?, indexDatabasePath: String?) {
-        self.indexStorePath = indexStorePath
+    init(indexStorePath: URL?, indexDatabasePath: String?) {
+        self.indexStorePath = indexStorePath?.path
         
         if indexDatabasePath == nil {
             self.indexDatabasePath = NSTemporaryDirectory() + "index_\(getpid())";
