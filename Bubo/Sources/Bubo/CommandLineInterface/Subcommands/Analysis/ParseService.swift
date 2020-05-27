@@ -31,7 +31,6 @@ extension Bubo.Analysis {
         
         func run() {
             let resourceManager = ResourceManager()
-            let serviceManager = ServiceManager()
             guard let (projectHandle, projektConfig) = resourceManager.decodeProjectConfig(pName: options.projectName) else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
@@ -40,8 +39,11 @@ extension Bubo.Analysis {
                 errorMessage(msg: "I hate error messages!!!!")
                 return
             }
-            headerMessage(msg: "Parsing graph for \(options.serviceName)")
-            print(serviceManager.parser.parse(service: service).graph)
+            headerMessage(msg: "Parsing \(options.serviceName)")
+            let serviceManager = ServiceManager(service: service)
+            for token in serviceManager.parser.tokens {
+                print(token.description)
+            }
         }
     }
 }

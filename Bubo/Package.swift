@@ -16,7 +16,9 @@ let package = Package(
         .package(url: "https://github.com/mtynior/ColorizeSwift.git", from: "1.5.0"),
         .package(url: "https://github.com/davecom/SwiftGraph.git", from: "3.0.0"),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50200.0"),
-        .package(name: "IndexStoreDB", url: "https://github.com/apple/indexstore-db.git", .branch("swift-5.2-branch"))
+        .package(name: "IndexStoreDB", url: "https://github.com/apple/indexstore-db.git", .branch("swift-5.2-branch")),
+        .package(url: "https://github.com/apple/swift-tools-support-core.git", .branch("master")),
+        
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -29,7 +31,8 @@ let package = Package(
                 .product(name: "ColorizeSwift", package: "ColorizeSwift"),
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
-                .product(name: "IndexStoreDB", package: "IndexStoreDB")
+                .product(name: "IndexStoreDB", package: "IndexStoreDB"),
+                .product(name: "SwiftToolsSupport", package: "swift-tools-support-core")
         ]),
         .testTarget(
             name: "BuboTests",

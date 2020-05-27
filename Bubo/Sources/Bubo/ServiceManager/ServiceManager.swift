@@ -9,9 +9,10 @@ class ServiceManager {
     public let fileManager: FileManager;
     public let parser: Parser
 
-    init() {
+    init(service: Service) {
         self.resourceManager = ResourceManager()
         self.fileManager = FileManager.default
         self.parser = Parser()
+        parser.parse(service: service)
     }
 }
