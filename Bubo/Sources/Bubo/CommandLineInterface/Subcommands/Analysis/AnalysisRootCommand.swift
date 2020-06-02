@@ -11,7 +11,7 @@ extension Bubo {
             abstract: "All analysises performed on service or project",
             subcommands: [
                 Crawl.self,
-                Parse.self
+                Parse.self,
         ])
     }
 }
