@@ -5,7 +5,7 @@
 import Foundation
 import SwiftSyntax
 
-public struct TokenLocation {
+public struct TokenLocation: Codable {
     public let url: URL
     public let line: Int
     public let column: Int

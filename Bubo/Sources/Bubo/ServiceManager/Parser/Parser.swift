@@ -15,7 +15,6 @@ class Parser {
     }
     // Parses all files of a service and retruns an array of graphs
     func parse(service: Service) -> Void {
-        var sourceFileSyntaxes = [SourceFileSyntax]()
         for file in service.files {
             if file.fileURL.pathExtension == "swift" {
                 outputMessage(msg: "Parsing file \(file.fileName)")
