@@ -9,7 +9,7 @@ import Foundation
 import IndexStoreDB
 
 
-public enum EdgeRole {
+public enum EdgeRole: CaseIterable {
     // MARK: Primary roles, from indexstore
     case `declaration`
     case `definition`
@@ -31,6 +31,9 @@ public enum EdgeRole {
     case `accessorOf`
     case `containedBy`
     case `ibTypeOf`
+    case `specializationOf`
+    case `canonical`
+    case `all`
     case unknow
 }
 
@@ -82,8 +85,63 @@ extension EdgeRole: Codable {
             self = .containedBy
         case .ibTypeOf:
             self = .ibTypeOf
+        case .specializationOf:
+            self = .specializationOf
+        case .canonical:
+            self = .canonical
+        case .all:
+            self = .all
         default:
             self = .unknow
+        }
+    }
+    
+    public static func getSymbolRole(edgeRole: EdgeRole) -> SymbolRole? {
+        switch edgeRole {
+        case .declaration:
+            return SymbolRole.declaration
+        case .definition:
+            return SymbolRole.definition
+        case .reference:
+            return SymbolRole.reference
+        case .read:
+            return SymbolRole.read
+        case .write:
+            return SymbolRole.write
+        case .call:
+            return SymbolRole.call
+        case .dynamic:
+            return SymbolRole.dynamic
+        case .addressOf:
+            return SymbolRole.addressOf
+        case .implicit:
+            return SymbolRole .implicit
+        case .childOf:
+            return SymbolRole.childOf
+        case .baseOf:
+            return SymbolRole.baseOf
+        case .overrideOf:
+            return SymbolRole.overrideOf
+        case .receivedBy:
+            return SymbolRole.receivedBy
+        case .calledBy:
+            return SymbolRole.calledBy
+        case .extendedBy:
+            return SymbolRole.extendedBy
+        case .accessorOf:
+            return SymbolRole.accessorOf
+        case .containedBy:
+            return SymbolRole.containedBy
+        case .ibTypeOf:
+            return SymbolRole.ibTypeOf
+        case .specializationOf:
+            return SymbolRole.specializationOf
+        case .canonical:
+            return SymbolRole.canonical
+        case .all:
+            return SymbolRole.all
+        default:
+            return nil
         }
     }
     
@@ -128,6 +186,12 @@ extension EdgeRole: Codable {
         case 17:
             self = .ibTypeOf
         case 18:
+            self = .specializationOf
+        case 19:
+            self = .canonical
+        case 20:
+            self = .all
+        case 21:
             self = .unknow
         default:
             throw CodingError.unknownValue
@@ -190,9 +254,14 @@ extension EdgeRole: Codable {
 
         case .ibTypeOf:
             try container.encode(17, forKey: .rawValue)
-        
-        case .unknow:
+        case .specializationOf:
             try container.encode(18, forKey: .rawValue)
+        case .canonical:
+            try container.encode(19, forKey: .rawValue)
+        case .all:
+            try container.encode(20, forKey: .rawValue)
+        case .unknow:
+            try container.encode(21, forKey: .rawValue)
         }
     }
 }
