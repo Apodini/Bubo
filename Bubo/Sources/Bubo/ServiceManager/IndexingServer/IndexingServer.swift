@@ -27,8 +27,15 @@ class IndexingServer {
         return symbolOccurrenceResults
     }
     
-    func occurrences(ofUSR usr: String, roles: SymbolRole, workspace: IndexDatabase) -> [SymbolOccurrence] {
-        guard let index = workspace.index else {
+    func findRelatedSymbols(ofUSR usr: String, role: SymbolRole) -> [SymbolOccurrence] {
+        guard let index = self.indexDatabase?.index else {
+            return []
+        }
+        return index.occurrences(relatedToUSR: usr, roles: role)
+    }
+    
+    func occurrences(ofUSR usr: String, roles: SymbolRole) -> [SymbolOccurrence] {
+        guard let index = self.indexDatabase?.index else {
             return []
         }
         return index.occurrences(ofUSR: usr, roles: roles)
