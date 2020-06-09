@@ -35,7 +35,7 @@ extension Bubo.Service {
             if all {
                 repositoryManagement.pullAllServices(projectName: options.projectName)
             } else {
-                guard options.serviceName == nil else {
+                guard options.serviceName != nil else {
                     errorMessage(msg: "Please specifiy a service you want to pull")
                     return
                 }
