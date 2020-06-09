@@ -25,7 +25,7 @@ class ServiceManager {
         
         // Parse service + build graph
         parser.parse(service: service)
-        self.graphBuilder = GraphBuilder(tokens: parser.tokens, service: service)
+        self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
     }
     
     deinit {

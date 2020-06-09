@@ -18,6 +18,7 @@ let package = Package(
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50200.0"),
         .package(name: "IndexStoreDB", url: "https://github.com/apple/indexstore-db.git", .branch("swift-5.2-branch")),
         .package(url: "https://github.com/apple/swift-tools-support-core.git", .branch("master")),
+        .package(url: "https://github.com/SwiftDocOrg/GraphViz",from: "0.1.1")
         
     ],
     targets: [
@@ -32,7 +33,8 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .product(name: "SwiftToolsSupport", package: "swift-tools-support-core")
+                .product(name: "SwiftToolsSupport", package: "swift-tools-support-core"),
+                .product(name: "GraphViz", package: "GraphViz")
         ]),
         .testTarget(
             name: "BuboTests",

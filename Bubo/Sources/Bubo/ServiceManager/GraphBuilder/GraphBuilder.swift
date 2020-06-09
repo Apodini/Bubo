@@ -10,15 +10,18 @@ import IndexStoreDB
 class GraphBuilder {
     public private(set) var graph: DependencyGraph<Node>
     var tokens: [Token]
+    var tokenExtensions: [String:Token]
     
     let indexDatabaseConfiguration: IndexDatabaseConfiguration?
     let indexDatabase: IndexDatabase?
     let indexingServer: IndexingServer?
     
     
-    init(tokens: [Token], service: Service) {
+    init(tokens: [Token], tokenExtensions: [String:Token], service: Service) {
         self.graph = DependencyGraph<Node>()
         self.tokens = tokens
+        self.tokenExtensions = tokenExtensions
+        
         guard let serviceRoot: URL = service.packageDotSwift?.fileURL.deletingPathExtension().deletingLastPathComponent() else {
             errorMessage(msg: "Can't get the root path to service \(service.name) to genereate indexstore path")
             abortMessage(msg: "Graphbuild initialisation")
@@ -28,7 +31,9 @@ class GraphBuilder {
             self.indexDatabaseConfiguration = nil
             return
         }
-        let indexStorePath = serviceRoot            .appendingPathComponent(".build")
+        
+        let indexStorePath = serviceRoot
+            .appendingPathComponent(".build")
             .appendingPathComponent("debug")
             .appendingPathComponent("index")
             .appendingPathComponent("store")
@@ -70,17 +75,52 @@ extension GraphBuilder {
             if !graph.contains(node) {
                 graph.addVertex(node)
             }
-            for relation in occurrence.relations {
-                let relatedNode = Node(symbol: relation.symbol)
-                if !graph.contains(relatedNode) {
-                    graph.addVertex(relatedNode)
+        }
+        
+        for node in graph.vertices {
+            if node.kind == .class || node.kind == .struct {
+                for extensionNode in graph.vertices {
+                    if
+                        extensionNode.kind == .extension
+                        && extensionNode.name == node.name
+                        && !graph.edgeExists(from: node, to: extensionNode, role: .extendedBy)
+                    {
+                        graph.addEdge(from: node, to: extensionNode, directed: true, role: .extendedBy)
+                    }
                 }
-                let role = EdgeRole(symbolRole: relation.roles)
-                if !graph.edgeExists(from: relatedNode, to: node, role: role) {
-                    graph.addEdge(from: relatedNode, to: node, directed: true, role: EdgeRole(symbolRole: relation.roles))
+            }
+        }
+        
+        for node in graph.vertices {
+            for role in EdgeRole.allCases {
+                if let symbolRole: SymbolRole = EdgeRole.getSymbolRole(edgeRole: role){
+                    let symbolOccurrences = indexingServer.findRelatedSymbols(ofUSR: node.usr, role: symbolRole)
+                    for occurrence in symbolOccurrences {
+                        guard let occURL: URL = URL(fileURLWithPath: occurrence.location.path) else {
+                            errorMessage(msg: "Cant create URL of this path \(occurrence.location.path)")
+                            return
+                        }
+                        if !occURL.pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO 
+                            if !occurrence.location.isSystem {
+                                let node = Node(symbol: occurrence.symbol)
+                                if !graph.contains(node) {
+                                    graph.addVertex(node)
+                                }
+                                for relation in occurrence.relations {
+                                    let relatedNode = Node(symbol: relation.symbol)
+                                    if !graph.contains(relatedNode) {
+                                        graph.addVertex(relatedNode)
+                                    }
+                                    let role = EdgeRole(symbolRole: relation.roles)
+                                    if !graph.edgeExists(from: node, to: relatedNode, role: role) {
+                                        graph.addEdge(from: node, to: relatedNode, directed: true, role: role)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-    
 }

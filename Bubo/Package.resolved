@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "GraphViz",
+        "repositoryURL": "https://github.com/SwiftDocOrg/GraphViz",
+        "state": {
+          "branch": null,
+          "revision": "6a89c4a011c3d60603bda4e17b1f14838eb26917",
+          "version": "0.1.1"
+        }
+      },
+      {
         "package": "IndexStoreDB",
         "repositoryURL": "https://github.com/apple/indexstore-db.git",
         "state": {
