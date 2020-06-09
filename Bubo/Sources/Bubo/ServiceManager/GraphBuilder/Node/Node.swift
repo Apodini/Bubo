@@ -14,7 +14,7 @@ class Node: Codable, Equatable, CustomStringConvertible {
     var name: String
     
     var description: String {
-        return "{\(name) | \(kind)}"
+        return "{\(name) | \(kind) | \(usr)}"
     }
     
     init(usr: String, kind: NodeKind, name: String) {
