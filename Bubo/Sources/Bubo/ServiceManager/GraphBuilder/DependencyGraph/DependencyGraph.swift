@@ -44,15 +44,14 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
     }
     
     public var description: String {
-        var edges: String = ""
-        var verticies: String = ""
+        var graph: String = "digraph G {\n"
         for vertex in self.vertices {
-            verticies += "\(vertex)\n"
             for edge in edgesForIndex(indexOfVertex(vertex)!) {
-                edges += "\(vertexAtIndex(edge.v)) -\(edge.role)-> \(vertexAtIndex(edge.u))\n"
+                graph += "\"\(vertexAtIndex(edge.u))\" -> \"\(vertexAtIndex(edge.v))\" [ label=\"\(edge.role)\" ];\n"
             }
         }
-        return verticies + edges
+        
+        return graph + "}"
     }
 }
 
