@@ -21,11 +21,11 @@ struct Bubo: ParsableCommand {
             Analysis.self
     ])
     struct Options: ParsableArguments {
-        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project")
-        var projectName: String?
-        
         @Argument(help: "The name of the service living inside the Bubo project")
         var serviceName: String
+        
+        @Option(name: [.customShort("n"), .long], help: "The name of the Bubo project")
+        var projectName: String?
     }
     
     struct OptionsPNonly: ParsableArguments {
