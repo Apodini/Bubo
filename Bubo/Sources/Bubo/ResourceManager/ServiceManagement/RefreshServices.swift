@@ -48,28 +48,6 @@ extension ResourceManager {
                             outputMessage(msg: "Added new service \(newService.name)")
                         }
                     }
-                outputMessage(msg: "Rebuilding services")
-                for (_, service) in updatedServices {
-                    if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
-                        if fileManager.changeCurrentDirectoryPath(
-                            packageDotSwiftURL
-                                .deletingPathExtension()
-                                .deletingLastPathComponent()
-                                .path
-                            ) {
-                            do {
-                                try shellOut(to: .buildSwiftPackage())
-                                outputMessage(msg: "Build service \(service.name)")
-                            } catch {
-                                let error = error as! ShellOutError
-                                errorMessage(msg: "Failed to build \(service.name). Can't index service if it's not build")
-                                warningMessage(msg: error.message) // Prints STDERR
-                                warningMessage(msg: error.output) // Prints STDOUT
-                            }
-                        }
-                    }
-                }
-                outputMessage(msg: "Rebuild complete")
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)
