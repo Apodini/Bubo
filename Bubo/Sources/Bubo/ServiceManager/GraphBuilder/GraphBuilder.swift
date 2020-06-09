@@ -11,7 +11,7 @@ class GraphBuilder {
     public private(set) var graph: DependencyGraph<Node>
     var tokens: [Token]
     
-    let indexDatabaseConfiguration: IndexDatabaseConfiguration
+    let indexDatabaseConfiguration: IndexDatabaseConfiguration?
     let indexDatabase: IndexDatabase?
     let indexingServer: IndexingServer?
     
@@ -19,9 +19,16 @@ class GraphBuilder {
     init(tokens: [Token], service: Service) {
         self.graph = DependencyGraph<Node>()
         self.tokens = tokens
-        let indexStorePath = service
-            .url
-            .appendingPathComponent(".build")
+        guard let serviceRoot: URL = service.packageDotSwift?.fileURL.deletingPathExtension().deletingLastPathComponent() else {
+            errorMessage(msg: "Can't get the root path to service \(service.name) to genereate indexstore path")
+            abortMessage(msg: "Graphbuild initialisation")
+            self.tokens = []
+            self.indexDatabase = nil
+            self.indexingServer = nil
+            self.indexDatabaseConfiguration = nil
+            return
+        }
+        let indexStorePath = serviceRoot            .appendingPathComponent(".build")
             .appendingPathComponent("debug")
             .appendingPathComponent("index")
             .appendingPathComponent("store")
@@ -29,7 +36,7 @@ class GraphBuilder {
         self.indexDatabaseConfiguration = IndexDatabaseConfiguration(indexStorePath: indexStorePath, indexDatabasePath: nil)
         
         do {
-            try self.indexDatabase = IndexDatabase(indexDBConfig: self.indexDatabaseConfiguration)
+            try self.indexDatabase = IndexDatabase(indexDBConfig: self.indexDatabaseConfiguration!)
         } catch {
             self.indexDatabase = nil
             errorMessage(msg: "Can't build index database. Has the project been built?")
