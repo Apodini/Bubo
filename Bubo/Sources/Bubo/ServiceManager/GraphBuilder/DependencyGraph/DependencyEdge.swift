@@ -13,22 +13,26 @@ public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
     public var u: Int
     public var v: Int
     public var directed: Bool
-    public var role: EdgeRole
+    public var roles: [EdgeRole]
     
-    public init(u: Int, v: Int, directed: Bool, role: EdgeRole) {
+    public init(u: Int, v: Int, directed: Bool, roles: [EdgeRole]) {
         self.u = u
         self.v = v
         self.directed = directed
-        self.role = role
+        self.roles = roles
     }
 
     public func reversed() -> DependencyEdge {
-        return DependencyEdge(u: v, v: u, directed: directed, role: role)
+        return DependencyEdge(u: v, v: u, directed: directed, roles: roles)
     }
 
     // Implement Printable protocol
     public var description: String {
-        return "\(u) -\(role)-> \(v)"
+        var roles = ""
+        for role in roles {
+            roles += "|\(role)|"
+        }
+        return "\(u) -\(roles)-> \(v)"
     }
 
     // MARK: Operator Overloads

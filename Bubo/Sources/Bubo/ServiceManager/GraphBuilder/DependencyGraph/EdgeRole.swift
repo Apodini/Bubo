@@ -47,55 +47,72 @@ extension EdgeRole: Codable {
         case unknownValue
     }
     
-    init(symbolRole: SymbolRole) {
-        switch symbolRole {
-        case .declaration:
-            self = .declaration
-        case .definition:
-            self = .definition
-        case .reference:
-            self = .reference
-        case .read:
-            self = .read
-        case .write:
-            self = .write
-        case .call:
-            self = .call
-        case .dynamic:
-            self = .dynamic
-        case .addressOf:
-            self = .addressOf
-        case .implicit:
-            self = .implicit
-        case .childOf:
-            self = .childOf
-        case .baseOf:
-            self = .baseOf
-        case .overrideOf:
-            self = .overrideOf
-        case .receivedBy:
-            self = .receivedBy
-        case .calledBy:
-            self = .calledBy
-        case .extendedBy:
-            self = .extendedBy
-        case .accessorOf:
-            self = .accessorOf
-        case .containedBy:
-            self = .containedBy
-        case .ibTypeOf:
-            self = .ibTypeOf
-        case .specializationOf:
-            self = .specializationOf
-        case .canonical:
-            self = .canonical
-        case .all:
-            self = .all
-        default:
-            self = .unknow
+    public static func getEdgeRoles(symbolRole: SymbolRole) -> [EdgeRole] {
+        var edgeRoles: [EdgeRole] = [EdgeRole]()
+        if symbolRole.contains(.declaration) {
+            edgeRoles.append(.declaration)
         }
+        if symbolRole.contains(.definition) {
+          edgeRoles.append(.definition)
+        }
+        if symbolRole.contains(.reference) {
+            edgeRoles.append(.reference)
+        }
+        if symbolRole.contains(.read) {
+          edgeRoles.append(.read)
+        }
+        if symbolRole.contains(.write) {
+          edgeRoles.append(.write)
+        }
+        if symbolRole.contains(.call) {
+          edgeRoles.append(.call)
+        }
+        if symbolRole.contains(.`dynamic`) {
+        edgeRoles.append(.`dynamic`)
+        }
+        if symbolRole.contains(.addressOf) {
+          edgeRoles.append(.addressOf)
+        }
+        if symbolRole.contains(.implicit) {
+          edgeRoles.append(.implicit)
+        }
+        if symbolRole.contains(.childOf) {
+          edgeRoles.append(.childOf)
+        }
+        if symbolRole.contains(.baseOf) {
+          edgeRoles.append(.baseOf)
+        }
+        if symbolRole.contains(.overrideOf) {
+          edgeRoles.append(.overrideOf)
+        }
+        if symbolRole.contains(.receivedBy) {
+          edgeRoles.append(.receivedBy)
+        }
+        if symbolRole.contains(.calledBy) {
+          edgeRoles.append(.calledBy)
+        }
+        if symbolRole.contains(.extendedBy) {
+          edgeRoles.append(.extendedBy)
+        }
+        if symbolRole.contains(.accessorOf) {
+          edgeRoles.append(.accessorOf)
+        }
+        if symbolRole.contains(.containedBy) {
+          edgeRoles.append(.containedBy)
+        }
+        if symbolRole.contains(.ibTypeOf) {
+          edgeRoles.append(.ibTypeOf)
+        }
+        if symbolRole.contains(.specializationOf) {
+          edgeRoles.append(.specializationOf)
+        }
+        if symbolRole.contains(.canonical) {
+          edgeRoles.append(.canonical)
+        }
+        return edgeRoles
     }
     
+    // Not sure if this is how it should work --> Could calculate all possible permutations of roles and generate list of Sybole roles out of it. 
     public static func getSymbolRole(edgeRole: EdgeRole) -> SymbolRole? {
         switch edgeRole {
         case .declaration:
