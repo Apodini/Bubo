@@ -6,39 +6,70 @@ import Foundation
 import ShellOut
 
 class ServiceManager {
-    public static let fileManager: FileManager  = FileManager.default;
-    
-    private let resourceManager: ResourceManager;
+    public static let fileManager: FileManager  = FileManager.default
+    private static let resourceManager: ResourceManager = ResourceManager()
     public let parser: Parser
     private let graphBuilder: GraphBuilder
     private let service: Service
     
     
-    init(service: Service) {
+    init(service: Service, pName: String?) {
         // Init properties
         self.service = service
-        self.resourceManager = ResourceManager()
         self.parser = Parser()
         
         // Build service
-        ServiceManager.buildService(service: service)
+        if !ServiceManager.compareGitHash(service: service, pName: pName) {
+            ServiceManager.cleanUpService(service: service)
+            ServiceManager.buildService(service: service)
+        }
         
         // Parse service + build graph
         parser.parse(service: service)
         self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
     }
     
-    deinit {
-        outputMessage(msg: "Cleaning up service...")
-        if let rootURL = service.packageDotSwift?.fileURL.deletingPathExtension().deletingLastPathComponent() {
-            if ServiceManager.fileManager.changeCurrentDirectoryPath(rootURL.path) {
-                do {
-                    try ServiceManager.fileManager.removeItem(at: rootURL.appendingPathComponent(".build"))
-                    outputMessage(msg: "Removed .build directory from \(service.name)")
-                } catch {
-                    errorMessage(msg: "Failed to remove .build directory from \(service.name)")
-                }
-            }
+    private static func compareGitHash(service: Service, pName: String?) -> Bool {
+        guard var (projectHandle, projectConfig) = self.resourceManager.decodeProjectConfig(pName: pName) else {
+            abortMessage(msg: "Refresh services")
+            return false
+        }
+        
+        guard let buildHash = service.currentBuildGitHash else {
+            // Update project configuration with new build hash
+            var services = projectConfig.repositories
+            let updatedService: Service = Service(
+                name: service.name,
+                url: service.url,
+                gitURL: service.gitRemoteURL,
+                currentGitHash: service.currentGitHash,
+                currentBuildGitHash: service.currentGitHash,
+                files: service.files)
+            services[updatedService.name] = updatedService
+            projectConfig.repositories = services
+            projectConfig.lastUpdated = Date().description(with: .current)
+            self.resourceManager.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
+            successMessage(msg: "Reencoded projectconfig")
+            return false
+        }
+        
+        if service.currentGitHash == buildHash {
+            return true
+        } else {
+            var services = projectConfig.repositories
+            let updatedService: Service = Service(
+                name: service.name,
+                url: service.url,
+                gitURL: service.gitRemoteURL,
+                currentGitHash: service.currentGitHash,
+                currentBuildGitHash: service.currentGitHash,
+                files: service.files)
+            services[updatedService.name] = updatedService
+            projectConfig.repositories = services
+            projectConfig.lastUpdated = Date().description(with: .current)
+            self.resourceManager.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
+            successMessage(msg: "Reencoded projectconfig")
+            return false
         }
     }
     
@@ -63,6 +94,20 @@ class ServiceManager {
             }
         } else {
             warningMessage(msg: "Couldn't locate package.swift and therefore not build \(service.name). Indexing is not possible and therefor no graph will be geneerated")
+        }
+    }
+    
+    private static func cleanUpService(service: Service) -> Void {
+        outputMessage(msg: "Cleaning up service...")
+        if ServiceManager.fileManager.fileExists(atPath: service.gitRootURL.appendingPathComponent(".build").path) {
+            if ServiceManager.fileManager.changeCurrentDirectoryPath(service.gitRootURL.path) {
+                do {
+                    try ServiceManager.fileManager.removeItem(at: service.gitRootURL.appendingPathComponent(".build"))
+                    outputMessage(msg: "Removed .build directory from \(service.name)")
+                } catch {
+                    errorMessage(msg: "Failed to remove .build directory from \(service.name)")
+                }
+            }
         }
     }
     public func createDependencyGraph() -> DependencyGraph<Node>? {

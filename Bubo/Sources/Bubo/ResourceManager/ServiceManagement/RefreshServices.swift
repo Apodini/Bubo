@@ -11,7 +11,7 @@ extension ResourceManager {
         guard var (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
                abortMessage(msg: "Refresh services")
                return false
-           }
+        }
         
         outputMessage(msg: "Refreshing services for \(projectHandle)")
        
@@ -39,7 +39,15 @@ extension ResourceManager {
                         if prevServices.values.contains(newService) {
                             for (_, oldService) in prevServices {
                                 if oldService == newService {
-                                    let tmpService = Service(name: oldService.name, url: newService.url, gitURL: newService.gitURL, files: newService.files, dateCloned: oldService.dateCloned, lastUpdated: newService.lastUpdated)
+                                    let tmpService = Service(
+                                        name: oldService.name,
+                                        url: newService.url,
+                                        gitURL: newService.gitRemoteURL,
+                                        currentGitHash: newService.currentGitHash, // If newService gitHash is the same as old service build hash, the don't rebuild
+                                        currentBuildGitHash: oldService.currentBuildGitHash, // Expected that the new service was not build
+                                        files: newService.files,
+                                        dateCloned: oldService.dateCloned,
+                                        lastUpdated: newService.lastUpdated)
                                     updatedServices[tmpService.name] = tmpService
                                 }
                             }

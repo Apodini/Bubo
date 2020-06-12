@@ -30,6 +30,7 @@ extension ResourceManager {
                 let output = try shellOut(to: "git pull")
                 outputMessage(msg: output)
                 successMessage(msg: "Pulled \(serviceName) in \(projectHandle) successfully")
+                self.refreshServices(projectName: projectHandle)
                 return
             } catch {
                 let error = error as! ShellOutError
@@ -70,6 +71,7 @@ extension ResourceManager {
                 errorMessage(msg: "Failed to open the direectory of service \(service.name)")
             }
         }
+        self.refreshServices(projectName: projectHandle)
         successMessage(msg: "Pulled all services in \(projectHandle) successfully")
     }
 }

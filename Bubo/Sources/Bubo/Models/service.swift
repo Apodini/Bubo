@@ -11,50 +11,72 @@ import Foundation
 public struct Service: Codable, Equatable {
     var name: String
     var url: URL
-    var gitURL: URL
+    var gitRootURL: URL
+    var gitRemoteURL: URL
     var dateCloned: String
     var lastUpdated: String
+    var currentGitHash: String
+    var currentBuildGitHash: String?
     var status: Bool // Is the service actively included in analysis?
     var files: [File]
     var packageDotSwift: File?
     var swiftVersion: File?
     
     
-    init(name: String, url: URL, gitURL: URL, files: [File]) {
+    init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File]) {
         self.name = name
         self.url = url
-        self.gitURL = gitURL
+        self.gitRemoteURL = gitURL
         self.dateCloned = Date().description(with: .current)
         self.lastUpdated = Date().description(with: .current)
         self.status = true
         self.files = files
+        self.currentGitHash = currentGitHash
+        self.currentBuildGitHash = currentBuildGitHash
         
+        var tmpGitRootURL: URL? = nil
         for file in self.files {
             if file.fileName == ".swift-version" {
                 self.swiftVersion = file
             }
             if file.fileName == "Package.swift" {
                 self.packageDotSwift = file
+                tmpGitRootURL = file.fileURL.deletingPathExtension().deletingLastPathComponent()
             }
+        }
+        if tmpGitRootURL == nil {
+            self.gitRootURL = self.url
+        } else {
+            self.gitRootURL = tmpGitRootURL!
         }
     }
     
-    init(name: String, url: URL, gitURL: URL, files: [File], dateCloned: String, lastUpdated: String) {
+    init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File], dateCloned: String, lastUpdated: String) {
         self.name = name
         self.url = url
-        self.gitURL = gitURL
+        self.gitRemoteURL = gitURL
+        self.currentGitHash = currentGitHash
         self.dateCloned = dateCloned
         self.lastUpdated = lastUpdated
         self.status = true
         self.files = files
+        self.currentGitHash = currentGitHash
+        self.currentBuildGitHash = currentBuildGitHash
         
+        var tmpGitRootURL: URL? = nil
         for file in self.files {
             if file.fileName == ".swift-version" {
                 self.swiftVersion = file
             }
             if file.fileName == "Package.swift" {
                 self.packageDotSwift = file
+                tmpGitRootURL = file.fileURL.deletingPathExtension().deletingLastPathComponent()
             }
+        }
+        if tmpGitRootURL == nil {
+            self.gitRootURL = self.url
+        } else {
+            self.gitRootURL = tmpGitRootURL!
         }
     }
     

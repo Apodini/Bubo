@@ -40,7 +40,7 @@ extension Bubo.Analysis {
                 return
             }
             headerMessage(msg: "Parsing \(options.serviceName)")
-            let serviceManager = ServiceManager(service: service)
+            let serviceManager = ServiceManager(service: service, pName: options.projectName)
             guard let graph = serviceManager.createDependencyGraph() else {
                 return
             }

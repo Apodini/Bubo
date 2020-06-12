@@ -23,7 +23,7 @@ extension ResourceManager {
             let name = serviceName.blue().underline()
             let service = services[serviceName]
             if service != nil {
-                print("\(name) -> \(service!.gitURL.absoluteString.yellow())")
+                print("\(name) -> \(service!.gitRemoteURL.absoluteString.yellow())")
             }
         }
     }
