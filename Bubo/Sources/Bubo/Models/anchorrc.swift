@@ -8,7 +8,7 @@ struct Anchorrc: Codable {
     public var url: URL
     public var projectName: String // Name of the Project
     public var creationTimestamp: String
-    public var repositories: [String:URL]
+    public var repositories: [String:Service]
     public var lastUpdated: String
     
     init(url: URL, projectName: String, lastUpdated: String) {
