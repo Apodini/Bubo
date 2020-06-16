@@ -3,7 +3,8 @@
 //
 
 import Foundation
-//import SwiftSyntax
+
+/// A basic representation of a file that is encodable as JSON
 
 struct File: Codable {
     let fileURL: URL

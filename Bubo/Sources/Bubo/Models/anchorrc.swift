@@ -5,11 +5,22 @@
 import Foundation
 
 struct Anchorrc: Codable {
+    
+    /// The URL where the project is located
     public var url: URL
-    public var projectName: String // Name of the Project
+    
+    /// The project name  that works as a unique idetifier for the project
+    public var projectName: String
+    
+    /// A timestamp for the creation of the project
     public var creationTimestamp: String
-    public var repositories: [String:Service]
+    
+    /// A timestamp for the last time the project was updated or changed by the program
     public var lastUpdated: String
+    
+    /// All services of this project identified by thier service name
+    public var repositories: [String:Service]
+
     
     init(url: URL, projectName: String, lastUpdated: String) {
         self.creationTimestamp = Date().description(with: .current)

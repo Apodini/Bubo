@@ -5,12 +5,23 @@
  import Foundation
  
  public struct Buborc: Codable {
+    
+    /// The version of the currently used application
     public var version: String
+    
+    /// A verbose mode that activates or deactivates verbose command line outputs
     public var verboseMode: Bool
+    
+    /// All projects that the application can work on identified by their project name
     public var projects: [String:URL]?
+    
+    /// The applications root directory URL where all application configuration files live
     public var rootUrl: URL?
+    
+    /// The date when the current version of Bubo was initialised
     public var initialisationDate: String
     
+    /// The extended constructor to specify a dedicated application root driectory
     init(version: String, projects: [String:URL], rootRepoUrl: URL) {
         self.version = version
         self.projects = projects
@@ -19,6 +30,8 @@
         self.verboseMode = false
     }
     
+    /// The standard constructor
+    /// Locates the application root directory in the users home directory
     init(version: String, projects: [String:URL]) {
         let fileManager = FileManager()
         var rootPath: URL?
