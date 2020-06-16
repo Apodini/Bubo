@@ -8,13 +8,13 @@
 import Foundation
 import IndexStoreDB
 
-class Node: Codable, Equatable, CustomStringConvertible {
+public class Node: Codable, Equatable, CustomStringConvertible {
     var usr: String
     var kind: NodeKind
     var name: String
     
-    var description: String {
-        return "\(name) | \(kind)"
+    public var description: String {
+        return "\(name) | \(kind)\n\(usr)"
     }
     
     init(usr: String, kind: NodeKind, name: String) {
@@ -29,8 +29,8 @@ class Node: Codable, Equatable, CustomStringConvertible {
         self.name = symbol.name
     }
     
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.usr == rhs.usr
+    public static func == (lhs: Node, rhs: Node) -> Bool {
+        return lhs.usr == rhs.usr && lhs.kind == rhs.kind && lhs.name == rhs.name
     }
     
     static func getNodeKind(symbol: Symbol) -> NodeKind {

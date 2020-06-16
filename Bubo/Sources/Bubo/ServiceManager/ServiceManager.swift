@@ -11,6 +11,7 @@ class ServiceManager {
     public let parser: Parser
     private let graphBuilder: GraphBuilder
     private let service: Service
+    private let projectName: String
     
     
     init(service: Service, pName: String?) {
@@ -27,7 +28,16 @@ class ServiceManager {
         // Parse service + build graph
         parser.parse(service: service)
         self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
+        
+        guard let name = pName else {
+            errorMessage(msg: "Can't unwrap project name!")
+            self.projectName = ""
+            return
+        }
+        self.projectName = name
     }
+    
+    
     
     private static func compareGitHash(service: Service, pName: String?) -> Bool {
         guard var (projectHandle, projectConfig) = self.resourceManager.decodeProjectConfig(pName: pName) else {
@@ -49,7 +59,6 @@ class ServiceManager {
             projectConfig.repositories = services
             projectConfig.lastUpdated = Date().description(with: .current)
             self.resourceManager.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
-            successMessage(msg: "Reencoded projectconfig")
             return false
         }
         
@@ -112,6 +121,28 @@ class ServiceManager {
     }
     public func createDependencyGraph() -> DependencyGraph<Node>? {
         graphBuilder.createDependencyGraph()
+        self.updateGraph()
         return graphBuilder.graph
+    }
+    
+    private func updateGraph() -> Void {
+        guard var (projectHandle, projectConfig) = ServiceManager.resourceManager.decodeProjectConfig(pName: projectName) else {
+            abortMessage(msg: "Refresh services")
+            return
+        }
+        
+        var services = projectConfig.repositories
+        var updatedService: Service = Service(
+            name: service.name,
+            url: service.url,
+            gitURL: service.gitRemoteURL,
+            currentGitHash: service.currentGitHash,
+            currentBuildGitHash: service.currentGitHash,
+            files: service.files)
+        updatedService.setGraph(graph: graphBuilder.graph)
+        services[updatedService.name] = updatedService
+        projectConfig.repositories = services
+        projectConfig.lastUpdated = Date().description(with: .current)
+        ServiceManager.resourceManager.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
     }
 }

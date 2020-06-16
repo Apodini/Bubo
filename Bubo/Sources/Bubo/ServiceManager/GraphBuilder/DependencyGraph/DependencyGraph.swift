@@ -61,7 +61,7 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
             }
         }
         
-        return graph + vertices + "}"
+        return graph + "}"
     }
 }
 
@@ -166,11 +166,28 @@ extension Graph where E == DependencyEdge {
     /// - parameter to: The ending vertex of the edge.
     /// - returns: True if there is an edge from the starting vertex to the ending vertex.
     public func edgeExists(from: V, to: V, role: [EdgeRole]) -> Bool {
+//        print("Checking:\nfrom: \(from)\nto: \(to)\nroles: \(role)")
         if let u = indexOfVertex(from) {
             if let v = indexOfVertex(to) {
-                return edgeExists(fromIndex: u, toIndex: v, role: role)
+                for edge in edges[u] {
+//                    print("\(edge) \(edge.roles)\n")
+                    if edge.v == v && edge.roles.count == role.count {
+                        var flag: Bool = true
+                        for r in edge.roles {
+                            if !role.contains(r) {
+                                flag = false
+                            }
+                        }
+                        if flag {
+                          //  print("\(flag)\n")
+                            return flag
+                        }
+                    }
+                }
+            //    return edgeExists(fromIndex: u, toIndex: v, role: role)
             }
         }
+//        print("\(false)\n")
         return false
     }
 }

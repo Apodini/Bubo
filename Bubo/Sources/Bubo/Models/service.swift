@@ -21,6 +21,7 @@ public struct Service: Codable, Equatable {
     var files: [File]
     var packageDotSwift: File?
     var swiftVersion: File?
+    var graph: DependencyGraph<Node>?
     
     
     init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File]) {
@@ -33,6 +34,7 @@ public struct Service: Codable, Equatable {
         self.files = files
         self.currentGitHash = currentGitHash
         self.currentBuildGitHash = currentBuildGitHash
+        self.graph = nil
         
         var tmpGitRootURL: URL? = nil
         for file in self.files {
@@ -83,5 +85,8 @@ public struct Service: Codable, Equatable {
     public static func == (lhs: Service, rhs: Service) -> Bool {
         return lhs.name == rhs.name
     }
-
+    
+    public mutating func setGraph(graph: DependencyGraph<Node>) -> Void {
+        self.graph = graph
+    }
 }

@@ -111,7 +111,7 @@ class GraphBuilder {
                                         graph.addVertex(occNode)
                                         queue.push(occNode)
                                     }
-                                    
+                           
                                     /// Scan all relations of the symbol
                                     for relation in occurrence.relations {
                                         let relatedNode = Node(symbol: relation.symbol)
@@ -121,10 +121,10 @@ class GraphBuilder {
                                             queue.push(relatedNode)
                                         }
                                         
-                                        /// Check if there is an already existing edge between the node and the related nodecand genereate dge if not
-                                        let role = EdgeRole.getEdgeRoles(symbolRole: relation.roles)
-                                        if !graph.edgeExists(from: occNode, to: relatedNode, role: role) {
-                                            graph.addEdge(from: occNode, to: relatedNode, directed: true, role: role)
+                                        /// Check if there is an already existing edge between the node and the related node and genereate edge if not
+                                        let roles = EdgeRole.getEdgeRoles(symbolRole: relation.roles)
+                                        if !graph.edgeExists(from: occNode, to: relatedNode, role: roles) {
+                                            graph.addEdge(from: occNode, to: relatedNode, directed: true, role: roles)
                                         }
                                     }
                                 }
@@ -168,6 +168,7 @@ class GraphBuilder {
 //            }
 //        }
 //    }
+    
 }
 
 extension GraphBuilder {
