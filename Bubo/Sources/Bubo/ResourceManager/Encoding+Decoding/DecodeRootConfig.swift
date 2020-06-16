@@ -8,16 +8,19 @@
 import Foundation
 
 extension ResourceManager {
+    
+    /// Decodes the root configuration and saves it to the globally available `rootConfig` variable
+    
     func decodeRootConfig() -> Void {
-        // Create directory path for bubos root directory
-        guard let configPath = getRootConfigPath() else {
+        /// Fetch directory path for applications root directory
+        guard let configURL = getRootConfigPath() else {
             abortMessage(msg: "Decoding of root configuration file")
             return
         }
-        guard let decoded = decodeDatafromJSON(url: configPath.absoluteURL) else {
+        guard let decodedRootConfiguration = decodeDatafromJSON(url: configURL.absoluteURL) else {
             abortMessage(msg: "Decoding of root configuration file")
             return
         }
-        rootConfig = decoded
+        rootConfig = decodedRootConfiguration
     }
 }

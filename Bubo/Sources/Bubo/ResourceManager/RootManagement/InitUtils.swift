@@ -5,7 +5,11 @@
 import Foundation
 
 extension ResourceManager {
-    // Fetch root directory for initialisation
+    
+    /// Fetch application configuration root directory for initialisation.
+    ///
+    /// - returns: Returns the URL of the root configuration directory if existent. Else it returns nil.
+    
     func getRootDir() -> URL? {
         guard let filePath = rootConfig.rootUrl else {
             errorMessage(msg: "Can't get Bubo root repository path")
@@ -14,22 +18,30 @@ extension ResourceManager {
         return filePath
     }
     
-    // Fetch root config path for initialisation check and decoding of configurations
+    /// Fetch root config path for initialisation check and decoding of configurations.
+    ///
+    /// - returns: Returns the URL of the root configuration  file  if existent. Else it returns nil.
+
     func getRootConfigPath() -> URL? {
-        // Create directory path for bubos root directory
-        guard let filePath = getRootDir() else {
+        
+        /// Fetch directory path for bubos root directory
+        guard let rootDirectoryURL = getRootDir() else {
             return nil
         }
-        if self.fileManager.fileExists(atPath: filePath.path) {
-            // Create path for root config file
-            let configPath = URL(fileURLWithPath: filePath
+        
+        /// Check if the configuration directory exists
+        if self.fileManager.fileExists(atPath: rootDirectoryURL.path) {
+            
+            /// Create URL for the root configuration file
+            let configurationURL = URL(fileURLWithPath: rootDirectoryURL
                 .appendingPathComponent("buborc")
                 .appendingPathExtension("json").path)
             
-            if self.fileManager.fileExists(atPath: configPath.path) {
-                return configPath
+            /// Check if the configuration file exists
+            if self.fileManager.fileExists(atPath: configurationURL.path) {
+                return configurationURL
             } else {
-                errorMessage(msg: "Can't get URL for root configuration file: Configuration does not exist at path \(configPath)")
+                errorMessage(msg: "Can't get URL for root configuration file: Configuration does not exist at path \(configurationURL)")
             }
         }
         return nil

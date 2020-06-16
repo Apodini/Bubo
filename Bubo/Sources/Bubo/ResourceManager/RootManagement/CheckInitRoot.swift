@@ -5,7 +5,11 @@
 import Foundation
 
 extension ResourceManager {
-    // Checks if the root repository of the application has been initialised
+    
+    /// Checks if the application has been initialised
+    ///
+    /// - returns: Retruns a boolean value that indicates if the application has been initalised
+    
     func checkInit() -> Bool {
         guard getRootConfigPath() != nil else {
             return false

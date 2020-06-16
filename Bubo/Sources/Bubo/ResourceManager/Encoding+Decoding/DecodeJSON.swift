@@ -5,6 +5,11 @@
 import Foundation
 
 extension ResourceManager {
+    
+    /// Decodes a root configuration that is encoded in JSON
+    ///
+    /// - parameter url: The URL the JSON encoded root configuration is located at
+    
     func decodeDatafromJSON(url: URL) -> Optional<Buborc> {
         let decoder = JSONDecoder()
         var config: Buborc?
@@ -16,6 +21,11 @@ extension ResourceManager {
         }
         return config
     }
+    
+    
+    /// Decodes a project configuration that is encoded in JSON
+    ///
+    /// - parameter url: The URL the JSON encoded project configuration is located at
     
     func decodeProjectConfigfromJSON(url: URL) -> Optional<Anchorrc> {
         let decoder = JSONDecoder()

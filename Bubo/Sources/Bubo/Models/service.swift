@@ -12,6 +12,7 @@ public struct Service: Codable, Equatable {
     var name: String
     var url: URL
     var gitRootURL: URL
+    var packageRootURL: URL?
     var gitRemoteURL: URL
     var dateCloned: String
     var lastUpdated: String
@@ -48,7 +49,9 @@ public struct Service: Codable, Equatable {
         }
         if tmpGitRootURL == nil {
             self.gitRootURL = self.url
+            self.packageRootURL = nil
         } else {
+            self.packageRootURL = tmpGitRootURL!
             self.gitRootURL = tmpGitRootURL!
         }
     }

@@ -5,6 +5,12 @@
 import Foundation
 
 extension ResourceManager {
+    
+    /// Encodes root configuration data to JSON
+    ///
+    /// - parameter config: The root configuration data that should be encoded
+    /// - returns: The encoded root configuration data if encoding was successful
+    
     func encodeDataToJSON(config: Buborc) -> Data? {
         let encoder = JSONEncoder()
         do {
@@ -15,6 +21,12 @@ extension ResourceManager {
             return nil
         }
     }
+    
+    
+    /// Encodes project configuration data to JSON
+    ///
+    /// - parameter config: The project configuration data that should be encoded
+    /// - returns: The encoded project configuration data if encoding was successful
     
     func encodeDataToJSON(config: Anchorrc) -> Data? {
         let encoder = JSONEncoder()

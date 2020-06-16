@@ -7,6 +7,10 @@ import ShellOut
 
 extension ResourceManager {
     
+    /// Opens a project in Finder
+    ///
+    /// - parameter pName: The name of the project to open. If `pName` is nil, the program checks if the current directory name is a project and opens it.
+
     func openProject(pName: String?) -> Void {
         
         guard let (projectHandle, projectURL) = self.getProjectURL(projectName: pName) else {
@@ -16,6 +20,7 @@ extension ResourceManager {
         
         headerMessage(msg: "Opening directory of \(projectHandle)")
 
+        /// Change to project directory and open it via ShellOut 
         if fileManager.changeCurrentDirectoryPath(projectURL.path) {
             do {
                 try shellOut(to: "open .")

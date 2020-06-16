@@ -29,7 +29,7 @@ extension Bubo {
         
         func run() {
             let resourceManager = ResourceManager()
-            resourceManager.initProject(pName: options.projectName)
+            resourceManager.newProject(pName: options.projectName)
         }
     }
 }

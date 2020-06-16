@@ -5,9 +5,14 @@
 import Foundation
 
 extension ResourceManager {
+    
+    /// Removes a project and all its subdirectories permanently from disk. Use with special care!
+    ///
+    /// - parameter pName: The name of the project to remove. If `pName` is nil, the program checks if the current directory name is a project and removes it.
+    
     func removeProject(pName: String?) -> Void {
         
-        guard var (projectHandle, projects) = self.fetchProjects(pName: pName) else {
+        guard var (projectHandle, projects) = self.fetchHandleAndProjects(pName: pName) else {
                    abortMessage(msg: "Deregistering project")
                    return
         }

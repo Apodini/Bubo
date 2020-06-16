@@ -6,25 +6,36 @@ import Foundation
 import ShellOut
 
 extension ResourceManager {
-    // Checks the projects service directory for new services or deleted services
+    
+    /// Checks a projects service directory for new, deleted or changed services and refreshes the project configuration
+    ///
+    /// - parameter projectName: The name of the project to refresh. If `projectName` is nil, the program checks if the current directory name is a project.
+    /// - returns: A boolean value to indicate if the projectt refresh was successfu
+    
     func refreshServices(projectName: String?) -> Bool {
+        
+        /// Get the `projecHandle` and the project configuration `projectConfig`
         guard var (projectHandle, projectConfig) = self.decodeProjectConfig(pName: projectName) else {
                abortMessage(msg: "Refresh services")
                return false
         }
-        
         outputMessage(msg: "Refreshing services for \(projectHandle)")
        
+        /// Save currently persisted services
         let prevServices = projectConfig.repositories
         
         // There should never be other files except the services in the services diectory!
+        /// Create the service directory URL and check if a directory exists
         let servicesURL = projectConfig.url.appendingPathComponent("services")
-        
         if fileManager.fileExists(atPath: servicesURL.path) {
             do {
                 outputMessage(msg: "Generating services for all items in \(projectHandle)s service directory")
+                
+                /// Get all service URLs for services in the service directory
                 let directoryItems: [URL] = try fileManager.contentsOfDirectory(at: servicesURL, includingPropertiesForKeys: nil)
                 var services: [String:Service] = [:]
+                
+                /// Generate new service configuration data objects for all service URLs
                 for url in directoryItems {
                     guard let service = fetchServiceFromURL(serviceURL: url) else {
                         abortMessage(msg: "Refresh services")
@@ -34,11 +45,14 @@ extension ResourceManager {
                 }
                 outputMessage(msg: "Compare found services with services registered in project configuration")
                 var updatedServices: [String:Service] = [:]
-                // Compare old services with new services and keep old service objects if they already exist
+                
+                /// Compare currently persisted services with new services if service dosen't exist then add it, else merge the old and the new service
                 for (_,newService) in services {
                         if prevServices.values.contains(newService) {
                             for (_, oldService) in prevServices {
                                 if oldService == newService {
+                                    
+                                    /// Generate an updated service configuration data object from the new and the old service
                                     let tmpService = Service(
                                         name: oldService.name,
                                         url: newService.url,
@@ -56,6 +70,8 @@ extension ResourceManager {
                             outputMessage(msg: "Added new service \(newService.name)")
                         }
                     }
+                
+                /// Update the project configuration and encode it to persist changes
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
                 projectConfig.repositories = updatedServices
                 projectConfig.lastUpdated = Date().description(with: .current)

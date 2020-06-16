@@ -6,30 +6,36 @@ import Foundation
 
 
 extension ResourceManager {
-  // ----------------------- New project initialisation
-    func initProject(pName: String?) -> Bool {
+    
+    /// Initialises a new project and registeres it in the root configuration.
+    ///
+    /// - parameter pName: The name of the project to create. If `pName` is nil, the program creates a new project in the current directory,
+    ///                    else it creates a new directory with the name `pName` where the project is initialised in.
+    /// - returns: Returns a boolean value that indicates if the project has successfully been created
+
+    func newProject(pName: String?) -> Bool {
         let projectHandle: String
         let projectURL: URL
         var inNewDirectory: Bool
         
-        // Create the current directory path
+        /// Create the current directory path
         guard let currentDirURL = URL(string: fileManager.currentDirectoryPath) else {
             errorMessage(msg: "Can't get current directory path")
             return false
         }
         
-        // Prepare initialisation
-        if pName != nil { // in new directory
+        /// Prepare initialisation in new directory or in current directory
+        if pName != nil {
             projectHandle = pName!
             inNewDirectory = true
-        } else { // in current directroy
+        } else {
             projectHandle = fileManager.displayName(atPath: currentDirURL.path)
             inNewDirectory = false
         }
         
         headerMessage(msg: "Starting initialisation of \(projectHandle)")
         
-        // Check if a project of this name already exists
+        /// Check if a project of this name already exists
         if rootConfig.projects?.keys.contains(projectHandle) ?? false { // nil -> project does not exist
             guard let url = rootConfig.projects?[projectHandle] else {
                 return false
@@ -39,6 +45,7 @@ extension ResourceManager {
             return false
         }
         
+        /// Check if the project needs to be created in a new directory or in the current directory and create the project URL
         if inNewDirectory {
             projectURL = currentDirURL.appendingPathComponent("\(projectHandle)")
             
@@ -58,14 +65,15 @@ extension ResourceManager {
         } else {
             projectURL = currentDirURL
         }
-        // Create anchor config file
+        
+        /// Create project configurration data
         let configData: Anchorrc = Anchorrc(
             url: projectURL,
             projectName: projectHandle,
             lastUpdated: Date().description(with: .current)
         )
         
-        // Create the path for the config file of the new repo
+        /// Create the path for the project configuration file and check if the file already exists
         let configURL = projectURL
             .appendingPathComponent("anchorrc")
             .appendingPathExtension("json")
@@ -75,19 +83,24 @@ extension ResourceManager {
             return false
         }
         
-        // Try to generate config file and log progress
+        /// Try to generate config file
         guard let data = encodeDataToJSON(config: configData) else {
             abortMessage(msg: "Project initialisation")
             return false
         }
         
+        /// Create the configuration file at its dedicated URL with the generatedconfiguration data
         let isCreated = self.fileManager
             .createFile(atPath: configURL.path, contents: data, attributes: nil)
         if isCreated {
             outputMessage(msg: "Project config file created at path: \(configURL.path)")
+            
+            /// Initialise projects if this is the first project
             if rootConfig.projects == nil {
                 rootConfig.projects = [:]
             }
+            
+            /// Add project to the root configuration and reencode the root configuration to persist changes
             rootConfig.projects?[projectHandle] = projectURL
             encodeRootConfig(config: rootConfig)
         } else {
