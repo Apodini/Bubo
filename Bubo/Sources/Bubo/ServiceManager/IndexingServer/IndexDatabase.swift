@@ -1,16 +1,20 @@
 import Foundation
 import IndexStoreDB
 
+
+/// Represents an IndexingDatabase instance
 class IndexDatabase {
     
+    /// The path to the XCode default toolchain that contains the indexStore library needed to create a database
     static let libIndexStore = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libIndexStore.dylib"
         
+    /// The indexStore configuration that contains the database and the store pat
     let indexDBConfig: IndexDatabaseConfiguration
 
     /// The source code index, if available.
     var index: IndexStoreDB? = nil
     
-    /// The directory containing the original, unmodified project.
+    /// A Constructor that creates the index if possible
     init(indexDBConfig: IndexDatabaseConfiguration) throws {
         self.indexDBConfig = indexDBConfig
         if let storePath = indexDBConfig.indexStorePath,
