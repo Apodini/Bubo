@@ -74,6 +74,7 @@ class GraphBuilder {
         }
         
         /// Connect all extensions to their classes or structs
+        /// - TODO: Move this to the end of this function, so that all nodes are generated before this code piece is executed
         for node in graph.vertices {
             if node.kind == .class || node.kind == .struct {
                 for extensionNode in graph.vertices {
