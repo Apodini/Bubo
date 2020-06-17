@@ -38,4 +38,21 @@ extension ResourceManager {
             return nil
         }
     }
+    
+    
+    /// Encodes service configuration data to JSON
+    ///
+    /// - parameter config: The project configuration data that should be encoded
+    /// - returns: The encoded project configuration data if encoding was successful
+    
+    func encodeDataToJSON(config: ServiceConfiguration) -> Data? {
+        let encoder = JSONEncoder()
+        do {
+            let data: Data = try encoder.encode(config)
+            return data
+        } catch {
+            errorMessage(msg: "Encoder couldn't encode service configuration file")
+            return nil
+        }
+    }
 }

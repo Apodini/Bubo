@@ -38,4 +38,21 @@ extension ResourceManager {
         }
         return config
     }
+    
+    
+    /// Decodes a service configuration that is encoded in JSON
+    ///
+    /// - parameter url: The URL the JSON encoded project configuration is located at
+    
+    func decodeServiceConfigfromJSON(url: URL) -> Optional<ServiceConfiguration> {
+        let decoder = JSONDecoder()
+        var config: ServiceConfiguration?
+        do {
+            try config = decoder.decode(ServiceConfiguration.self, from: Data(contentsOf: url))
+        } catch {
+            errorMessage(msg: "Decoder couldn't decode project configuration file at path \(url.path)")
+            return nil
+        }
+        return config
+    }
 }

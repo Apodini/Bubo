@@ -1,7 +1,4 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 06.05.20.
 //
 
@@ -9,29 +6,22 @@ import Foundation
 
 extension ResourceManager {
     
-    /// Encodes passed project configuration data for a **validated** passed project
+    /// Encodes passed project configuration data for a  project
     ///
     /// - parameters:
-    ///     - pName: The validated project nam. If it's not existing, the encoding will fail
+    ///     - pName: The project name
     ///     - configData: The configuration data that should be encoded for the project
     
-    func encodeProjectConfig(pName: String, configData: ProjectConfiguration) -> Void {
+    func encodeProjectConfig(pName: String?, configData: ProjectConfiguration) -> Void {
         
         /// Fetch projects and validate project name
-        guard let projects = rootConfig.projects else {
-            errorMessage(msg: "Can't encode project configuration for \(pName) because no projects exists in root configuration")
-            return
-        }
-        
-        let projectNames = rootConfig.projects?.keys
-        
-        if !(projectNames?.contains(pName) ?? false) {
-            errorMessage(msg: "Can't encode project configuration because \(pName) is not existing. Use Bubo new \(pName) to initialise the new project or use the --new option on th add command")
+        guard let (projectHandle, projects) = self.fetchHandleAndProjects(pName: pName) else {
+            abortMessage(msg: "Encoding of project configuration")
             return
         }
         
         /// Fetch the projects configuration file URL
-        guard let configURL = projects[pName]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
+        guard let configURL = projects[projectHandle]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
             errorMessage(msg: "Can't get projects configuration file path for \(pName). Does the project exist?")
             return
         }
