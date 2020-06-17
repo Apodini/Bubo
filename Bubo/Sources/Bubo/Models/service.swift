@@ -81,7 +81,7 @@ public struct Service: Codable, Equatable {
         }
     }
     
-    /// An extended constructorr to generate megerged Services
+    /// An extended constructor to generate megerged Services
     init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File], dateCloned: String, lastUpdated: String) {
         self.name = name
         self.url = url
