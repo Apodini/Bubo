@@ -13,7 +13,7 @@ extension ResourceManager {
     ///
     /// - parameter config: The application root configuration that should be encoded
     
-    func encodeRootConfig(config: Buborc) -> Void {
+    func encodeRootConfig(config: ProgramConfiguration) -> Void {
         
         /// Fetch the root configuration file UR
         guard let configURL = getRootConfigPath() else {

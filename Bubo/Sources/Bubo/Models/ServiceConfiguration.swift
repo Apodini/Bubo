@@ -5,7 +5,7 @@
 import Foundation
 
 
-public struct Service: Codable, Equatable {
+public struct ServiceConfiguration: Codable, Equatable {
     
     /// The name of the service that acts as a unique identifier for the service
     var name: String
@@ -111,7 +111,7 @@ public struct Service: Codable, Equatable {
         }
     }
     
-    public static func == (lhs: Service, rhs: Service) -> Bool {
+    public static func == (lhs: ServiceConfiguration, rhs: ServiceConfiguration) -> Bool {
         return lhs.name == rhs.name
     }
     

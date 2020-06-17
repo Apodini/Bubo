@@ -4,7 +4,7 @@
  
  import Foundation
  
- public struct Buborc: Codable {
+ public struct ProgramConfiguration: Codable {
     
     /// The version of the currently used application
     public var version: String

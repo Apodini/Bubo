@@ -15,7 +15,7 @@ extension ResourceManager {
     ///     - pName: The validated project nam. If it's not existing, the encoding will fail
     ///     - configData: The configuration data that should be encoded for the project
     
-    func encodeProjectConfig(pName: String, configData: Anchorrc) -> Void {
+    func encodeProjectConfig(pName: String, configData: ProjectConfiguration) -> Void {
         
         /// Fetch projects and validate project name
         guard let projects = rootConfig.projects else {

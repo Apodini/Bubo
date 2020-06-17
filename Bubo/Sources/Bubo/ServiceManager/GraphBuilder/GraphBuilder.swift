@@ -31,7 +31,7 @@ class GraphBuilder {
     
     
     /// Constructs a GraphBuilder object and initialises the indexing server needed to query raw indexing data
-    init(tokens: [Token], tokenExtensions: [String:Token], service: Service) {
+    init(tokens: [Token], tokenExtensions: [String:Token], service: ServiceConfiguration) {
         self.graph = DependencyGraph<Node>()
         self.tokens = tokens
         self.tokenExtensions = tokenExtensions

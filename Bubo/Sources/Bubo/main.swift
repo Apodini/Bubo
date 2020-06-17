@@ -2,7 +2,7 @@ import ArgumentParser
 import Foundation
 
 public var initStatus: Bool = false
-public var rootConfig: Buborc = Buborc(
+public var rootConfig: ProgramConfiguration = ProgramConfiguration(
     version: "0.0.1",
     projects: [:]
 )

@@ -10,11 +10,11 @@ class ServiceManager {
     private static let resourceManager: ResourceManager = ResourceManager()
     public let parser: Parser
     private let graphBuilder: GraphBuilder
-    private let service: Service
+    private let service: ServiceConfiguration
     private let projectName: String
     
     
-    init(service: Service, pName: String?) {
+    init(service: ServiceConfiguration, pName: String?) {
         // Init properties
         self.service = service
         self.parser = Parser()
@@ -39,7 +39,7 @@ class ServiceManager {
     
     
     
-    private static func compareGitHash(service: Service, pName: String?) -> Bool {
+    private static func compareGitHash(service: ServiceConfiguration, pName: String?) -> Bool {
         guard var (projectHandle, projectConfig) = self.resourceManager.decodeProjectConfig(pName: pName) else {
             abortMessage(msg: "Refresh services")
             return false
@@ -48,7 +48,7 @@ class ServiceManager {
         guard let buildHash = service.currentBuildGitHash else {
             // Update project configuration with new build hash
             var services = projectConfig.repositories
-            let updatedService: Service = Service(
+            let updatedService: ServiceConfiguration = ServiceConfiguration(
                 name: service.name,
                 url: service.url,
                 gitURL: service.gitRemoteURL,
@@ -66,7 +66,7 @@ class ServiceManager {
             return true
         } else {
             var services = projectConfig.repositories
-            let updatedService: Service = Service(
+            let updatedService: ServiceConfiguration = ServiceConfiguration(
                 name: service.name,
                 url: service.url,
                 gitURL: service.gitRemoteURL,
@@ -82,7 +82,7 @@ class ServiceManager {
         }
     }
     
-    private static func buildService(service: Service) -> Void {
+    private static func buildService(service: ServiceConfiguration) -> Void {
         outputMessage(msg: "Initialising building process...")
         if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
             if ServiceManager.fileManager.changeCurrentDirectoryPath(
@@ -106,7 +106,7 @@ class ServiceManager {
         }
     }
     
-    private static func cleanUpService(service: Service) -> Void {
+    private static func cleanUpService(service: ServiceConfiguration) -> Void {
         outputMessage(msg: "Cleaning up service...")
         if ServiceManager.fileManager.fileExists(atPath: service.gitRootURL.appendingPathComponent(".build").path) {
             if ServiceManager.fileManager.changeCurrentDirectoryPath(service.gitRootURL.path) {
@@ -132,7 +132,7 @@ class ServiceManager {
         }
         
         var services = projectConfig.repositories
-        var updatedService: Service = Service(
+        var updatedService: ServiceConfiguration = ServiceConfiguration(
             name: service.name,
             url: service.url,
             gitURL: service.gitRemoteURL,

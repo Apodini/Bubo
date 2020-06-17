@@ -33,7 +33,7 @@ extension ResourceManager {
                 
                 /// Get all service URLs for services in the service directory
                 let directoryItems: [URL] = try fileManager.contentsOfDirectory(at: servicesURL, includingPropertiesForKeys: nil)
-                var services: [String:Service] = [:]
+                var services: [String:ServiceConfiguration] = [:]
                 
                 /// Generate new service configuration data objects for all service URLs
                 for url in directoryItems {
@@ -44,7 +44,7 @@ extension ResourceManager {
                     services[service.name] = service
                 }
                 outputMessage(msg: "Compare found services with services registered in project configuration")
-                var updatedServices: [String:Service] = [:]
+                var updatedServices: [String:ServiceConfiguration] = [:]
                 
                 /// Compare currently persisted services with new services if service dosen't exist then add it, else merge the old and the new service
                 for (_,newService) in services {
@@ -53,7 +53,7 @@ extension ResourceManager {
                                 if oldService == newService {
                                     
                                     /// Generate an updated service configuration data object from the new and the old service
-                                    let tmpService = Service(
+                                    let tmpService = ServiceConfiguration(
                                         name: oldService.name,
                                         url: newService.url,
                                         gitURL: newService.gitRemoteURL,

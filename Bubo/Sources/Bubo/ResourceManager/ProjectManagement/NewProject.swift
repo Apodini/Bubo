@@ -67,7 +67,7 @@ extension ResourceManager {
         }
         
         /// Create project configurration data
-        let configData: Anchorrc = Anchorrc(
+        let configData: ProjectConfiguration = ProjectConfiguration(
             url: projectURL,
             projectName: projectHandle,
             lastUpdated: Date().description(with: .current)

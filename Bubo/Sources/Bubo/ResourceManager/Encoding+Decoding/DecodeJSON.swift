@@ -10,11 +10,11 @@ extension ResourceManager {
     ///
     /// - parameter url: The URL the JSON encoded root configuration is located at
     
-    func decodeDatafromJSON(url: URL) -> Optional<Buborc> {
+    func decodeDatafromJSON(url: URL) -> Optional<ProgramConfiguration> {
         let decoder = JSONDecoder()
-        var config: Buborc?
+        var config: ProgramConfiguration?
         do {
-            try config = decoder.decode(Buborc.self, from: Data(contentsOf: url))
+            try config = decoder.decode(ProgramConfiguration.self, from: Data(contentsOf: url))
         } catch {
             errorMessage(msg: "Decoder couldn't decode root configuration file at path \(url.path)")
             return nil
@@ -27,11 +27,11 @@ extension ResourceManager {
     ///
     /// - parameter url: The URL the JSON encoded project configuration is located at
     
-    func decodeProjectConfigfromJSON(url: URL) -> Optional<Anchorrc> {
+    func decodeProjectConfigfromJSON(url: URL) -> Optional<ProjectConfiguration> {
         let decoder = JSONDecoder()
-        var config: Anchorrc?
+        var config: ProjectConfiguration?
         do {
-            try config = decoder.decode(Anchorrc.self, from: Data(contentsOf: url))
+            try config = decoder.decode(ProjectConfiguration.self, from: Data(contentsOf: url))
         } catch {
             errorMessage(msg: "Decoder couldn't decode project configuration file at path \(url.path)")
             return nil

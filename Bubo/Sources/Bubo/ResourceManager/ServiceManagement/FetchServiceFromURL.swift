@@ -12,7 +12,7 @@ extension ResourceManager {
     /// - parameter serviceURL: The URL where the service is located.
     /// - returns: A service configuration data object if the service exists, else nil.
     
-    func fetchServiceFromURL(serviceURL: URL) -> Service? {
+    func fetchServiceFromURL(serviceURL: URL) -> ServiceConfiguration? {
         
         let fileManager = FileManager.default
         
@@ -67,6 +67,6 @@ extension ResourceManager {
         }
         
         /// Return a new service configuration object
-        return Service(name: name, url: serviceURL, gitURL: gitURLresolved, currentGitHash: gitHash, currentBuildGitHash: nil, files: files)
+        return ServiceConfiguration(name: name, url: serviceURL, gitURL: gitURLresolved, currentGitHash: gitHash, currentBuildGitHash: nil, files: files)
     }
 }

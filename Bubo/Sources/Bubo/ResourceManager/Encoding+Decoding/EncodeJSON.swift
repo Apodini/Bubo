@@ -11,7 +11,7 @@ extension ResourceManager {
     /// - parameter config: The root configuration data that should be encoded
     /// - returns: The encoded root configuration data if encoding was successful
     
-    func encodeDataToJSON(config: Buborc) -> Data? {
+    func encodeDataToJSON(config: ProgramConfiguration) -> Data? {
         let encoder = JSONEncoder()
         do {
             let data: Data = try encoder.encode(config)
@@ -28,7 +28,7 @@ extension ResourceManager {
     /// - parameter config: The project configuration data that should be encoded
     /// - returns: The encoded project configuration data if encoding was successful
     
-    func encodeDataToJSON(config: Anchorrc) -> Data? {
+    func encodeDataToJSON(config: ProjectConfiguration) -> Data? {
         let encoder = JSONEncoder()
         do {
             let data: Data = try encoder.encode(config)

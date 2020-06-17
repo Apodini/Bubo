@@ -11,7 +11,7 @@ extension ResourceManager {
     /// - parameter configData: An application configuration that provides the environment context for the application.
     ///                         Based on this configuration data the applications root configuration is created.
     
-    func initRoot(configData: Buborc) -> Void {
+    func initRoot(configData: ProgramConfiguration) -> Void {
         headerMessage(msg: "Starting initialisation of Bubo")
         
         /// Create directory path for the application configuration directory

@@ -21,7 +21,7 @@ class Parser {
     ///
     /// - parameter service: The service that should be parsed
     
-    func parse(service: Service) -> Void {
+    func parse(service: ServiceConfiguration) -> Void {
         for file in service.files {
             
             /// Only parse .swift files

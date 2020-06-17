@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct Anchorrc: Codable {
+struct ProjectConfiguration: Codable {
     
     /// The URL where the project is located
     public var url: URL
@@ -19,7 +19,7 @@ struct Anchorrc: Codable {
     public var lastUpdated: String
     
     /// All services of this project identified by thier service name
-    public var repositories: [String:Service]
+    public var repositories: [String:ServiceConfiguration]
 
     
     init(url: URL, projectName: String, lastUpdated: String) {
