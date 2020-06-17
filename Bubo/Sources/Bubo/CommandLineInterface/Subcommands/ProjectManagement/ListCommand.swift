@@ -5,7 +5,11 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo {
+    
+    /// **Subcommand**:  List all registered projects
+    /// - note: Registered projects are persisted in the application root configuration.
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "List all Bubo projects")

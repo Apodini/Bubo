@@ -6,10 +6,13 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo.Analysis {
+    
+    /// **Subcommand**: Subcommand to generate a dependency graph and save it to a .dot file
     struct Graph: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Parses all files of a service and outputs the graph",
+            abstract: "Parses all files of a service and outputs the graph as a .dot file",
             discussion: "This command is only for testing the new features")
         
         @OptionGroup()

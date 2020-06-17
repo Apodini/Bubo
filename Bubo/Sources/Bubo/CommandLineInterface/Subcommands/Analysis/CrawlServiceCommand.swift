@@ -5,7 +5,10 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo.Analysis {
+    
+    /// **Subcommand**: Crawl a specified service and outout all its files to stdout 
     struct Crawl: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Output all files of a service",

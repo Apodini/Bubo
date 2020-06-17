@@ -6,13 +6,13 @@ import ArgumentParser
 import Foundation
 
 
-
-// Command to remove a bubo project
 extension Bubo {
+    
+    /// **Subcommand**:  Remove a project from the registerd projects
     struct Remove: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Remove a Bubo project",
-            discussion: "Removes a Bubo project and ALL its contents permanently. Please be careful with this command"
+            discussion: "Removes a Bubo project and ALL its contents permanently if the flag is set. Please be careful with this command"
         )
         
         @OptionGroup()

@@ -9,6 +9,7 @@ import Foundation
 // Main command
 struct Bubo: ParsableCommand {
     
+    /// **Subcommand**:  The root command of the application that contains all subcommands and defines the option groups
     static let configuration = CommandConfiguration(
         abstract: "Bubo is a tool to aid developers with the decomposiotion of systems into microservices",
         subcommands: [

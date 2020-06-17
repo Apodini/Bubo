@@ -6,9 +6,9 @@ import ArgumentParser
 import Foundation
 
 
-
-// Command to create a new bubo repository
 extension Bubo {
+    
+    /// **Subcommand**:  Create a new project
     struct New: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Create a new Bubo project",

@@ -5,7 +5,10 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo.Service {
+    
+    /// **Subcommand**:  List all services of a project
     struct List: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "List all services of a specific project")

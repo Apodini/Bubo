@@ -6,6 +6,8 @@ import Foundation
 import ArgumentParser
 
 extension Bubo {
+    
+    /// **Subcommand**: Get the statistics and status information about the application
     struct Status: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Shows the current status of Bubo")

@@ -5,7 +5,10 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo.Service {
+    
+    /// **Subcommand**:  Pull one or multiple services for a project
     struct Pull: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Pull a service of a specific project")

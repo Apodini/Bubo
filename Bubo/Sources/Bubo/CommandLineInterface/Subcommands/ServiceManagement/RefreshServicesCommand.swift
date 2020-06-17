@@ -6,9 +6,9 @@ import ArgumentParser
 import Foundation
 
 
-
-// Command to create a new bubo repository
 extension Bubo.Service {
+    
+    /// **Subcommand**: Refresh the service registrations of a project (Update all service configurations) 
     struct Refresh: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Refresh service registration in a projects configuration file",

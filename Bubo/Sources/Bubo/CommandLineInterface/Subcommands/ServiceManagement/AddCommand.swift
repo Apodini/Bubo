@@ -1,15 +1,14 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 27.04.20.
 //
 
 import Foundation
 import ArgumentParser
 
-// Command to create a new bubo repository
+
 extension Bubo.Service {
+    
+    /// **Subcommand**: Add a new service to a project
     struct Add: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Add a new service to an existing Bubo project")

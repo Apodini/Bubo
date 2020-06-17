@@ -6,7 +6,10 @@
 import Foundation
 import ArgumentParser
 
+
 extension Bubo.Analysis {
+    
+    /// **Subcommand**: Parse all tokens of a service and output them to stdout
     struct Parse: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Parses all files of a service and outputs the graph",

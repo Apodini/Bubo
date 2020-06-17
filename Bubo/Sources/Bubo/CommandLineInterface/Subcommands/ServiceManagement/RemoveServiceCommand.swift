@@ -6,9 +6,9 @@ import ArgumentParser
 import Foundation
 
 
-
-// Command to remove a service from a Bubo project
 extension Bubo.Service {
+    
+    /// **Subcommand**:  Remove a service from a project
     struct Remove: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Remove a service from a Bubo project",
