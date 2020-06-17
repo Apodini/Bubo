@@ -19,7 +19,7 @@ struct ProjectConfiguration: Codable {
     public var lastUpdated: String
     
     /// All services of this project identified by thier service name
-    public var repositories: [String:ServiceConfiguration]
+    public var repositories: [String: URL]
 
     
     init(url: URL, projectName: String, lastUpdated: String) {
