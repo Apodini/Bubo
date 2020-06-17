@@ -22,7 +22,14 @@ extension ResourceManager {
         outputMessage(msg: "Refreshing services for \(projectHandle)")
        
         /// Save currently persisted services
-        let prevServices = projectConfig.repositories
+        let prevServicesURLs = projectConfig.repositories
+        var prevServices: [String:ServiceConfiguration] = [:]
+        
+        for (serviceName, url) in prevServicesURLs {
+            if let (_, serviceConfig) = self.decodeServiceConfig(pName: projectHandle, serviceName: serviceName) {
+                prevServices[serviceName] = serviceConfig
+            }
+        }
         
         // There should never be other files except the services in the services diectory!
         /// Create the service directory URL and check if a directory exists
@@ -72,8 +79,14 @@ extension ResourceManager {
                     }
                 
                 /// Update the project configuration and encode it to persist changes
+                var updatedServicesURLs: [String: URL] = [:]
+                for (name, service) in updatedServices {
+                    if let serviceConfigURL = self.encodeServiceConfig(pName: projectHandle, configData: service) {
+                        updatedServicesURLs[name] = serviceConfigURL
+                    }
+                }
                 outputMessage(msg: "Update configuration file for \(projectHandle)")
-                projectConfig.repositories = updatedServices
+                projectConfig.repositories = updatedServicesURLs
                 projectConfig.lastUpdated = Date().description(with: .current)
                 self.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
                 successMessage(msg: "Refreshed services for \(projectHandle)")
