@@ -13,7 +13,7 @@ class Main {
     init() {
         let resourceManager = ResourceManager()
         
-        /// Check if a root config fo the current directory is present
+        /// Check if the program has been initalised
         initStatus = resourceManager.checkInit()
         if !initStatus {
             
