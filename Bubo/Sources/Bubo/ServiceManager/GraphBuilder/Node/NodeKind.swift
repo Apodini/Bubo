@@ -5,6 +5,9 @@
 import Foundation
 import IndexStoreDB
 
+
+/// An enum that represents the different types of nodes that can exists in the dependency graph.
+/// These kinds are based on the indexStoreDB SymbolKinds
 public enum NodeKind {
     case unknown
     case module
@@ -37,6 +40,7 @@ public enum NodeKind {
 }
 
 
+/// Make the `NodeKind` enum conform to the `Codable` protocol
 extension NodeKind: Codable {
     
     enum Key: CodingKey {

@@ -1,38 +1,51 @@
 //
-//  File.swift
-//  
-//
 //  Created by Valentin Hartig on 17.05.20.
 //
 
 import Foundation
 import IndexStoreDB
 
+
+/// Represents a node in the raw dependency graph
 public class Node: Codable, Equatable, CustomStringConvertible {
+    
+    /// Each node is uniquely identified via it's USR (Unified Symbol Resolution)
     var usr: String
+    
+    /// The kind of the node. Refer to the type `NodeKind` to see different possible kinds
     var kind: NodeKind
+    
+    /// The name of the node e.g. a struct or function name
     var name: String
     
+    /// Make the node conform to the `CustomStringConvertible` protocol
     public var description: String {
         return "\(name) | \(kind)\n\(usr)"
     }
     
+    /// The standard constructor
     init(usr: String, kind: NodeKind, name: String) {
         self.usr = usr
         self.kind = kind
         self.name = name
     }
     
+    /// A constructor that creates a node based on a IndexStoreDB Symbol
     init(symbol: Symbol) {
         self.usr = symbol.usr
         self.kind = Node.getNodeKind(symbol: symbol)
         self.name = symbol.name
     }
     
+    /// Make the node conform to the `Equatable` protocol to be accepted as a node in a **SwiftGraph** graph
     public static func == (lhs: Node, rhs: Node) -> Bool {
         return lhs.usr == rhs.usr && lhs.kind == rhs.kind && lhs.name == rhs.name
     }
     
+    /// Get the node kind when constructing node based on indexStoreDB Symbol
+    ///
+    /// - parameter symbol: The indexStoreDB symbol
+    /// - returns: A `NodeKind` enum that rrepresents the SymbolKind of the indexStoreDB Symbol in the graph node
     static func getNodeKind(symbol: Symbol) -> NodeKind {
         switch symbol.kind {
         case .unknown:

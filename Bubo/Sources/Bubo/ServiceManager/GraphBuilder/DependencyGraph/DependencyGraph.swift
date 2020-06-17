@@ -7,6 +7,7 @@ import SwiftGraph
 import SwiftSyntax
 
 
+/// Extension of **SwiftGraph**'s `Graph` class that models a swift dependency graph
 open class DependencyGraph<V: Equatable & Codable>: Graph {
     public var vertices: [V] = [V]()
     public var edges: [[DependencyEdge]] = [[DependencyEdge]]() //adjacency lists
@@ -43,6 +44,8 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
         return vertices.count - 1
     }
     
+    /// Implement `CustomStringConvertible` protocol
+    /// - note: Outputs the graph in `.dot` format
     public var description: String {
         var vertices: String = ""
         for v in self.vertices {
@@ -65,6 +68,7 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
     }
 }
 
+/// Adjust **SwiftGraph**'s functions to accept edges of type `DependencyEdge`
 extension Graph where E == DependencyEdge {
 
     /// Initialize an UnweightedGraph consisting of path.
@@ -80,6 +84,8 @@ extension Graph where E == DependencyEdge {
     ///   - directed: If false, undirected edges are created.
     ///               If true, edges are directed from vertex i to vertex i+1 in path.
     ///               Default is false.
+    
+    /// - note: THIS FUNCTION IS CURRENTLY NOT REWORKED FOR DEPENDENCY GARPHS
     public static func withPath(_ path: [(V,[EdgeRole])], directed: Bool = false) -> Self {
         
         var vertices: [V] = []
@@ -118,6 +124,8 @@ extension Graph where E == DependencyEdge {
     ///   - directed: If false, undirected edges are created.
     ///               If true, edges are directed from vertex i to vertex i+1 in cycle.
     ///               Default is false.
+    
+    /// - note: THIS FUNCTION IS CURRENTLY NOT REWORKED FOR DEPENDENCY GARPHS
     public static func withCycle(_ cycle: [(V, [EdgeRole])], directed: Bool = false) -> Self {
         let g = Self.withPath(cycle, directed: directed)
         if cycle.count > 0 {
@@ -166,11 +174,9 @@ extension Graph where E == DependencyEdge {
     /// - parameter to: The ending vertex of the edge.
     /// - returns: True if there is an edge from the starting vertex to the ending vertex.
     public func edgeExists(from: V, to: V, role: [EdgeRole]) -> Bool {
-//        print("Checking:\nfrom: \(from)\nto: \(to)\nroles: \(role)")
         if let u = indexOfVertex(from) {
             if let v = indexOfVertex(to) {
                 for edge in edges[u] {
-//                    print("\(edge) \(edge.roles)\n")
                     if edge.v == v && edge.roles.count == role.count {
                         var flag: Bool = true
                         for r in edge.roles {
@@ -179,7 +185,6 @@ extension Graph where E == DependencyEdge {
                             }
                         }
                         if flag {
-                          //  print("\(flag)\n")
                             return flag
                         }
                     }
@@ -187,7 +192,6 @@ extension Graph where E == DependencyEdge {
             //    return edgeExists(fromIndex: u, toIndex: v, role: role)
             }
         }
-//        print("\(false)\n")
         return false
     }
 }

@@ -1,7 +1,4 @@
 //
-//  Extension for the graph edges
-//  
-//
 //  Created by Valentin Hartig on 01.06.20.
 //
 
@@ -9,6 +6,7 @@ import Foundation
 import SwiftGraph
 
 
+/// Extension of **SwiftGraph**'s `Edge` class that considers Edge roles
 public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
     public var u: Int
     public var v: Int
@@ -26,7 +24,7 @@ public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
         return DependencyEdge(u: v, v: u, directed: directed, roles: roles)
     }
 
-    // Implement Printable protocol
+    /// Implement `CustomStringConvertible` protocol
     public var description: String {
         var roles = ""
         for role in roles {
