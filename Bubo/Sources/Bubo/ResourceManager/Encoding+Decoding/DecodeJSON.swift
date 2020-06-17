@@ -50,7 +50,7 @@ extension ResourceManager {
         do {
             try config = decoder.decode(ServiceConfiguration.self, from: Data(contentsOf: url))
         } catch {
-            errorMessage(msg: "Decoder couldn't decode project configuration file at path \(url.path)")
+            errorMessage(msg: "Decoder couldn't decode service configuration file at path \(url.path)")
             return nil
         }
         return config

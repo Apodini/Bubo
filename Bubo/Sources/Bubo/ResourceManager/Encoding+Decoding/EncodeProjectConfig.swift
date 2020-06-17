@@ -21,7 +21,7 @@ extension ResourceManager {
         }
         
         /// Fetch the projects configuration file URL
-        guard let configURL = projects[projectHandle]?.appendingPathComponent("anchorrc").appendingPathExtension("json") else {
+        guard let configURL = projects[projectHandle]?.appendingPathComponent("projectConfiguration").appendingPathExtension("json") else {
             errorMessage(msg: "Can't get projects configuration file path for \(pName). Does the project exist?")
             return
         }

@@ -21,14 +21,14 @@ extension ResourceManager {
         }
         
         /// Checks if a configuration at the project configuration path exists and trys to decode it
-        let configURL = projectURL.appendingPathComponent("anchorrc").appendingPathExtension("json")
+        let configURL = projectURL.appendingPathComponent("projectConfiguration").appendingPathExtension("json")
         let fileURL = URL(fileURLWithPath: configURL.path)
         guard let projectConfig: ProjectConfiguration = decodeProjectConfigfromJSON(url: fileURL) else {
             return nil
         }
         
         if projectConfig.repositories.keys.contains(serviceName) {
-            guard let serviceConfigURL: URL = projectConfig.url.appendingPathComponent("\(serviceName)_Configuration").appendingPathExtension("json") else {
+            guard let serviceConfigURL: URL = URL(fileURLWithPath:projectConfig.url.appendingPathComponent("\(serviceName)_Configuration").appendingPathExtension("json").path) else {
                 errorMessage(msg: "Can't decode service with name \(serviceName). Not such a service.")
                 abortMessage(msg: "Decoding service configuration")
                 return nil

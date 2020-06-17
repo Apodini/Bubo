@@ -21,7 +21,7 @@ extension ResourceManager {
         }
         
         /// Checks if a configuration at the project configuration path exists and trys to decode it 
-        let configURL = projectURL.appendingPathComponent("anchorrc").appendingPathExtension("json")
+        let configURL = projectURL.appendingPathComponent("projectConfiguration").appendingPathExtension("json")
         let fileURL = URL(fileURLWithPath: configURL.path)
         guard let projectConfig = decodeProjectConfigfromJSON(url: fileURL) else {
             return nil

@@ -75,7 +75,7 @@ extension ResourceManager {
         
         /// Create the path for the project configuration file and check if the file already exists
         let configURL = projectURL
-            .appendingPathComponent("anchorrc")
+            .appendingPathComponent("projectConfiguration")
             .appendingPathExtension("json")
         
         guard !self.fileManager.fileExists(atPath: configURL.path) else {

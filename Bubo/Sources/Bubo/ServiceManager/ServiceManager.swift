@@ -6,8 +6,8 @@ import Foundation
 import ShellOut
 
 class ServiceManager {
-    public static let fileManager: FileManager  = FileManager.default
-    private static let resourceManager: ResourceManager = ResourceManager()
+    public let fileManager: FileManager  = FileManager.default
+    private let resourceManager: ResourceManager = ResourceManager()
     public let parser: Parser
     private let graphBuilder: GraphBuilder
     private let service: ServiceConfiguration
@@ -55,7 +55,7 @@ class ServiceManager {
             currentBuildGitHash: service.currentGitHash,
             files: service.files)
         updatedService.setGraph(graph: graphBuilder.graph)
-        ServiceManager.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
+        self.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
     }
     
     
@@ -92,7 +92,7 @@ class ServiceManager {
      private func buildService() -> Void {
          outputMessage(msg: "Initialising building process...")
          if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
-             if ServiceManager.fileManager.changeCurrentDirectoryPath(
+             if self.fileManager.changeCurrentDirectoryPath(
                  packageDotSwiftURL
                      .deletingPathExtension()
                      .deletingLastPathComponent()
@@ -115,10 +115,10 @@ class ServiceManager {
      
      private func cleanUpService() -> Void {
          outputMessage(msg: "Cleaning up service...")
-         if ServiceManager.fileManager.fileExists(atPath: service.gitRootURL.appendingPathComponent(".build").path) {
-             if ServiceManager.fileManager.changeCurrentDirectoryPath(service.gitRootURL.path) {
+        if self.fileManager.fileExists(atPath: service.gitRootURL.appendingPathComponent(".build").path) {
+             if self.fileManager.changeCurrentDirectoryPath(service.gitRootURL.path) {
                  do {
-                     try ServiceManager.fileManager.removeItem(at: service.gitRootURL.appendingPathComponent(".build"))
+                     try self.fileManager.removeItem(at: service.gitRootURL.appendingPathComponent(".build"))
                      outputMessage(msg: "Removed .build directory from \(service.name)")
                  } catch {
                      errorMessage(msg: "Failed to remove .build directory from \(service.name)")

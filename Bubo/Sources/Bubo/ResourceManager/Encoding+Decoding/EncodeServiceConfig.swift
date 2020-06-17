@@ -35,10 +35,12 @@ extension ResourceManager {
         
         /// Remove the current configuration file and create the nwe configuration file
         let configFileURL = URL(fileURLWithPath: configURL.path)
-        do {
-            try fileManager.removeItem(at: configFileURL)
-        } catch {
-            errorMessage(msg: "Can't remove service configuration file for \(configData.name) at path \(configURL)")
+        if fileManager.fileExists(atPath: configURL.path) {
+            do {
+                try fileManager.removeItem(at: configFileURL)
+            } catch {
+                errorMessage(msg: "Can't remove service configuration file for \(configData.name) at path \(configURL)")
+            }
         }
         let isCreated = fileManager.createFile(atPath: configURL.path, contents: encode, attributes: nil)
         if !isCreated {
