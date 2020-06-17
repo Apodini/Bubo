@@ -4,6 +4,8 @@
 
 import Foundation
 
+
+/// Enmu that represents a subset of all possible node kinds 
 public enum TokenKind {
     case `class`
     case `struct`

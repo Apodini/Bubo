@@ -6,6 +6,7 @@ import Foundation
 import SwiftSyntax
 
 
+/// Standard implementaion of a **SwiftSnytax** `SyntaxVisitor`. Please refer to the **SwfitSyntax** documentation
 class TokenGenerator: SyntaxVisitor {
     
     var tokens: [Token] = []
@@ -85,7 +86,13 @@ class TokenGenerator: SyntaxVisitor {
     // Add more overrides here if more tokens are needed
 }
 
+
 extension TokenGenerator {
+    
+    /// Converts a SwiftSyntax location to a token location
+    ///
+    /// - parameter syntax: A SwiftSyntax token
+    /// - returns: A token location if the location could be converted, else nil
     func findLocation(syntax: SyntaxProtocol) -> TokenLocation? {
         let location = parseContext.sourceLocationConverter.location(for: syntax.positionAfterSkippingLeadingTrivia)
         guard let line = location.line,
