@@ -34,12 +34,8 @@ extension Bubo.Analysis {
         
         func run() {
             let resourceManager = ResourceManager()
-            guard let (projectHandle, projektConfig) = resourceManager.decodeProjectConfig(pName: options.projectName) else {
+            guard let (projectHandle, service) = resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
                 errorMessage(msg: "Can't crawl, sorry")
-                return
-            }
-            guard let service = projektConfig.repositories[options.serviceName] else {
-                errorMessage(msg: "I hate error messages!!!!")
                 return
             }
             headerMessage(msg: "Parsing \(options.serviceName)")
