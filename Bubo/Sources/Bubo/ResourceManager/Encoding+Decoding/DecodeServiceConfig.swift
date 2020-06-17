@@ -27,17 +27,22 @@ extension ResourceManager {
             return nil
         }
         
-        guard let serviceConfigURL: URL = projectConfig.repositories[serviceName] else {
-            errorMessage(msg: "Can't decode service with name \(serviceName). Not such a service.")
-            abortMessage(msg: "Decoding service configuration")
+        if projectConfig.repositories.keys.contains(serviceName) {
+            guard let serviceConfigURL: URL = projectConfig.url.appendingPathComponent("\(serviceName)_Configuration").appendingPathExtension("json") else {
+                errorMessage(msg: "Can't decode service with name \(serviceName). Not such a service.")
+                abortMessage(msg: "Decoding service configuration")
+                return nil
+            }
+            
+            guard let serviceConfig: ServiceConfiguration = decodeServiceConfigfromJSON(url: serviceConfigURL) else {
+                errorMessage(msg: "Can't decode service \(serviceName) at url \(serviceConfigURL.path)")
+                abortMessage(msg: "Decoding service configuration")
+                return nil
+            }
+            return (projectHandle, serviceConfig)
+        } else {
+            errorMessage(msg: "No service with name \(serviceName)")
             return nil
         }
-        
-        guard let serviceConfig: ServiceConfiguration = decodeServiceConfigfromJSON(url: serviceConfigURL) else {
-            errorMessage(msg: "Can't decode service \(serviceName) at url \(serviceConfigURL.path)")
-            abortMessage(msg: "Decoding service configuration")
-            return nil
-        }
-        return (projectHandle, serviceConfig)
     }
 }
