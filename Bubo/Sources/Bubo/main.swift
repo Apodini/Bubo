@@ -18,7 +18,7 @@ class Main {
         if !initStatus {
             
             /// if not present: initialise Bubo
-            resourceManager.initRoot(configFile: rootConfig)
+            resourceManager.initRoot(configData: rootConfig)
             initStatus = resourceManager.checkInit()
         } else {
             
