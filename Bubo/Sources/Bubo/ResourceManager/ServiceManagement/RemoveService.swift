@@ -24,27 +24,43 @@ extension ResourceManager {
         
         /// Fetch services from project configuration and try to remove service with `serviceName`
         var services = projectConfig.repositories
-        guard let service = services.removeValue(forKey: serviceName) else {
+        guard let serviceURL = services.removeValue(forKey: serviceName) else {
             errorMessage(msg: "No service named \(serviceName) in project \(projectHandle)")
             return
         }
         
-        let fileURL = URL(fileURLWithPath: service.url.path)
+        /// Fetch service configuration
+        guard let (_,serviceConfig) = decodeServiceConfig(pName: projectName, serviceName: serviceName) else {
+            abortMessage(msg: "Removing service \(serviceName)")
+            return
+        }
+        
+        /// Remove service directory from disk
+        let fileURL = URL(fileURLWithPath: serviceConfig.url.path)
         do {
             
             /// Try to remove the service from disk
             try fileManager.removeItem(at: fileURL)
-            successMessage(msg: "Removed service \(serviceName) from project \(projectHandle)")
-            
-            /// Update the project configuration and reencode it to persist changes
-            projectConfig.repositories = services
-            projectConfig.lastUpdated = Date().description(with: .current)
-            self.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
-            return
+            successMessage(msg: "Removed service directory \(serviceName) from project \(projectHandle)")
         } catch {
-            errorMessage(msg: "Failed to remove service \(serviceName) from project \(projectHandle)")
+            errorMessage(msg: "Failed to remove service directory \(serviceName) from project \(projectHandle)")
             return
         }
         
+        /// Remove service configuration file from disk
+        let configFileURL = URL(fileURLWithPath: serviceURL.appendingPathComponent("\(serviceConfig.name)_Configuration").appendingPathExtension("json").path)
+        do {
+            
+            /// Try to remove the service configuration from disk
+            try fileManager.removeItem(at: configFileURL)
+            successMessage(msg: "Removed service configuration for \(serviceName) from project \(projectHandle)")
+        } catch {
+            errorMessage(msg: "Failed to remove service configuration \(serviceName) from project \(projectHandle)")
+        }
+        
+        /// Update the project configuration and reencode it to persist changes
+        projectConfig.repositories = services
+        projectConfig.lastUpdated = Date().description(with: .current)
+        self.encodeProjectConfig(pName: projectHandle, configData: projectConfig)
     }
 }
