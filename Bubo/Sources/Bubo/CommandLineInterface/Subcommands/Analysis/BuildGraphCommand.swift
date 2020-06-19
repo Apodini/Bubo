@@ -43,12 +43,15 @@ extension Bubo.Analysis {
             guard let graph = serviceManager.createDependencyGraph() else {
                 return
             }
-            outputMessage(msg: "Writing graph to .dot output file and saving it in current directory")
-            do {
-                try graph.description.write(to: URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent("\(service.name)").appendingPathExtension("dot"), atomically: false, encoding: .utf8)
-            } catch {
-                warningMessage(msg: "Couldn't write graph to dot file")
-            }
+//            outputMessage(msg: "Writing graph to .dot output file and saving it in current directory")
+//            let filemnger = FileManager()
+//            let url = URL(fileURLWithPath: filemnger.currentDirectoryPath).appendingPathComponent("\(service.name)").appendingPathExtension("dot")
+//            do {
+//                try graph.description.write(to: url, atomically: false, encoding: .utf8)
+//                successMessage(msg: "Graph output is at \(url.path)")
+//            } catch {
+//                warningMessage(msg: "Couldn't write graph to dot file")
+//            }
             
         }
     }

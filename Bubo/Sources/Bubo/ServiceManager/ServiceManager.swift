@@ -9,7 +9,7 @@ class ServiceManager {
     public let fileManager: FileManager  = FileManager.default
     private let resourceManager: ResourceManager = ResourceManager()
     public let parser: Parser
-    private let graphBuilder: GraphBuilder
+    private var graphBuilder: GraphBuilder?
     private let service: ServiceConfiguration
     private let projectName: String
     
@@ -18,11 +18,8 @@ class ServiceManager {
         // Init properties
         self.service = service
         self.parser = Parser()
-        
-        // Parse service
-        parser.parse(service: service)
-        self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
-        
+        self.graphBuilder = nil
+    
         guard let name = pName else {
             errorMessage(msg: "Can't unwrap project name!")
             self.projectName = ""
@@ -33,17 +30,26 @@ class ServiceManager {
     
  
     public func createDependencyGraph() -> DependencyGraph<Node>? {
-        
         // Build service
+        outputMessage(msg: "Checking Graph...")
         if !self.compareGitHash() || service.graph == nil{
+            outputMessage(msg: "Graph needs to be updated")
             self.cleanUpService()
             self.buildService()
-            self.graphBuilder.createDependencyGraph()
+            
+            // Parse service
+            parser.parse(service: service)
+            self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
+
+            
+            self.graphBuilder!.createDependencyGraph()
             self.updateGraph()
+            successMessage(msg: "Graph successfully updated!")
+            return self.graphBuilder!.graph
         } else {
-            self.graphBuilder.graph = service.graph!
+            successMessage(msg: "Graph is up to date!")
+            return service.graph!
         }
-        return graphBuilder.graph
     }
     
     private func updateGraph() -> Void {
@@ -54,7 +60,7 @@ class ServiceManager {
             currentGitHash: service.currentGitHash,
             currentBuildGitHash: service.currentGitHash,
             files: service.files)
-        updatedService.setGraph(graph: graphBuilder.graph)
+        updatedService.setGraph(graph: self.graphBuilder!.graph)
         self.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
     }
     
