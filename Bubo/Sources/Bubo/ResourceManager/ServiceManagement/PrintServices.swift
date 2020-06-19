@@ -22,6 +22,8 @@ extension ResourceManager {
         let colorProjektName = projectHandle.blue()
         headerMessage(msg: "Services in project \(colorProjektName)")
         
+        self.refreshServices(projectName: projectHandle)
+
         /// Get the projects services
         let services = projectConfig.repositories
         if services.isEmpty {
@@ -35,7 +37,7 @@ extension ResourceManager {
             let name = serviceName.blue().underline()
             let serviceURL = services[serviceName]
             if serviceURL != nil {
-                print("\(name) -> \(serviceURL?.absoluteString.yellow())")
+                print("\(name) -> \(serviceURL!.absoluteString.yellow())")
             }
         }
     }
