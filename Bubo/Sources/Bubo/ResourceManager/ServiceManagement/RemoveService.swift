@@ -48,7 +48,7 @@ extension ResourceManager {
         }
         
         /// Remove service configuration file from disk
-        let configFileURL = URL(fileURLWithPath: serviceURL.appendingPathComponent("\(serviceConfig.name)_Configuration").appendingPathExtension("json").path)
+        let configFileURL = URL(fileURLWithPath: serviceURL.path)
         do {
             
             /// Try to remove the service configuration from disk
@@ -56,6 +56,7 @@ extension ResourceManager {
             successMessage(msg: "Removed service configuration for \(serviceName) from project \(projectHandle)")
         } catch {
             errorMessage(msg: "Failed to remove service configuration \(serviceName) from project \(projectHandle)")
+            errorMessage(msg: "\(configFileURL.path)")
         }
         
         /// Update the project configuration and reencode it to persist changes
