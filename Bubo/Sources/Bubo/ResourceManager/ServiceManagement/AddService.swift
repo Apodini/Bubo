@@ -20,7 +20,7 @@ extension ResourceManager {
 
         /// Fetch the `projectHandle` and all `projects` registered in the root configuration
         guard let (projectHandle, projectURL) = self.getProjectURL(projectName: projectName) else {
-            abortMessage(msg: "Refresh services")
+            abortMessage(msg: "Add service")
             return false
         }
         headerMessage(msg: "Adding new service to \(projectHandle)")
