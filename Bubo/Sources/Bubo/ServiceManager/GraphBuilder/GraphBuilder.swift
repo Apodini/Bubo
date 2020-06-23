@@ -125,7 +125,7 @@ extension GraphBuilder {
             let symbol = queue.pop()
             
             /// Check if symbol has already been visited
-            if !visited.contains(symbol) {
+            if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
                 visited.append(symbol)
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
                 
@@ -193,16 +193,34 @@ extension GraphBuilder {
     
     
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-        
+        // This takes a lot of time but making it concurrent dosen't work ......
         var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
-        
+
         for nodeRole in nodeRoleCombinations {
             symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
         }
-        
+
         for edgeRole in edgeRoleCombinations {
             symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
         }
         return symbolOccurrences
     }
+    
+//    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
+//
+//        let safeSymbolOccurrences = ThreadSafe<[SymbolOccurrence]>([])
+//
+//        DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
+//            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
+//            safeSymbolOccurrences.atomically { $0 += occurences }
+//        }
+//
+//        DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
+//            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: edgeRoleCombinations[index])
+//            safeSymbolOccurrences.atomically { $0 += occurences }
+//        }
+//
+//        print("All occurences: \(safeSymbolOccurrences.value.count)")
+//        return safeSymbolOccurrences.value
+//    }
 }
