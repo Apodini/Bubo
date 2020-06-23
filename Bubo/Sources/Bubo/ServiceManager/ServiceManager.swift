@@ -132,4 +132,42 @@ class ServiceManager {
              }
          }
      }
+    
+    public func writeToDot() -> Void {
+        outputMessage(msg: "Writing graph to .dot output file and saving it in project directory")
+        
+        guard let (projectName, projectConfig) = resourceManager.decodeProjectConfig(pName: projectName) else {
+            errorMessage(msg: "Couldn't write graph to .dot file because the project confidguration cannot be decoded!")
+            return
+        }
+
+        var url: URL = URL(fileURLWithPath: projectConfig.url
+            .appendingPathComponent("output").path)
+        
+        let fileManager = FileManager.default
+
+        if !fileManager.fileExists(atPath: url.path) {
+            do {
+                try fileManager.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
+
+            } catch {
+                errorMessage(msg: "Couldn't create output directory")
+                return
+            }
+        }
+        
+        url = url
+        .appendingPathComponent(service.name)
+        .appendingPathExtension("dot")
+        
+        fileManager.createFile(atPath: url.path, contents: nil, attributes: nil)
+
+        do {
+            try service.graph!.description.write(to: url, atomically: false, encoding: .utf8)
+            successMessage(msg: "Graph output is at \(url.path)")
+        } catch {
+            warningMessage(msg: "Couldn't write graph to dot file")
+            print("ERROR INFO: \(error)")
+        }
+    }
 }
