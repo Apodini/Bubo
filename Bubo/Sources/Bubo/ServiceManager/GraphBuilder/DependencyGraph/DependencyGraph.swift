@@ -64,7 +64,7 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
             }
         }
         
-        return graph + "}"
+        return graph + vertices + "}"
     }
 }
 

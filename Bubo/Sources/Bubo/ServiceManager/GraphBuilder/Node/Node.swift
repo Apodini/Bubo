@@ -18,28 +18,50 @@ public class Node: Codable, Equatable, CustomStringConvertible {
     /// The name of the node e.g. a struct or function name
     var name: String
     
+    /// The roles of the node e.g. a definition, declaration etc.
+    var roles: [NodeRole]
+    
     /// Make the node conform to the `CustomStringConvertible` protocol
     public var description: String {
-        return "\(name) | \(kind)\n\(usr)"
+        var rolesString: String = ""
+        for role in roles {
+            rolesString.append(" \(role) |")
+        }
+        return "\(name) | \(kind)\n[\(rolesString.dropLast())]\n\(usr)"
     }
     
     /// The standard constructor
-    init(usr: String, kind: NodeKind, name: String) {
+    init(usr: String, kind: NodeKind, name: String, roles: [NodeRole]) {
         self.usr = usr
         self.kind = kind
         self.name = name
+        self.roles = roles
     }
     
     /// A constructor that creates a node based on a IndexStoreDB Symbol
-    init(symbol: Symbol) {
+    init(symbol: Symbol, roles: SymbolRole) {
         self.usr = symbol.usr
         self.kind = Node.getNodeKind(symbol: symbol)
         self.name = symbol.name
+        self.roles = NodeRole.getNodeRoles(symbolRole: roles)
     }
     
     /// Make the node conform to the `Equatable` protocol to be accepted as a node in a **SwiftGraph** graph
     public static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.usr == rhs.usr && lhs.kind == rhs.kind && lhs.name == rhs.name
+        var compareRoles: Bool = true
+        
+        if lhs.roles.count == rhs.roles.count {
+            for role in rhs.roles {
+                if !lhs.roles.contains(role) {
+                    compareRoles = false
+                    break
+                }
+            }
+        } else {
+            compareRoles = false
+        }
+        
+        return lhs.usr == rhs.usr && lhs.kind == rhs.kind && lhs.name == rhs.name && compareRoles
     }
     
     /// Get the node kind when constructing node based on indexStoreDB Symbol

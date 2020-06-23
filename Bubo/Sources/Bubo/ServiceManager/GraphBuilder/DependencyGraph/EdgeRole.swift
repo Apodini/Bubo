@@ -8,18 +8,7 @@ import IndexStoreDB
 
 /// `EdgeRole` converts the `indexStoreDB`'s type `SymbolRole` into codeable enum roles to annotate the dependency graphs edges
 public enum EdgeRole: CaseIterable {
-    // MARK: Primary roles, from indexstore
-    case `declaration`
-    case `definition`
-    case `reference`
-    case `read`
-    case `write`
-    case `call`
-    case `dynamic`
-    case `addressOf`
-    case `implicit`
-
-    // MARK: Relation roles, from indexstore
+   // MARK: Relation roles, from indexstore
     case `childOf`
     case `baseOf`
     case `overrideOf`
@@ -50,48 +39,30 @@ extension EdgeRole: Codable {
         let rawValue = try container.decode(Int.self, forKey: .rawValue)
         switch rawValue {
         case 0:
-            self = .declaration
-        case 1:
-            self = .definition
-        case 2:
-            self = .reference
-        case 3:
-            self = .read
-        case 4:
-            self = .write
-        case 5:
-            self = .call
-        case 6:
-            self = .dynamic
-        case 7:
-            self = .addressOf
-        case 8:
-            self = .implicit
-        case 9:
             self = .childOf
-        case 10:
+        case 1:
             self = .baseOf
-        case 11:
+        case 2:
             self = .overrideOf
-        case 12:
+        case 3:
             self = .receivedBy
-        case 13:
+        case 4:
             self = .calledBy
-        case 14:
+        case 5:
             self = .extendedBy
-        case 15:
+        case 6:
             self = .accessorOf
-        case 16:
+        case 7:
             self = .containedBy
-        case 17:
+        case 8:
             self = .ibTypeOf
-        case 18:
+        case 9:
             self = .specializationOf
-        case 19:
+        case 10:
             self = .canonical
-        case 20:
+        case 11:
             self = .all
-        case 21:
+        case 12:
             self = .unknow
         default:
             throw CodingError.unknownValue
@@ -101,67 +72,44 @@ extension EdgeRole: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Key.self)
         switch self {
-        case .declaration:
-            try container.encode(0, forKey: .rawValue)
-
-        case .definition:
-            try container.encode(1, forKey: .rawValue)
-
-        case .reference:
-            try container.encode(2, forKey: .rawValue)
-
-        case .read:
-            try container.encode(3, forKey: .rawValue)
-
-        case .write:
-            try container.encode(4, forKey: .rawValue)
-
-        case .call:
-            try container.encode(5, forKey: .rawValue)
-
-        case .dynamic:
-            try container.encode(6, forKey: .rawValue)
-
-        case .addressOf:
-            try container.encode(7, forKey: .rawValue)
-
-        case .implicit:
-            try container.encode(8, forKey: .rawValue)
-
         case .childOf:
-            try container.encode(9, forKey: .rawValue)
-
+            try container.encode(0, forKey: .rawValue)
+            
         case .baseOf:
-            try container.encode(10, forKey: .rawValue)
-
+            try container.encode(1, forKey: .rawValue)
+            
         case .overrideOf:
-            try container.encode(11, forKey: .rawValue)
-
+            try container.encode(2, forKey: .rawValue)
+            
         case .receivedBy:
-            try container.encode(12, forKey: .rawValue)
-
+            try container.encode(3, forKey: .rawValue)
+            
         case .calledBy:
-            try container.encode(13, forKey: .rawValue)
-
+            try container.encode(4, forKey: .rawValue)
+            
         case .extendedBy:
-            try container.encode(14, forKey: .rawValue)
-
+            try container.encode(5, forKey: .rawValue)
+            
         case .accessorOf:
-            try container.encode(15, forKey: .rawValue)
-
+            try container.encode(6, forKey: .rawValue)
+            
         case .containedBy:
-            try container.encode(16, forKey: .rawValue)
-
+            try container.encode(7, forKey: .rawValue)
+            
         case .ibTypeOf:
-            try container.encode(17, forKey: .rawValue)
+            try container.encode(8, forKey: .rawValue)
+            
         case .specializationOf:
-            try container.encode(18, forKey: .rawValue)
+            try container.encode(9, forKey: .rawValue)
+        
         case .canonical:
-            try container.encode(19, forKey: .rawValue)
+            try container.encode(10, forKey: .rawValue)
+        
         case .all:
-            try container.encode(20, forKey: .rawValue)
+            try container.encode(11, forKey: .rawValue)
+        
         case .unknow:
-            try container.encode(21, forKey: .rawValue)
+            try container.encode(12, forKey: .rawValue)
         }
     }
 }
@@ -175,69 +123,77 @@ extension EdgeRole {
     
     public static func getEdgeRoles(symbolRole: SymbolRole) -> [EdgeRole] {
         var edgeRoles: [EdgeRole] = [EdgeRole]()
-        if symbolRole.contains(.declaration) {
-            edgeRoles.append(.declaration)
-        }
-        if symbolRole.contains(.definition) {
-          edgeRoles.append(.definition)
-        }
-        if symbolRole.contains(.reference) {
-            edgeRoles.append(.reference)
-        }
-        if symbolRole.contains(.read) {
-          edgeRoles.append(.read)
-        }
-        if symbolRole.contains(.write) {
-          edgeRoles.append(.write)
-        }
-        if symbolRole.contains(.call) {
-          edgeRoles.append(.call)
-        }
-        if symbolRole.contains(.`dynamic`) {
-        edgeRoles.append(.`dynamic`)
-        }
-        if symbolRole.contains(.addressOf) {
-          edgeRoles.append(.addressOf)
-        }
-        if symbolRole.contains(.implicit) {
-          edgeRoles.append(.implicit)
-        }
         if symbolRole.contains(.childOf) {
-          edgeRoles.append(.childOf)
+            edgeRoles.append(.childOf)
         }
         if symbolRole.contains(.baseOf) {
-          edgeRoles.append(.baseOf)
+            edgeRoles.append(.baseOf)
         }
         if symbolRole.contains(.overrideOf) {
-          edgeRoles.append(.overrideOf)
+            edgeRoles.append(.overrideOf)
         }
         if symbolRole.contains(.receivedBy) {
-          edgeRoles.append(.receivedBy)
+            edgeRoles.append(.receivedBy)
         }
         if symbolRole.contains(.calledBy) {
-          edgeRoles.append(.calledBy)
+            edgeRoles.append(.calledBy)
         }
         if symbolRole.contains(.extendedBy) {
-          edgeRoles.append(.extendedBy)
+            edgeRoles.append(.extendedBy)
         }
         if symbolRole.contains(.accessorOf) {
-          edgeRoles.append(.accessorOf)
+            edgeRoles.append(.accessorOf)
         }
         if symbolRole.contains(.containedBy) {
-          edgeRoles.append(.containedBy)
+            edgeRoles.append(.containedBy)
         }
         if symbolRole.contains(.ibTypeOf) {
-          edgeRoles.append(.ibTypeOf)
+            edgeRoles.append(.ibTypeOf)
         }
         if symbolRole.contains(.specializationOf) {
-          edgeRoles.append(.specializationOf)
+            edgeRoles.append(.specializationOf)
         }
         if symbolRole.contains(.canonical) {
-          edgeRoles.append(.canonical)
+            edgeRoles.append(.canonical)
         }
         return edgeRoles
     }
     
+    public static func getAllRoleCombinations() -> [SymbolRole] {
+        var allCases: [EdgeRole] = self.allCases
+        if let index = allCases.firstIndex(of: .all) {
+            allCases.remove(at: index)
+        }
+        if let index = allCases.firstIndex(of: .unknow) {
+            allCases.remove(at: index)
+        }
+        
+        var powerset: [[EdgeRole]] = allCases.powerset
+        for arr in powerset {
+            if arr.count > 3 {
+                if let index = powerset.firstIndex(of: arr) {
+                    powerset.remove(at: index)
+                }
+            }
+        }
+        
+        var output: [SymbolRole] = []
+        for toSymbolRoleArray in powerset {
+            var symRolesArr: [SymbolRole] = []
+            for role in toSymbolRoleArray {
+                if let symr = EdgeRole.getSymbolRole(edgeRole: role) {
+                    symRolesArr.append(symr)
+                }
+            }
+            if symRolesArr.count > 0 {
+                output.append(SymbolRole(symRolesArr))
+            }
+        }
+        output.append(SymbolRole(arrayLiteral: .all))
+        output.append(SymbolRole(arrayLiteral: .canonical))
+        output.append(SymbolRole(arrayLiteral: .ibTypeOf))
+        return output
+    }
     
     /// Convert an EdgeRole into a Symbol Role
     ///
@@ -247,24 +203,6 @@ extension EdgeRole {
     /// - note: Not sure if this is how it should work --> Could calculate all possible permutations of roles and generate list of SymbolRoles out of it.
     public static func getSymbolRole(edgeRole: EdgeRole) -> SymbolRole? {
         switch edgeRole {
-        case .declaration:
-            return SymbolRole.declaration
-        case .definition:
-            return SymbolRole.definition
-        case .reference:
-            return SymbolRole.reference
-        case .read:
-            return SymbolRole.read
-        case .write:
-            return SymbolRole.write
-        case .call:
-            return SymbolRole.call
-        case .dynamic:
-            return SymbolRole.dynamic
-        case .addressOf:
-            return SymbolRole.addressOf
-        case .implicit:
-            return SymbolRole .implicit
         case .childOf:
             return SymbolRole.childOf
         case .baseOf:
