@@ -81,7 +81,7 @@ class GraphBuilder {
         headerMessage(msg: "Building graph")
         
         /// Find all relations between all nodes and missed nodes
-        var queue: Queue = Queue<Symbol>()
+        var queue: [Symbol] = [Symbol]()
         
         guard let indexingServer = self.indexingServer else {
             errorMessage(msg: "Can't get indexing server")
@@ -92,12 +92,12 @@ class GraphBuilder {
         /// Get all symbols for generated tokns
         for token in tokens {
             for occ in indexingServer.findWorkspaceSymbols(matching: token.name) {
-                queue.push(occ.symbol)
+                queue.append(occ.symbol)
             }
         }
         
         /// Recursively find all nodes
-        iterativeGraphBuilder(queue: queue, indexingServer: indexingServer)
+        iterativeGraphBuilder(inQueue: queue, indexingServer: indexingServer)
         
         /// Connect all extensions to their classes or structs
         for node in graph.vertices {
@@ -118,58 +118,69 @@ class GraphBuilder {
 
 extension GraphBuilder {
     
-    private func iterativeGraphBuilder(queue: Queue<Symbol>, indexingServer: IndexingServer) -> Void {
+    private func iterativeGraphBuilder(inQueue: [Symbol], indexingServer: IndexingServer) -> Void {
+        var queue: ThreadSafe<Symbol> = ThreadSafe<Symbol>(inQueue)
         var relations: [(Symbol,SymbolRelation)] = [(Symbol,SymbolRelation)]()
         var visited: [Symbol] = [Symbol]()
-        while !queue.isEmpty {
-            let symbol = queue.pop()
+        var alreadyProcessing: [SymbolOccurrence] = [SymbolOccurrence]()
+        var toBeNodes: ThreadSafe<SymbolOccurrence> = ThreadSafe<SymbolOccurrence>()
+        
+        while !queue.value.isEmpty {
+            let symbol = queue.removeFirst()
             
             /// Check if symbol has already been visited
             if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
-                visited.append(symbol)
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
-                for occurrence in symbolOccurrences {
+                
+                /// Concurrently fIlter all occurences for already visited occurences and location
+                var safeSymbolOccurrences = ThreadSafe<SymbolOccurrence>()
+                DispatchQueue.concurrentPerform(iterations: symbolOccurrences.count) { index in
                     /// Check if the symbol occurence is part of an imported project
-                    guard let occURL: URL = URL(fileURLWithPath: occurrence.location.path) else {
-                        errorMessage(msg: "Cant create URL of this path \(occurrence.location.path)")
-                        return
-                    }
-                    if !occURL.pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
-                        if !occurrence.location.isSystem {
-                            let occNode = Node(symbol: occurrence.symbol, roles: occurrence.roles)
-                            
-                            /// Check if the node already exists (compares by usr), if not add it to the nodes and to the queue
-                            if !graph.contains(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
-                                graph.addVertex(occNode)
-                                queue.push(occurrence.symbol)
-                            } else {
-                                if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
-                                    if let node: Node = graph.vertexAtIndex(index) {
-                                        var roles: [NodeRole] = [NodeRole](node.roles)
-                                        for role in occNode.roles {
-                                            if !roles.contains(role) {
-                                                roles.append(role)
-                                            }
-                                        }
-                                        /// Update vertex if new roles are discovered
-                                        graph.removeVertex(node)
-                                        node.roles = roles
-                                        graph.addVertex(node)
-                                    }
-                                }
-                            }
-                            
-                            /// Scan all relations of the symbol
-                            for relation in occurrence.relations {
-                                /// Check if the graph contains a node with the symbol usr
-                                if !graph.contains(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
-                                    queue.push(relation.symbol)
-                                }
-                                relations.append((occurrence.symbol,relation))
-                            }
+                    if !URL(fileURLWithPath: symbolOccurrences[index].location.path).pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
+                        if !symbolOccurrences[index].location.isSystem
+                        && !self.binarySearch(alreadyProcessing, key: symbolOccurrences[index]){
+                            safeSymbolOccurrences.append(elements: [symbolOccurrences[index]])
                         }
                     }
                 }
+                alreadyProcessing.append(contentsOf: safeSymbolOccurrences.value)
+                alreadyProcessing.sort()
+                
+                
+                /// Check filtered symbols
+                for occurrence in safeSymbolOccurrences.value {
+                    let occNode = Node(symbol: occurrence.symbol, roles: occurrence.roles)
+                    /// Check if the node already exists (compares by usr), if not add it to the nodes and to the queue
+                    if !graph.contains(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
+                        graph.addVertex(occNode)
+                        queue.append([occurrence.symbol])
+                    } else {
+                        if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
+                            if let node: Node = graph.vertexAtIndex(index) {
+                                var roles: [NodeRole] = [NodeRole](node.roles)
+                                for role in occNode.roles {
+                                    if !roles.contains(role) {
+                                        roles.append(role)
+                                    }
+                                }
+                                /// Update vertex if new roles are discovered
+                                graph.removeVertex(node)
+                                node.roles = roles
+                                graph.addVertex(node)
+                            }
+                        }
+                    }
+                    
+                    /// Scan all relations of the symbol
+                    for relation in occurrence.relations {
+                        /// Check if the graph contains a node with the symbol usr
+                        if !graph.contains(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
+                            queue.append([relation.symbol])
+                        }
+                        relations.append((occurrence.symbol,relation))
+                    }
+                }
+                visited.append(symbol)
             }
         }
         /// Create Edges
@@ -191,35 +202,51 @@ extension GraphBuilder {
     }
     
     
-//    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-//        // This takes a lot of time but making it concurrent dosen't work ......
-//        var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
-//
-//        for nodeRole in nodeRoleCombinations {
-//            symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
-//        }
-//
-//        for edgeRole in edgeRoleCombinations {
-//            symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
-//        }
-//        return symbolOccurrences
-//    }
+    //    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
+    //        // This takes a lot of time but making it concurrent dosen't work ......
+    //        var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
+    //
+    //        for nodeRole in nodeRoleCombinations {
+    //            symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
+    //        }
+    //
+    //        for edgeRole in edgeRoleCombinations {
+    //            symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
+    //        }
+    //        return symbolOccurrences
+    //    }
     
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-
+        
         var safeSymbolOccurrences = ThreadSafe<SymbolOccurrence>()
-
-        DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
-            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
-            safeSymbolOccurrences.append(elements: occurences)
+        
+        DispatchQueue.concurrentPerform(iterations: 2) { index in
+            DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
+                let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
+                safeSymbolOccurrences.append(elements: occurences)
+            }
+            
+            DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
+                let occurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRoleCombinations[index])
+                safeSymbolOccurrences.append(elements: occurences)
+            }
         }
-
-        DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
-            let occurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRoleCombinations[index])
-            safeSymbolOccurrences.append(elements: occurences)
-        }
-
-        print("All occurences: \(safeSymbolOccurrences.value.count)")
         return safeSymbolOccurrences.value
+    }
+    
+    private func binarySearch<T: Comparable>(_ a: [T], key: T) -> Bool {
+        var lowerBound = 0
+        var upperBound = a.count
+        while lowerBound < upperBound {
+            let midIndex = lowerBound + (upperBound - lowerBound) / 2
+            if a[midIndex] == key {
+                return true
+            } else if a[midIndex] < key {
+                lowerBound = midIndex + 1
+            } else {
+                upperBound = midIndex
+            }
+        }
+        return false
     }
 }
