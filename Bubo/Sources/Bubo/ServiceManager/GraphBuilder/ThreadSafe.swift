@@ -1,22 +1,30 @@
-/// Source: PeckerKit
 
 import Foundation
 
-final class ThreadSafe<A> {
-    private var _value: A
+@dynamicMemberLookup
+struct ThreadSafe<Element> {
+    private var wrappedValue: Array<Element>
     private let queue = DispatchQueue(label: "com.Bubo.threadSafeSerialQueue")
-
-    init(_ value: A) {
-        self._value = value
+    
+    init(_ value: Array<Element> = []) {
+        self.wrappedValue = value
     }
-
-    var value: A {
-        return queue.sync { _value }
+    
+    var value: Array<Element> {
+        return queue.sync {
+            wrappedValue
+        }
     }
-
-    func atomically(_ transform: (inout A) -> ()) {
+    
+    subscript<T>(dynamicMember keyPath: KeyPath<Array<Element>, T>) -> T {
         queue.sync {
-            transform(&self._value)
+            wrappedValue[keyPath: keyPath]
+        }
+    }
+    
+    mutating func append<N: Sequence>(elements: N) where N.Element == Element {
+        queue.sync {
+            wrappedValue.append(contentsOf: elements)
         }
     }
 }
