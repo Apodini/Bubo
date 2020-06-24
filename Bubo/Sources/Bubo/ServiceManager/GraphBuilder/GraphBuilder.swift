@@ -128,7 +128,6 @@ extension GraphBuilder {
             if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
                 visited.append(symbol)
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
-                
                 for occurrence in symbolOccurrences {
                     /// Check if the symbol occurence is part of an imported project
                     guard let occURL: URL = URL(fileURLWithPath: occurrence.location.path) else {
@@ -192,35 +191,35 @@ extension GraphBuilder {
     }
     
     
-    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-        // This takes a lot of time but making it concurrent dosen't work ......
-        var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
-
-        for nodeRole in nodeRoleCombinations {
-            symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
-        }
-
-        for edgeRole in edgeRoleCombinations {
-            symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
-        }
-        return symbolOccurrences
-    }
-    
 //    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
+//        // This takes a lot of time but making it concurrent dosen't work ......
+//        var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
 //
-//        let safeSymbolOccurrences = ThreadSafe<[SymbolOccurrence]>([])
-//
-//        DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
-//            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
-//            safeSymbolOccurrences.atomically { $0 += occurences }
+//        for nodeRole in nodeRoleCombinations {
+//            symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
 //        }
 //
-//        DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
-//            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: edgeRoleCombinations[index])
-//            safeSymbolOccurrences.atomically { $0 += occurences }
+//        for edgeRole in edgeRoleCombinations {
+//            symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
 //        }
-//
-//        print("All occurences: \(safeSymbolOccurrences.value.count)")
-//        return safeSymbolOccurrences.value
+//        return symbolOccurrences
 //    }
+    
+    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
+
+        var safeSymbolOccurrences = ThreadSafe<SymbolOccurrence>()
+
+        DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
+            let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
+            safeSymbolOccurrences.append(elements: occurences)
+        }
+
+        DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
+            let occurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRoleCombinations[index])
+            safeSymbolOccurrences.append(elements: occurences)
+        }
+
+        print("All occurences: \(safeSymbolOccurrences.value.count)")
+        return safeSymbolOccurrences.value
+    }
 }
