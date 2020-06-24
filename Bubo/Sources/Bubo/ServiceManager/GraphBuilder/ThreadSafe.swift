@@ -27,4 +27,10 @@ struct ThreadSafe<Element> {
             wrappedValue.append(contentsOf: elements)
         }
     }
+    
+    mutating func removeFirst() -> Element{
+        queue.sync {
+            return wrappedValue.removeFirst()
+        }
+    }
 }
