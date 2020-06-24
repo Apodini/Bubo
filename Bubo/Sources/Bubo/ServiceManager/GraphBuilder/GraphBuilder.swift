@@ -119,13 +119,13 @@ class GraphBuilder {
 extension GraphBuilder {
     
     private func iterativeGraphBuilder(inQueue: [Symbol], indexingServer: IndexingServer) -> Void {
-        var queue: ThreadSafe<Symbol> = ThreadSafe<Symbol>(inQueue)
+        var queue: [Symbol] = inQueue
         var relations: [(Symbol,SymbolRelation)] = [(Symbol,SymbolRelation)]()
         var visited: [Symbol] = [Symbol]()
         var alreadyProcessing: [SymbolOccurrence] = [SymbolOccurrence]()
         var toBeNodes: ThreadSafe<SymbolOccurrence> = ThreadSafe<SymbolOccurrence>()
         
-        while !queue.value.isEmpty {
+        while !queue.isEmpty {
             let symbol = queue.removeFirst()
             
             /// Check if symbol has already been visited
@@ -147,13 +147,14 @@ extension GraphBuilder {
                 alreadyProcessing.sort()
                 
                 
+                
                 /// Check filtered symbols
                 for occurrence in safeSymbolOccurrences.value {
                     let occNode = Node(symbol: occurrence.symbol, roles: occurrence.roles)
                     /// Check if the node already exists (compares by usr), if not add it to the nodes and to the queue
                     if !graph.contains(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
                         graph.addVertex(occNode)
-                        queue.append([occurrence.symbol])
+                        queue.append(occurrence.symbol)
                     } else {
                         if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
                             if let node: Node = graph.vertexAtIndex(index) {
@@ -175,7 +176,7 @@ extension GraphBuilder {
                     for relation in occurrence.relations {
                         /// Check if the graph contains a node with the symbol usr
                         if !graph.contains(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
-                            queue.append([relation.symbol])
+                            queue.append(relation.symbol)
                         }
                         relations.append((occurrence.symbol,relation))
                     }
