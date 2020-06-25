@@ -39,6 +39,14 @@ struct ThreadSafeArray<Element> {
 
 }
 
+extension ThreadSafeArray where Element == SymbolOccurrence {
+    mutating func sort() -> Void{
+        queue.sync {
+            wrappedValue.sort()
+        }
+    }
+}
+
 extension ThreadSafeArray where Element == Symbol {
     mutating func sort() -> Void{
         queue.sync {

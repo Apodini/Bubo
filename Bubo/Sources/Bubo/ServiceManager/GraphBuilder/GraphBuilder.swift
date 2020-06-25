@@ -92,7 +92,10 @@ class GraphBuilder {
         /// Get all symbols for generated tokns
         for token in tokens {
             for occ in indexingServer.findWorkspaceSymbols(matching: token.name) {
-                queue.append(occ.symbol)
+                /// Do not add duplicates
+                if !queue.contains(where: {(sym: Symbol) -> Bool in sym.usr == occ.symbol.usr && sym.kind == occ.symbol.kind}) {
+                    queue.append(occ.symbol)
+                }
             }
         }
         
@@ -121,10 +124,12 @@ extension GraphBuilder {
     private func iterativeGraphBuilder(inQueue: [Symbol], indexingServer: IndexingServer) -> Void {
         var queue: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue)
         var visited: [Symbol] = [Symbol]()
+        var queueMemory: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue) // one half is queue the other half is visited
         var alreadyProcessing: [SymbolOccurrence] = [SymbolOccurrence]()
         var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
         outputMessage(msg: "Querying nodes")
         while !queue.value.isEmpty {
+            print("Queue length: \(queue.value.count)")
             let symbol = queue.removeFirst()
             /// Check if symbol has already been visited
             if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
@@ -142,7 +147,7 @@ extension GraphBuilder {
                     if !URL(fileURLWithPath: symbolOccurrences[index].location.path).pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
                         /// Check if the occurence has already been processed once -> if yes ignore it else add it to the occurences that are going to be processed
                         if !symbolOccurrences[index].location.isSystem
-                        && !self.binarySearch(alreadyProcessing, key: symbolOccurrences[index]){
+                            && !self.binarySearch(alreadyProcessing, key: symbolOccurrences[index]){
                             safeSymbolOccurrences.append(elements: [symbolOccurrences[index]])
                         }
                     }
@@ -150,17 +155,16 @@ extension GraphBuilder {
                 /// Append all processed symbol occurences to enhance filtering
                 alreadyProcessing.append(contentsOf: safeSymbolOccurrences.value)
                 
-                /// Sort visited array to optimise binary serach
-                visited.sort()
                 
                 /// Add all new and filtered occurences to the graph (Insertion in the threadysafe dictionary with usr as key. If duplicated key, then merge occurences :)
                 DispatchQueue.concurrentPerform(iterations: safeSymbolOccurrences.value.count) { index in
                     let symbols = toBeNodes.set(occurrence: safeSymbolOccurrences.value[index])
                     
                     /// Check if the symbols that should be added to the queue have already been visited and only add not visited symbols to the queue
-                    DispatchQueue.concurrentPerform(iterations: symbols.count) { index in
-                        if !binarySearch(visited, key: symbols[index]) {
-                            queue.append(elements: [symbols[index]])
+                    for symbol in symbols {
+                        if !queueMemory.value.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
+                            queue.append(elements: [symbol])
+                            queueMemory.append(elements: [symbol])
                         }
                     }
                 }
@@ -169,14 +173,22 @@ extension GraphBuilder {
                 visited.append(symbol)
             }
         }
+        //        print(visited.count)
+        //        print(toBeNodes.value.count)
         
-        outputMessage(msg: "Processing nodes")
+        
+        self.graph = createGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
+    }
+
+    
+    private func createGraph(symbolOccurences: [SymbolOccurrence]) -> DependencyGraph<Node> {
+        outputMessage(msg: "Creating nodes")
+        var graph: DependencyGraph<Node> = DependencyGraph<Node>()
         /// Check filtered symbols
         var relations: ThreadSafeArray<(Symbol,SymbolRelation)> = ThreadSafeArray<(Symbol,SymbolRelation)>()
         var safeNodes: ThreadSafeArray<Node> = ThreadSafeArray<Node>()
-        let toBeNodesValues: [SymbolOccurrence] = [SymbolOccurrence](toBeNodes.value.values)
-        DispatchQueue.concurrentPerform(iterations: toBeNodesValues.count) { index in
-            let occ: SymbolOccurrence = toBeNodesValues[index]
+        DispatchQueue.concurrentPerform(iterations: symbolOccurences.count) { index in
+            let occ: SymbolOccurrence = symbolOccurences[index]
             safeNodes.append(elements: [Node(symbol: occ.symbol, roles: occ.roles)])
             
             /// Scan all relations of the symbol
@@ -185,7 +197,7 @@ extension GraphBuilder {
             }
         }
         for node in safeNodes.value {
-                graph.addVertex(node)
+            graph.addVertex(node)
         }
         
         outputMessage(msg: "Creating edges")
@@ -205,22 +217,8 @@ extension GraphBuilder {
                 }
             }
         }
+        return graph
     }
-    
-    
-    //    private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-    //        // This takes a lot of time but making it concurrent dosen't work ......
-    //        var symbolOccurrences: [SymbolOccurrence] = [SymbolOccurrence]()
-    //
-    //        for nodeRole in nodeRoleCombinations {
-    //            symbolOccurrences.append(contentsOf: indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRole))
-    //        }
-    //
-    //        for edgeRole in edgeRoleCombinations {
-    //            symbolOccurrences.append(contentsOf: indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRole))
-    //        }
-    //        return symbolOccurrences
-    //    }
     
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
         
