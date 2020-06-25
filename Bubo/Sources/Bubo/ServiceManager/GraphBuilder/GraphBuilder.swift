@@ -125,7 +125,6 @@ extension GraphBuilder {
         var queue: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue)
         var visited: [Symbol] = [Symbol]()
         var queueMemory: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue) // one half is queue the other half is visited
-        var alreadyProcessing: [SymbolOccurrence] = [SymbolOccurrence]()
         var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
         outputMessage(msg: "Querying nodes")
         while !queue.value.isEmpty {
@@ -138,7 +137,6 @@ extension GraphBuilder {
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
                 
                 /// Sort alreadyProcessing array to optimise binary search
-                alreadyProcessing.sort()
                 
                 /// Concurrently fIlter all occurences for already visited occurences and location
                 var safeSymbolOccurrences = ThreadSafeArray<SymbolOccurrence>()
@@ -146,14 +144,12 @@ extension GraphBuilder {
                     /// Check if the symbol occurence is part of an imported project
                     if !URL(fileURLWithPath: symbolOccurrences[index].location.path).pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
                         /// Check if the occurence has already been processed once -> if yes ignore it else add it to the occurences that are going to be processed
-                        if !symbolOccurrences[index].location.isSystem
-                            && !self.binarySearch(alreadyProcessing, key: symbolOccurrences[index]){
+                        if !symbolOccurrences[index].location.isSystem {
                             safeSymbolOccurrences.append(elements: [symbolOccurrences[index]])
                         }
                     }
                 }
                 /// Append all processed symbol occurences to enhance filtering
-                alreadyProcessing.append(contentsOf: safeSymbolOccurrences.value)
                 
                 
                 /// Add all new and filtered occurences to the graph (Insertion in the threadysafe dictionary with usr as key. If duplicated key, then merge occurences :)
