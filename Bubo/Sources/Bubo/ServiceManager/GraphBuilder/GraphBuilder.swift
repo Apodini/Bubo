@@ -119,73 +119,78 @@ class GraphBuilder {
 extension GraphBuilder {
     
     private func iterativeGraphBuilder(inQueue: [Symbol], indexingServer: IndexingServer) -> Void {
-        var queue: [Symbol] = inQueue
-        var relations: [(Symbol,SymbolRelation)] = [(Symbol,SymbolRelation)]()
+        var queue: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue)
         var visited: [Symbol] = [Symbol]()
         var alreadyProcessing: [SymbolOccurrence] = [SymbolOccurrence]()
-        var toBeNodes: ThreadSafe<SymbolOccurrence> = ThreadSafe<SymbolOccurrence>()
-        
-        while !queue.isEmpty {
+        var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
+        outputMessage(msg: "Querying nodes")
+        while !queue.value.isEmpty {
             let symbol = queue.removeFirst()
-            
             /// Check if symbol has already been visited
             if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {
+                
+                /// Concurrently get all symbol occurences and related symbol occurences for queue symbol
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
                 
+                /// Sort alreadyProcessing array to optimise binary search
+                alreadyProcessing.sort()
+                
                 /// Concurrently fIlter all occurences for already visited occurences and location
-                var safeSymbolOccurrences = ThreadSafe<SymbolOccurrence>()
+                var safeSymbolOccurrences = ThreadSafeArray<SymbolOccurrence>()
                 DispatchQueue.concurrentPerform(iterations: symbolOccurrences.count) { index in
                     /// Check if the symbol occurence is part of an imported project
                     if !URL(fileURLWithPath: symbolOccurrences[index].location.path).pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
+                        /// Check if the occurence has already been processed once -> if yes ignore it else add it to the occurences that are going to be processed
                         if !symbolOccurrences[index].location.isSystem
                         && !self.binarySearch(alreadyProcessing, key: symbolOccurrences[index]){
                             safeSymbolOccurrences.append(elements: [symbolOccurrences[index]])
                         }
                     }
                 }
+                /// Append all processed symbol occurences to enhance filtering
                 alreadyProcessing.append(contentsOf: safeSymbolOccurrences.value)
-                alreadyProcessing.sort()
                 
+                /// Sort visited array to optimise binary serach
+                visited.sort()
                 
-                
-                /// Check filtered symbols
-                for occurrence in safeSymbolOccurrences.value {
-                    let occNode = Node(symbol: occurrence.symbol, roles: occurrence.roles)
-                    /// Check if the node already exists (compares by usr), if not add it to the nodes and to the queue
-                    if !graph.contains(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
-                        graph.addVertex(occNode)
-                        queue.append(occurrence.symbol)
-                    } else {
-                        if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == occurrence.symbol.usr}) {
-                            if let node: Node = graph.vertexAtIndex(index) {
-                                var roles: [NodeRole] = [NodeRole](node.roles)
-                                for role in occNode.roles {
-                                    if !roles.contains(role) {
-                                        roles.append(role)
-                                    }
-                                }
-                                /// Update vertex if new roles are discovered
-                                graph.removeVertex(node)
-                                node.roles = roles
-                                graph.addVertex(node)
-                            }
-                        }
-                    }
+                /// Add all new and filtered occurences to the graph (Insertion in the threadysafe dictionary with usr as key. If duplicated key, then merge occurences :)
+                DispatchQueue.concurrentPerform(iterations: safeSymbolOccurrences.value.count) { index in
+                    let symbols = toBeNodes.set(occurrence: safeSymbolOccurrences.value[index])
                     
-                    /// Scan all relations of the symbol
-                    for relation in occurrence.relations {
-                        /// Check if the graph contains a node with the symbol usr
-                        if !graph.contains(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
-                            queue.append(relation.symbol)
+                    /// Check if the symbols that should be added to the queue have already been visited and only add not visited symbols to the queue
+                    DispatchQueue.concurrentPerform(iterations: symbols.count) { index in
+                        if !binarySearch(visited, key: symbols[index]) {
+                            queue.append(elements: [symbols[index]])
                         }
-                        relations.append((occurrence.symbol,relation))
                     }
                 }
+                
+                /// Add the processed symbol to the visited array
                 visited.append(symbol)
             }
         }
+        
+        outputMessage(msg: "Processing nodes")
+        /// Check filtered symbols
+        var relations: ThreadSafeArray<(Symbol,SymbolRelation)> = ThreadSafeArray<(Symbol,SymbolRelation)>()
+        var safeNodes: ThreadSafeArray<Node> = ThreadSafeArray<Node>()
+        let toBeNodesValues: [SymbolOccurrence] = [SymbolOccurrence](toBeNodes.value.values)
+        DispatchQueue.concurrentPerform(iterations: toBeNodesValues.count) { index in
+            let occ: SymbolOccurrence = toBeNodesValues[index]
+            safeNodes.append(elements: [Node(symbol: occ.symbol, roles: occ.roles)])
+            
+            /// Scan all relations of the symbol
+            DispatchQueue.concurrentPerform(iterations: occ.relations.count) { index in
+                relations.append(elements: [(occ.symbol, occ.relations[index])])
+            }
+        }
+        for node in safeNodes.value {
+                graph.addVertex(node)
+        }
+        
+        outputMessage(msg: "Creating edges")
         /// Create Edges
-        for (symbol, relation) in relations {
+        for (symbol, relation) in relations.value {
             if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == symbol.usr}) {
                 if let fromNode: Node = graph.vertexAtIndex(index) {
                     if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
@@ -219,7 +224,7 @@ extension GraphBuilder {
     
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
         
-        var safeSymbolOccurrences = ThreadSafe<SymbolOccurrence>()
+        var safeSymbolOccurrences = ThreadSafeArray<SymbolOccurrence>()
         
         DispatchQueue.concurrentPerform(iterations: 2) { index in
             DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in

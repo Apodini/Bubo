@@ -1,8 +1,9 @@
 
 import Foundation
+import IndexStoreDB
 
 @dynamicMemberLookup
-struct ThreadSafe<Element> {
+struct ThreadSafeArray<Element> {
     private var wrappedValue: Array<Element>
     private let queue = DispatchQueue(label: "com.Bubo.threadSafeSerialQueue")
     
@@ -31,6 +32,17 @@ struct ThreadSafe<Element> {
     mutating func removeFirst() -> Element{
         queue.sync {
             return wrappedValue.removeFirst()
+        }
+    }
+    
+
+
+}
+
+extension ThreadSafeArray where Element == Symbol {
+    mutating func sort() -> Void{
+        queue.sync {
+            wrappedValue.sort()
         }
     }
 }
