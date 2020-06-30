@@ -42,14 +42,25 @@ class ServiceManager {
             self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
             
             
-            self.graphBuilder!.createDependencyGraph()
+            self.graphBuilder!.generateRawGraph()
             self.updateGraph()
             successMessage(msg: "Graph successfully updated!")
             return self.graphBuilder!.graph
         } else {
             successMessage(msg: "Graph is up to date!")
+            self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
+            self.graphBuilder?.graph = service.graph!
             return service.graph!
         }
+    }
+    
+    public func clusterGraphByClasses() -> [DependencyGraph<Node>]? {
+        guard let graph = createDependencyGraph() else {
+            errorMessage(msg: "Failed to create graph")
+            abortMessage(msg: "Aborting class clustering")
+            return nil
+        }
+        return graphBuilder!.clusterByClasses(originalGraph: graph)
     }
     
     private func updateGraph() -> Void {

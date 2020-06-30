@@ -15,7 +15,8 @@ extension Bubo {
             subcommands: [
                 Crawl.self,
                 Parse.self,
-                Graph.self
+                Graph.self,
+                ClusterGraph.self
         ])
     }
 }
