@@ -5,8 +5,8 @@
 import Foundation
 
 extension Analyser {
-    /// - returns: A dictionary of integers -> [GroupID:Coupling]
-    public func couplingBetweenObjects() -> [Int:Int] {
-        return [0:0]
+
+    public func couplingBetweenObjects() -> Void {
+        var graph = self.graphSnapshot.graph
     }
 }

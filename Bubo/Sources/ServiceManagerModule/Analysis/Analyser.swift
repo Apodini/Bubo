@@ -6,10 +6,9 @@ import Foundation
 import BuboModelsModule
 
 public class Analyser {
-    private var refinedGraph: RefinedDependencyGraph<Node>
+    var graphSnapshot: GraphSnapshot
     
-    
-    init(refinedGraph: RefinedDependencyGraph<Node>) {
-        self.refinedGraph = refinedGraph
+    public init(graphSnapshot: GraphSnapshot) {
+        self.graphSnapshot = graphSnapshot
     }
 }
