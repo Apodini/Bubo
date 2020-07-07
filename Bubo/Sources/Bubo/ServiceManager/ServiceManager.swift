@@ -8,7 +8,6 @@ import ShellOut
 class ServiceManager {
     public let fileManager: FileManager  = FileManager.default
     private let resourceManager: ResourceManager = ResourceManager()
-    public let parser: Parser
     private var graphBuilder: GraphBuilder?
     private var service: ServiceConfiguration
     private let projectName: String
@@ -17,7 +16,6 @@ class ServiceManager {
     init(service: ServiceConfiguration, pName: String?) {
         // Init properties
         self.service = service
-        self.parser = Parser()
         self.graphBuilder = nil
         
         guard let name = pName else {
@@ -37,10 +35,8 @@ class ServiceManager {
             self.cleanUpService()
             self.buildService()
             
-            // Parse service
-            parser.parse(service: service)
-            self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
-            
+            // Init graph builder service
+            self.graphBuilder = GraphBuilder(service: service)
             
             self.graphBuilder!.generateRawDependencyGraph()
             self.updateGraph()
@@ -48,7 +44,7 @@ class ServiceManager {
             return self.graphBuilder!.graph
         } else {
             successMessage(msg: "Graph is up to date!")
-            self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
+            self.graphBuilder = GraphBuilder(service: service)
             self.graphBuilder?.graph = service.graph!
             return service.graph!
         }

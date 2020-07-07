@@ -22,7 +22,7 @@ extension GraphBuilder {
         }
         
         /// Get all symbols for generated tokns
-        for token in tokens {
+        for token in self.parser.tokens {
             for occ in indexingServer.findWorkspaceSymbols(matching: token.name) {
                 /// Do not add duplicates
                 if !queue.contains(where: {(sym: Symbol) -> Bool in sym.usr == occ.symbol.usr && sym.kind == occ.symbol.kind}) {
