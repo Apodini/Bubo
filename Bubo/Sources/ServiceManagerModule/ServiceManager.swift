@@ -14,6 +14,7 @@ public class ServiceManager {
     public let fileManager: FileManager  = FileManager.default
     private var graphBuilder: GraphBuilder?
     private var service: ServiceConfiguration
+    private var mostRecentGraphSnapshot: GraphSnapshot?
     private let projectName: String
     private let resourceManager: ResourceManager = ResourceManager()
     
@@ -21,7 +22,8 @@ public class ServiceManager {
     public init(service: ServiceConfiguration, pName: String?) {
         // Init properties
         self.service = service
-        self.graphBuilder = nil        
+        self.mostRecentGraphSnapshot = nil
+        self.graphBuilder = nil
         guard let name = pName else {
             errorMessage(msg: "Can't unwrap project name!")
             self.projectName = ""
@@ -31,10 +33,12 @@ public class ServiceManager {
     }
     
     
-    public func createDependencyGraph() -> RawDependencyGraph<Node>? {
+    public func createDependencyGraph() -> RefinedDependencyGraph<Node>? {
         // Build service
-        outputMessage(msg: "Checking Graph...")
-        if !self.compareGitHash() || service.graph == nil{
+        headerMessage(msg: "Checking Graph...")
+        self.mostRecentGraphSnapshot = resourceManager.getMostRecentGraphSnapshot(service: service)
+
+        if !self.compareGitHash() || mostRecentGraphSnapshot == nil{
             outputMessage(msg: "Graph needs to be updated")
             self.cleanUpService()
             self.buildService()
@@ -42,76 +46,45 @@ public class ServiceManager {
             // Init graph builder service
             self.graphBuilder = GraphBuilder(service: service)
             
-            self.graphBuilder!.generateRawDependencyGraph()
+            self.graphBuilder!.generateRefinedDependencyGraph()
             self.updateGraph()
             successMessage(msg: "Graph successfully updated!")
             return self.graphBuilder!.graph
         } else {
             successMessage(msg: "Graph is up to date!")
             self.graphBuilder = GraphBuilder(service: service)
-            self.graphBuilder?.graph = service.graph!
-            return service.graph!
+            self.graphBuilder?.graph = mostRecentGraphSnapshot!.graph
+            return mostRecentGraphSnapshot!.graph
         }
-    }
-    
-    public func clusterGraphByClasses() -> RefinedDependencyGraph<Node>? {
-        guard let graph = createDependencyGraph() else {
-            errorMessage(msg: "Failed to create graph")
-            abortMessage(msg: "Aborting class clustering")
-            return nil
-        }
-        return graphBuilder!.generateRefinedDependencyGraph(rawGraph: graph)
     }
     
     private func updateGraph() -> Void {
-        var updatedService: ServiceConfiguration = ServiceConfiguration(
-            name: service.name,
-            url: service.url,
-            gitURL: service.gitRemoteURL,
-            currentGitHash: service.currentGitHash,
-            currentBuildGitHash: service.currentGitHash,
-            files: service.files)
-        updatedService.setGraph(graph: self.graphBuilder!.graph)
-        self.service = updatedService
-        self.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
+        
+        let timestamp = Date().description(with: .current)
+        
+        let graphsnapshot: GraphSnapshot = GraphSnapshot(timestamp: timestamp, buildGitHash: service.currentGitHash, graph: graphBuilder!.graph)
+        
+        if let url = self.resourceManager.encodeGraphSnapshot(pName: projectName, serviceName: service.name, graphSnapshot: graphsnapshot, timestamp: timestamp) {
+            self.service.addGraphSnapshot(url: url)
+            self.resourceManager.encodeServiceConfig(pName: projectName, configData: self.service)
+            self.mostRecentGraphSnapshot = graphsnapshot
+        } else {
+            errorMessage(msg: "Failed to update service: No url for encoded snapshot returned!")
+        }
     }
     
     
     private func compareGitHash() -> Bool {
         
-        guard let buildHash = service.currentBuildGitHash else {
-            // Update project configuration with new build hash
-            let updatedService: ServiceConfiguration = ServiceConfiguration(
-                name: service.name,
-                url: service.url,
-                gitURL: service.gitRemoteURL,
-                currentGitHash: service.currentGitHash,
-                currentBuildGitHash: service.currentGitHash,
-                files: service.files)
-            self.service = updatedService
-            self.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
+        guard let snapshot = mostRecentGraphSnapshot else {
             return false
         }
         
-        if service.currentGitHash == buildHash {
-            return true
-        } else {
-            let updatedService: ServiceConfiguration = ServiceConfiguration(
-                name: service.name,
-                url: service.url,
-                gitURL: service.gitRemoteURL,
-                currentGitHash: service.currentGitHash,
-                currentBuildGitHash: service.currentGitHash,
-                files: service.files)
-            self.service = updatedService
-            
-            self.resourceManager.encodeServiceConfig(pName: projectName, configData: updatedService)
-            return false
-        }
+        return service.currentGitHash == snapshot.buildGitHash
     }
     
     private func buildService() -> Void {
-        outputMessage(msg: "Initialising building process...")
+        headerMessage(msg: "Initialising building process...")
         if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
             if self.fileManager.changeCurrentDirectoryPath(
                 packageDotSwiftURL
@@ -121,7 +94,7 @@ public class ServiceManager {
                 ) {
                 do {
                     try shellOut(to: .buildSwiftPackage())
-                    outputMessage(msg: "Build for service \(service.name) completed")
+                    successMessage(msg: "Build for service \(service.name) completed")
                 } catch {
                     let error = error as! ShellOutError
                     errorMessage(msg: "Failed to build \(service.name). Can't index service if it's not build")
@@ -135,12 +108,12 @@ public class ServiceManager {
     }
     
     private func cleanUpService() -> Void {
-        outputMessage(msg: "Cleaning up service...")
+        headerMessage(msg: "Cleaning up service...")
         if self.fileManager.fileExists(atPath: service.gitRootURL.appendingPathComponent(".build").path) {
             if self.fileManager.changeCurrentDirectoryPath(service.gitRootURL.path) {
                 do {
                     try self.fileManager.removeItem(at: service.gitRootURL.appendingPathComponent(".build"))
-                    outputMessage(msg: "Removed .build directory from \(service.name)")
+                    successMessage(msg: "Removed .build directory from \(service.name)")
                 } catch {
                     errorMessage(msg: "Failed to remove .build directory from \(service.name)")
                 }
@@ -178,7 +151,7 @@ public class ServiceManager {
         fileManager.createFile(atPath: url.path, contents: nil, attributes: nil)
         
         do {
-            try service.graph!.description.write(to: url, atomically: false, encoding: .utf8)
+            try mostRecentGraphSnapshot!.graph.description.write(to: url, atomically: false, encoding: .utf8)
             successMessage(msg: "Graph output is at \(url.path)")
         } catch {
             warningMessage(msg: "Couldn't write graph to dot file")

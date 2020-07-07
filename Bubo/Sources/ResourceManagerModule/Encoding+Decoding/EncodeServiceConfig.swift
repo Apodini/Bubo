@@ -22,8 +22,20 @@ extension ResourceManager {
             return nil
         }
         
+        let dirURL: URL = projectConfig.url.appendingPathComponent("\(configData.name)_Configuration")
+        
+        if !self.fileManager.fileExists(atPath: dirURL.path)  {
+            do {
+                // Generate the directory at the directory path
+                try self.fileManager.createDirectory(atPath: dirURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                errorMessage(msg: "Couldn't create directory for service configuration at path \(dirURL.path)")
+                return nil
+            }
+        }
+        
         /// Fetch the projects configuration file URL
-        let configURL: URL = projectConfig.url.appendingPathComponent("\(configData.name)_Configuration").appendingPathExtension("json")
+        let configURL: URL = dirURL.appendingPathComponent("configuration").appendingPathExtension("json")
         
         /// Encode the configuration data to JSON
         guard let encode = encodeDataToJSON(config: configData) else {

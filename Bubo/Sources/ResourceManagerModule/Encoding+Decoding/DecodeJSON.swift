@@ -57,4 +57,17 @@ extension ResourceManager {
         }
         return config
     }
+    
+    public func decodeGraphSnapshotfromJSON(url: URL) -> Optional<GraphSnapshot> {
+        let decoder = JSONDecoder()
+        var config: GraphSnapshot?
+        do {
+            try config = decoder.decode(GraphSnapshot.self, from: Data(contentsOf: url))
+        } catch {
+            errorMessage(msg: "Decoder couldn't decode graph snapshot at path \(url.path)")
+            return nil
+        }
+        return config
+    }
+    
 }

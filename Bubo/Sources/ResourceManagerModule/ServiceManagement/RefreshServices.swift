@@ -61,16 +61,24 @@ extension ResourceManager {
                             for (_, oldService) in prevServices {
                                 if oldService == newService {
                                     
+                                    /// Merge graphsnapshots
+                                    var graphsnapshots: [URL] = newService.graphSnapshots
+                                    for url in oldService.graphSnapshots {
+                                        if !newService.graphSnapshots.contains(url) {
+                                            graphsnapshots.append(url)
+                                        }
+                                    }
+                                    
                                     /// Generate an updated service configuration data object from the new and the old service
                                     let tmpService = ServiceConfiguration(
                                         name: oldService.name,
                                         url: newService.url,
                                         gitURL: newService.gitRemoteURL,
-                                        currentGitHash: newService.currentGitHash, // If newService gitHash is the same as old service build hash, the don't rebuild
-                                        currentBuildGitHash: oldService.currentBuildGitHash, // Expected that the new service was not build
+                                        currentGitHash: newService.currentGitHash,
                                         files: newService.files,
                                         dateCloned: oldService.dateCloned,
-                                        lastUpdated: newService.lastUpdated)
+                                        lastUpdated: newService.lastUpdated,
+                                        graphSnapshots: graphsnapshots)
                                     updatedServices[tmpService.name] = tmpService
                                 }
                             }

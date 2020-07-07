@@ -57,4 +57,16 @@ extension ResourceManager {
             return nil
         }
     }
+    
+    
+    public func encodeDataToJSON(config: GraphSnapshot) -> Data? {
+        let encoder = JSONEncoder()
+        do {
+            let data: Data = try encoder.encode(config)
+            return data
+        } catch {
+            errorMessage(msg: "Encoder couldn't encode service configuration file")
+            return nil
+        }
+    }
 }

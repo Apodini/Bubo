@@ -40,7 +40,6 @@ extension Bubo.Analysis {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
             }
-            headerMessage(msg: "Parsing \(options.serviceName)")
             let serviceManager = ServiceManager(service: service, pName: options.projectName)
             guard serviceManager.createDependencyGraph() != nil else {
                 return

@@ -10,7 +10,7 @@ import OutputStylingModule
 extension GraphBuilder {
     
     /// Builds the dependency graph
-    public func generateRawDependencyGraph() -> Void {
+     func generateRawDependencyGraph() -> RawDependencyGraph<Node>? {
         headerMessage(msg: "Building graph")
         
         /// Find all relations between all nodes and missed nodes
@@ -20,7 +20,7 @@ extension GraphBuilder {
         guard let indexingServer = self.indexingServer else {
             errorMessage(msg: "Can't get indexing server")
             abortMessage(msg: "Dependency graph creation")
-            return
+            return nil
         }
         
         /// Get all symbols for generated tokns
@@ -36,7 +36,7 @@ extension GraphBuilder {
         /// Recursively find all nodes
         let toBeNodes = breadthFirstSymbolDiscovery(inQueue: queue, indexingServer: indexingServer)
         
-        self.graph = createRawDependencyGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
+        return createRawDependencyGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
     }
     
     private func createRawDependencyGraph(symbolOccurences: [SymbolOccurrence]) -> RawDependencyGraph<Node> {

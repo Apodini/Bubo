@@ -31,9 +31,6 @@ public struct ServiceConfiguration: Codable, Equatable {
     /// The hash of the current git commit
     public var currentGitHash: String
     
-    /// The hash of the commit that was last build
-    public var currentBuildGitHash: String?
-    
     /// A status flag that indicates if the service should be included in global analysis
     public var status: Bool
     
@@ -46,11 +43,11 @@ public struct ServiceConfiguration: Codable, Equatable {
     /// The swift version file if it exists
     public var swiftVersion: File?
     
-    /// The raw dependency graph of the service if it's been generated
-    public var graph: RawDependencyGraph<Node>?
+    public var graphSnapshots: [URL]
     
-    /// The standard constructor
-    public init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File]) {
+    
+    /// The standard constructor for geneerating a new service
+    public init(name: String, url: URL, gitURL: URL, currentGitHash: String, files: [File]) {
         self.name = name
         self.url = url
         self.gitRemoteURL = gitURL
@@ -59,8 +56,7 @@ public struct ServiceConfiguration: Codable, Equatable {
         self.status = true
         self.files = files
         self.currentGitHash = currentGitHash
-        self.currentBuildGitHash = currentBuildGitHash
-        self.graph = nil
+        self.graphSnapshots = []
         
         var tmpGitRootURL: URL? = nil
         for file in self.files {
@@ -81,8 +77,8 @@ public struct ServiceConfiguration: Codable, Equatable {
         }
     }
     
-    /// An extended constructor to generate megerged Services
-    public init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File], dateCloned: String, lastUpdated: String) {
+    /// An extended constructor to generate merged services
+    public init(name: String, url: URL, gitURL: URL, currentGitHash: String, files: [File], dateCloned: String, lastUpdated: String, graphSnapshots: [URL]) {
         self.name = name
         self.url = url
         self.gitRemoteURL = gitURL
@@ -92,7 +88,7 @@ public struct ServiceConfiguration: Codable, Equatable {
         self.status = true
         self.files = files
         self.currentGitHash = currentGitHash
-        self.currentBuildGitHash = currentBuildGitHash
+        self.graphSnapshots = graphSnapshots
         
         var tmpGitRootURL: URL? = nil
         for file in self.files {
@@ -120,7 +116,7 @@ public struct ServiceConfiguration: Codable, Equatable {
     ///
     /// - parameter graph: The dependency graph
     
-    public mutating func setGraph(graph: RawDependencyGraph<Node>) -> Void {
-        self.graph = graph
+    public mutating func addGraphSnapshot(url: URL) -> Void {
+        self.graphSnapshots.append(url)
     }
 }

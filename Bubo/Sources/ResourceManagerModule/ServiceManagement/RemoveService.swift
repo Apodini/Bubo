@@ -49,8 +49,8 @@ extension ResourceManager {
             return
         }
         
-        /// Remove service configuration file from disk
-        let configFileURL = URL(fileURLWithPath: serviceURL.path)
+        /// Remove service configuration file from disk (removes last path component to delete config directory)
+        let configFileURL = URL(fileURLWithPath: serviceURL.path).deletingPathExtension().deletingLastPathComponent()
         do {
             
             /// Try to remove the service configuration from disk

@@ -14,8 +14,7 @@ extension Bubo {
             abstract: "All analysises performed on a service or project",
             subcommands: [
                 Crawl.self,
-                Graph.self,
-                ClusterGraph.self
+                Graph.self
         ])
     }
 }

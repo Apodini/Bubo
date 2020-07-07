@@ -13,7 +13,6 @@ public class IndexingServer {
     /// The standard constructor
     public init(indexDatabase: IndexDatabase? = nil) {
         self.indexDatabase = indexDatabase
-        outputMessage(msg: "IndexingServer initialised")
     }
     
     

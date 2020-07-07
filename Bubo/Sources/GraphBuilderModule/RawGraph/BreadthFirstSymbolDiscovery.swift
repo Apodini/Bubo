@@ -19,10 +19,13 @@ extension GraphBuilder {
         var queueMemory: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>(inQueue) // one half is queue the other half is visited
         var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
         
+        outputMessage(msg: "Generating edge and node role permutaions")
+        self.nodeRoleCombinations = NodeRole.getAllRoleCombinations()
+        self.edgeRoleCombinations = EdgeRole.getAllRoleCombinations()
+        
         /// Modified Breadth-First Search that filters out SymbolOccurences that are in the main packages external depenencies and finds all symbols of the main package (the anlysed service)
         outputMessage(msg: "Querying nodes")
         while !queue.value.isEmpty {
-            print("Queue length: \(queue.value.count)")
             let symbol = queue.removeFirst()
             /// Check if symbol has already been visited
             if !visited.contains(where: {(sym: Symbol) -> Bool in sym.usr == symbol.usr && sym.kind == symbol.kind}) {

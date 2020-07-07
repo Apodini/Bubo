@@ -69,6 +69,6 @@ extension ResourceManager {
         }
         
         /// Return a new service configuration object
-        return ServiceConfiguration(name: name, url: serviceURL, gitURL: gitURLresolved, currentGitHash: gitHash, currentBuildGitHash: nil, files: files)
+        return ServiceConfiguration(name: name, url: serviceURL, gitURL: gitURLresolved, currentGitHash: gitHash, files: files)
     }
 }

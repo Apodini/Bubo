@@ -1,6 +1,9 @@
 //
-//  Created by Valentin Hartig on 17.06.20.
+//  Created by Valentin Hartig on 07.07.20.
 //
+
+import Foundation
+
 
 import Foundation
 import BuboModelsModule
@@ -13,7 +16,7 @@ extension ResourceManager {
     /// - parameter projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
     /// - returns: The validated project handle and the project configuration data
     
-    public func decodeServiceConfig(pName: String?, serviceName: String) -> (projectHandle: String, serviceConfig: ServiceConfiguration)? {
+    public func decodeAllGraphSnapshots(pName: String?, serviceName: String) -> (projectHandle: String, graphSnapshots: [GraphSnapshot])? {
         
         /// Validates the project name and fetches the `projectHandle` and the `projectURL`
         guard let (projectHandle, projectURL) = self.getProjectURL(projectName: pName) else {
@@ -30,14 +33,21 @@ extension ResourceManager {
         
         if projectConfig.repositories.keys.contains(serviceName) {
            
-            let serviceConfigURL: URL = URL(fileURLWithPath:projectConfig.url.appendingPathComponent("\(serviceName)_Configuration").appendingPathComponent("configuration").appendingPathExtension("json").path)
+            let serviceConfigURL: URL = URL(fileURLWithPath:projectConfig.url.appendingPathComponent("\(serviceName)_Configuration").appendingPathExtension("json").path)
             
             guard let serviceConfig: ServiceConfiguration = decodeServiceConfigfromJSON(url: serviceConfigURL) else {
                 errorMessage(msg: "Can't decode service \(serviceName) at url \(serviceConfigURL.path)")
                 abortMessage(msg: "Decoding service configuration")
                 return nil
             }
-            return (projectHandle, serviceConfig)
+            var graphSnapshots: [GraphSnapshot] = [GraphSnapshot]()
+            for snapshotURL in serviceConfig.graphSnapshots {
+                if let graphSnapshot: GraphSnapshot = decodeGraphSnapshotfromJSON(url: snapshotURL)  {
+                    graphSnapshots.append(graphSnapshot)
+                }
+            }
+            return (projectHandle, graphSnapshots)
+            
         } else {
             errorMessage(msg: "No service with name \(serviceName)")
             return nil
