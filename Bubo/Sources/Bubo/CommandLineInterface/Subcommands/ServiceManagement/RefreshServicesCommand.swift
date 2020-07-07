@@ -4,6 +4,8 @@
 
 import ArgumentParser
 import Foundation
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo.Service {
@@ -29,8 +31,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            let repositoryManagement = ResourceManager()
-            repositoryManagement.refreshServices(projectName: options.projectName)
+            Main.resourceManager.refreshServices(projectName: options.projectName)
         }
     }
 }

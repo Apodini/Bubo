@@ -1,6 +1,7 @@
 import XCTest
 import class Foundation.Bundle
 
+
 final class BuboTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.

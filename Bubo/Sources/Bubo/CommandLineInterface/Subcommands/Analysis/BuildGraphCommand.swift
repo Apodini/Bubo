@@ -5,6 +5,9 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
+import ServiceManagerModule
 
 
 extension Bubo.Analysis {
@@ -33,17 +36,15 @@ extension Bubo.Analysis {
         }
         
         func run() {
-            let resourceManager = ResourceManager()
-            guard let (projectHandle, service) = resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
+            guard let (_, service) = Main.resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
             }
             headerMessage(msg: "Parsing \(options.serviceName)")
             let serviceManager = ServiceManager(service: service, pName: options.projectName)
-            guard let graph = serviceManager.createDependencyGraph() else {
+            guard serviceManager.createDependencyGraph() != nil else {
                 return
             }
-            
             serviceManager.writeToDot()
         }
     }

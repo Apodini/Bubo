@@ -4,6 +4,8 @@
 
 import ArgumentParser
 import Foundation
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo {
@@ -31,11 +33,10 @@ extension Bubo {
         }
         
         func run() {
-            let resourceManager = ResourceManager()
             if permanently {
-                resourceManager.removeProject(pName: options.projectName)
+                Main.resourceManager.removeProject(pName: options.projectName)
             } else {
-                resourceManager.deregisterProject(pName: options.projectName)
+                Main.resourceManager.deregisterProject(pName: options.projectName)
             }
         }
     }

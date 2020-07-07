@@ -5,6 +5,9 @@
 
 import Foundation
 import ArgumentParser
+import BuboModelsModule
+import OutputStylingModule
+import ServiceManagerModule
 
 
 extension Bubo.Analysis {
@@ -33,8 +36,7 @@ extension Bubo.Analysis {
         }
         
         func run() {
-            let resourceManager = ResourceManager()
-            guard let (projectHandle, service) = resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
+            guard let (projectHandle, service) = Main.resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
             }

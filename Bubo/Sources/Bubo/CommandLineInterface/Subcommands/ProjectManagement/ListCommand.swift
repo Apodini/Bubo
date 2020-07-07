@@ -4,6 +4,8 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo {
@@ -17,7 +19,7 @@ extension Bubo {
         func run() {
             let colorBubo = "Bubo".blue()
             headerMessage(msg: "All \(colorBubo) projects")
-            guard let projects = rootConfig.projects else {
+            guard let projects = Main.resourceManager.rootConfig.projects else {
                 errorMessage(msg: "Can't list projects because Bubo has not been initialised.")
                 return
             }

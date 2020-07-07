@@ -4,6 +4,9 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
+
 
 extension Bubo {
     
@@ -21,18 +24,17 @@ extension Bubo {
         
         func run() {
             if verbose {
-                rootConfig.verboseMode = !rootConfig.verboseMode
-                let resourceManager = ResourceManager()
-                resourceManager.encodeRootConfig(config: rootConfig) // persist change in root config
+                Main.resourceManager.rootConfig.verboseMode = !Main.resourceManager.rootConfig.verboseMode
+                Main.resourceManager.encodeRootConfig(config: Main.resourceManager.rootConfig) // persist change in root config
             }
             let colorBubo = "Bubo" .blue()
             headerMessage(msg: "Status of \(colorBubo) root configuration \n".underline())
-            print("\(makeBold(string: "Initialisation Status")): \(initStatus)")
-            print("\(makeBold(string: "Initialisation Date")): \(rootConfig.initialisationDate)")
-            print("\(makeBold(string: "Version")): \(rootConfig.version)")
-            print("\(makeBold(string: "Verbose")): \(rootConfig.verboseMode)")
-            print("\(makeBold(string: "Location")): \(rootConfig.rootUrl?.path ?? "None")")
-            print("\(makeBold(string: "Number of Projects")): \(rootConfig.projects?.count ?? 0)")
+            print("\(makeBold(string: "Initialisation Status")): \(Main.resourceManager.initStatus)")
+            print("\(makeBold(string: "Initialisation Date")): \(Main.resourceManager.rootConfig.initialisationDate)")
+            print("\(makeBold(string: "Version")): \(Main.resourceManager.rootConfig.version)")
+            print("\(makeBold(string: "Verbose")): \(Main.resourceManager.rootConfig.verboseMode)")
+            print("\(makeBold(string: "Location")): \(Main.resourceManager.rootConfig.rootUrl?.path ?? "None")")
+            print("\(makeBold(string: "Number of Projects")): \(Main.resourceManager.rootConfig.projects?.count ?? 0)")
         }
     }
 }

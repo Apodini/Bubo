@@ -4,6 +4,8 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo.Service {
@@ -33,16 +35,11 @@ extension Bubo.Service {
         }
         
         func run() {
-            let repositoryManagement = ResourceManager()
             
             if all {
-                repositoryManagement.pullAllServices(projectName: options.projectName)
+                Main.resourceManager.pullAllServices(projectName: options.projectName)
             } else {
-                guard options.serviceName != nil else {
-                    errorMessage(msg: "Please specifiy a service you want to pull")
-                    return
-                }
-                repositoryManagement.pullService(projectName: options.projectName, serviceName: options.serviceName)
+                Main.resourceManager.pullService(projectName: options.projectName, serviceName: options.serviceName)
             }
         }
     }

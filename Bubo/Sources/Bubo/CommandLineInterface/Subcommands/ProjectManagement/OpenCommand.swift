@@ -4,6 +4,8 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo {
@@ -26,8 +28,7 @@ extension Bubo {
         }
         
         func run() {
-            let resourceManager = ResourceManager()
-            resourceManager.openProject(pName: options.projectName)
+            Main.resourceManager.openProject(pName: options.projectName)
         }
     }
 }

@@ -4,6 +4,8 @@
 
 import Foundation
 import ArgumentParser
+import OutputStylingModule
+import BuboModelsModule
 
 
 extension Bubo.Analysis {
@@ -32,14 +34,13 @@ extension Bubo.Analysis {
         }
         
         func run() {
-            let resourceManager = ResourceManager()
             
-            guard let (projectHandle, service) = resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
+            guard let (_, service) = Main.resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
             }
             headerMessage(msg: "Found following urls for service \(options.serviceName)")
-            for file in resourceManager.fileCrawler(startURL: service.url) {
+            for file in Main.resourceManager.fileCrawler(startURL: service.url) {
                 print("Name: \(file.fileName)\nPath: \(file.fileURL.path)\n")
             }
         }
