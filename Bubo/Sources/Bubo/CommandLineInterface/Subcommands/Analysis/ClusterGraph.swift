@@ -40,13 +40,11 @@ extension Bubo.Analysis {
             }
             headerMessage(msg: "Parsing \(options.serviceName)")
             let serviceManager = ServiceManager(service: service, pName: options.projectName)
-            guard let graphs = serviceManager.clusterGraphByClasses() else {
+            guard let graph = serviceManager.clusterGraphByClasses() else {
                 return
             }
             
-            for graph in graphs {
-                print(graph.description)
-            }
+            print(graph)
         }
     }
 }
