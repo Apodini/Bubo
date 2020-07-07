@@ -5,7 +5,8 @@
 import Foundation
 
 extension Analyser {
-    public func couplingBetweenObjects() -> [(GroupID: Int):(Coupling: Int)] {
-        
+    /// - returns: A dictionary of integers -> [GroupID:Coupling]
+    public func couplingBetweenObjects() -> [Int:Int] {
+        return [0:0]
     }
 }

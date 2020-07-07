@@ -6,7 +6,8 @@ import Foundation
 
 
 extension Analyser {
-    public func fanInCoupling() -> [(GroupID: Int):(Coupling: Int)] {
-        
+    /// - returns: A dictionary of integers -> [GroupID:Coupling]
+    public func fanInCoupling() -> [Int:Int] {
+        return [0:0]
     }
 }
