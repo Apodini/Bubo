@@ -8,7 +8,7 @@ import IndexStoreDB
 extension GraphBuilder {
     
     /// Builds the dependency graph
-    public func generateRawGraph() -> Void {
+    public func generateRawDependencyGraph() -> Void {
         headerMessage(msg: "Building graph")
         
         /// Find all relations between all nodes and missed nodes
@@ -34,18 +34,18 @@ extension GraphBuilder {
         /// Recursively find all nodes
         let toBeNodes = breadthFirstSymbolDiscovery(inQueue: queue, indexingServer: indexingServer)
         
-        self.graph = createGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
+        self.graph = createRawDependencyGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
     }
     
-    private func createGraph(symbolOccurences: [SymbolOccurrence]) -> DependencyGraph<Node> {
+    private func createRawDependencyGraph(symbolOccurences: [SymbolOccurrence]) -> RawDependencyGraph<Node> {
         outputMessage(msg: "Creating nodes")
-        var graph: DependencyGraph<Node> = DependencyGraph<Node>()
+        var graph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
         /// Check filtered symbols
         var relations: ThreadSafeArray<(Symbol,SymbolRelation)> = ThreadSafeArray<(Symbol,SymbolRelation)>()
         var safeNodes: ThreadSafeArray<Node> = ThreadSafeArray<Node>()
         DispatchQueue.concurrentPerform(iterations: symbolOccurences.count) { index in
             let occ: SymbolOccurrence = symbolOccurences[index]
-            safeNodes.append(elements: [Node(symbol: occ.symbol, roles: occ.roles)])
+            safeNodes.append(elements: [Node(symbol: occ.symbol, roles: occ.roles, location: occ.location)])
             
             /// Scan all relations of the symbol
             DispatchQueue.concurrentPerform(iterations: occ.relations.count) { index in

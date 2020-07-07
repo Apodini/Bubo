@@ -29,7 +29,7 @@ class ServiceManager {
     }
     
     
-    public func createDependencyGraph() -> DependencyGraph<Node>? {
+    public func createDependencyGraph() -> RawDependencyGraph<Node>? {
         // Build service
         outputMessage(msg: "Checking Graph...")
         if !self.compareGitHash() || service.graph == nil{
@@ -42,7 +42,7 @@ class ServiceManager {
             self.graphBuilder = GraphBuilder(tokens: parser.tokens, tokenExtensions: parser.tokenExtensions, service: service)
             
             
-            self.graphBuilder!.generateRawGraph()
+            self.graphBuilder!.generateRawDependencyGraph()
             self.updateGraph()
             successMessage(msg: "Graph successfully updated!")
             return self.graphBuilder!.graph
@@ -54,13 +54,13 @@ class ServiceManager {
         }
     }
     
-    public func clusterGraphByClasses() -> [DependencyGraph<Node>]? {
+    public func clusterGraphByClasses() -> RefinedDependencyGraph<Node>? {
         guard let graph = createDependencyGraph() else {
             errorMessage(msg: "Failed to create graph")
             abortMessage(msg: "Aborting class clustering")
             return nil
         }
-        return graphBuilder!.clusterByClasses(originalGraph: graph)
+        return graphBuilder!.generateRefinedDependencyGraph(rawGraph: graph)
     }
     
     private func updateGraph() -> Void {

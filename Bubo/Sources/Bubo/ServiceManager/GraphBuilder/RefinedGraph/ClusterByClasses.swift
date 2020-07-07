@@ -6,8 +6,8 @@ import Foundation
 
 extension GraphBuilder {
     
-    public func clusterByClasses(originalGraph: DependencyGraph<Node>) -> [DependencyGraph<Node>] {
-        var reducedGraph: DependencyGraph<Node> = DependencyGraph<Node>()
+    public func clusterByClasses(originalGraph: RawDependencyGraph<Node>) -> [RawDependencyGraph<Node>] {
+        var reducedGraph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
         
         for v in originalGraph.vertices {
             reducedGraph.addVertex(v)
@@ -16,7 +16,7 @@ extension GraphBuilder {
         for edges in originalGraph.edges {
             for edge in edges {
                 if edge.roles.contains(.childOf) || edge.roles.contains(.extendedBy){
-                    reducedGraph.addEdge(from: originalGraph.vertexAtIndex(edge.v), to: originalGraph.vertexAtIndex(edge.u), directed: true, role: edge.roles)
+                    reducedGraph.addEdge(from: originalGraph.vertexAtIndex(edge.u), to: originalGraph.vertexAtIndex(edge.v), directed: true, role: edge.roles)
                 }
             }
         }
@@ -33,9 +33,9 @@ extension GraphBuilder {
             }
         }
         
-        var safeGraphArray: ThreadSafeArray<DependencyGraph<Node>> = ThreadSafeArray<DependencyGraph<Node>>()
+        var safeGraphArray: ThreadSafeArray<RawDependencyGraph<Node>> = ThreadSafeArray<RawDependencyGraph<Node>>()
         DispatchQueue.concurrentPerform(iterations: components.count) { index in
-            var graph: DependencyGraph<Node> = DependencyGraph<Node>()
+            var graph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
             for node in components[index] {
                 graph.addVertex(node)
             }
@@ -52,7 +52,7 @@ extension GraphBuilder {
         return safeGraphArray.value
     }
     
-    private func depthFirstSearch(node: Int, visited: [Bool], component: [Node], reducedGraph: DependencyGraph<Node>) -> ([Bool],[Node]) {
+    private func depthFirstSearch(node: Int, visited: [Bool], component: [Node], reducedGraph: RawDependencyGraph<Node>) -> ([Bool],[Node]) {
         
         var visited: [Bool] = visited
         var component: [Node] = component

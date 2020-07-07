@@ -7,7 +7,7 @@ import SwiftGraph
 
 
 /// Extension of **SwiftGraph**'s `Edge` class that considers Edge roles
-public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
+public struct RawDependencyEdge: Edge, CustomStringConvertible, Equatable {
     public var u: Int
     public var v: Int
     public var directed: Bool
@@ -20,8 +20,8 @@ public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
         self.roles = roles
     }
 
-    public func reversed() -> DependencyEdge {
-        return DependencyEdge(u: v, v: u, directed: directed, roles: roles)
+    public func reversed() -> RawDependencyEdge {
+        return RawDependencyEdge(u: v, v: u, directed: directed, roles: roles)
     }
 
     /// Implement `CustomStringConvertible` protocol
@@ -34,7 +34,7 @@ public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
     }
 
     // MARK: Operator Overloads
-    static public func ==(lhs: DependencyEdge, rhs: DependencyEdge) -> Bool {
+    static public func ==(lhs: RawDependencyEdge, rhs: RawDependencyEdge) -> Bool {
         return lhs.u == rhs.u && lhs.v == rhs.v
     }
 }

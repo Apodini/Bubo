@@ -47,7 +47,7 @@ public struct ServiceConfiguration: Codable, Equatable {
     var swiftVersion: File?
     
     /// The raw dependency graph of the service if it's been generated
-    var graph: DependencyGraph<Node>?
+    var graph: RawDependencyGraph<Node>?
     
     /// The standard constructor
     init(name: String, url: URL, gitURL: URL, currentGitHash: String, currentBuildGitHash: String?, files: [File]) {
@@ -120,7 +120,7 @@ public struct ServiceConfiguration: Codable, Equatable {
     ///
     /// - parameter graph: The dependency graph
     
-    public mutating func setGraph(graph: DependencyGraph<Node>) -> Void {
+    public mutating func setGraph(graph: RawDependencyGraph<Node>) -> Void {
         self.graph = graph
     }
 }

@@ -21,29 +21,47 @@ public class Node: Codable, Equatable, CustomStringConvertible {
     /// The roles of the node e.g. a definition, declaration etc.
     var roles: [NodeRole]
     
+    var groupID: Int?
+    
+    var location: NodeLocation
+    
     /// Make the node conform to the `CustomStringConvertible` protocol
     public var description: String {
         var rolesString: String = ""
         for role in roles {
             rolesString.append(" \(role) |")
         }
-        return "\(name) | \(kind)\n[\(rolesString.dropLast())]\n\(usr)"
+        return "\(name) | \(kind) | GroupID: \(groupID ?? -1)\n[\(rolesString.dropLast())]\n\(location)\n\(usr)"
     }
     
     /// The standard constructor
-    init(usr: String, kind: NodeKind, name: String, roles: [NodeRole]) {
+    init(usr: String, kind: NodeKind, name: String, roles: [NodeRole], location: NodeLocation) {
         self.usr = usr
         self.kind = kind
         self.name = name
         self.roles = roles
+        self.groupID = nil
+        self.location = location
     }
     
     /// A constructor that creates a node based on a IndexStoreDB Symbol
-    init(symbol: Symbol, roles: SymbolRole) {
+    init(symbol: Symbol, roles: SymbolRole, location: SymbolLocation) {
         self.usr = symbol.usr
         self.kind = Node.getNodeKind(symbol: symbol)
         self.name = symbol.name
         self.roles = NodeRole.getNodeRoles(symbolRole: roles)
+        self.groupID = nil
+        self.location = NodeLocation(loc: location)
+    }
+    
+    /// The  constructor for refined graphs
+    init(usr: String, kind: NodeKind, name: String, roles: [NodeRole], groupID: Int, location: NodeLocation) {
+        self.usr = usr
+        self.kind = kind
+        self.name = name
+        self.roles = roles
+        self.groupID = groupID
+        self.location = location
     }
     
     /// Make the node conform to the `Equatable` protocol to be accepted as a node in a **SwiftGraph** graph
