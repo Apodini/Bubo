@@ -6,12 +6,12 @@ import Foundation
 import ArgumentParser
 
 
-extension Bubo {
+extension Bubo.Service {
     
     /// **Subcommand**: The root for all analysis subcommands that can be run on a project or service
-    struct Analysis: ParsableCommand {
+    struct Analyse: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "All analysises performed on a service or project",
+            abstract: "All analyses performed on a service or project",
             subcommands: [
                 Crawl.self,
                 Graph.self

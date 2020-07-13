@@ -17,7 +17,8 @@ extension Bubo {
                 List.self,
                 Pull.self,
                 Refresh.self,
-                Remove.self
+                Remove.self,
+                Analyse.self
         ])
     }
 }

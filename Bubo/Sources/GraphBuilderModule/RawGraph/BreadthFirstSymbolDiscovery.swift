@@ -4,7 +4,6 @@
 
 import Foundation
 import IndexStoreDB
-import ResourceManagerModule
 
 extension GraphBuilder {
     

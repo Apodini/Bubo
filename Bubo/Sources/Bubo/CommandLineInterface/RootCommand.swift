@@ -18,8 +18,7 @@ struct Bubo: ParsableCommand {
             List.self,
             Remove.self,
             Open.self,
-            Service.self,
-            Analysis.self
+            Service.self
     ])
     struct Options: ParsableArguments {
         @Argument(help: "The name of the service living inside the Bubo project")

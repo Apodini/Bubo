@@ -5,11 +5,10 @@
 
 import Foundation
 import ArgumentParser
-import ResourceManagerModule
-import ServiceManagerModule
+import ServiceAnalyserModule
 
 
-extension Bubo.Analysis {
+extension Bubo.Service.Analyse {
     
     /// **Subcommand**: Subcommand to generate a dependency graph and save it to a .dot file
     struct Graph: ParsableCommand {
@@ -40,10 +39,10 @@ extension Bubo.Analysis {
                 return
             }
             let serviceManager = ServiceManager(service: service, pName: options.projectName)
-            guard serviceManager.createDependencyGraph() != nil else {
+            guard serviceManager.structuralAnalyser.createDependencyGraph() != nil else {
                 return
             }
-            serviceManager.writeToDot()
+            serviceManager.structuralAnalyser.writeToDot()
         }
     }
 }

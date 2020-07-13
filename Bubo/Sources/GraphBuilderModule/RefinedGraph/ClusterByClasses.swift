@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import ResourceManagerModule
 
 extension GraphBuilder {
     

@@ -27,7 +27,6 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .target(name: "ResourceManagerModule")
             ]
         ),
         .target(
@@ -36,11 +35,12 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .product(name: "ColorizeSwift", package: "ColorizeSwift")
+                .product(name: "ColorizeSwift", package: "ColorizeSwift"),
+                .target(name: "GraphBuilderModule")
             ]
         ),
         .target(
-            name: "ServiceManagerModule",
+            name: "ServiceAnalyserModule",
             dependencies: [
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
@@ -57,7 +57,7 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .target(name: "GraphBuilderModule"),
                 .target(name: "ResourceManagerModule"),
-                .target(name: "ServiceManagerModule")
+                .target(name: "ServiceAnalyserModule")
         ]),
         .testTarget(
             name: "BuboTests",

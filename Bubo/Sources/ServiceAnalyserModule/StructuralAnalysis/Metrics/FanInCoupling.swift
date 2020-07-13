@@ -5,7 +5,7 @@
 import Foundation
 
 
-extension Analyser {
+extension StructuralAnalyser {
 
     public func fanInCoupling() -> Void {
     }

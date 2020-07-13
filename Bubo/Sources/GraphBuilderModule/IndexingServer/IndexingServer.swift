@@ -1,6 +1,5 @@
 import Foundation
 import IndexStoreDB
-import ResourceManagerModule
 
 
 /// The indexingserver object provides an endpoint to query an indexing database

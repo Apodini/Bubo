@@ -4,7 +4,6 @@
 
 import Foundation
 import SwiftSyntax
-import ResourceManagerModule
 
 /// A syntax parser that uses a **SwiftSyntax** `SyntaxVisitor` to craw the AST of a sourcefile and generate relevant tokens
 public class Parser {
@@ -21,16 +20,17 @@ public class Parser {
     ///
     /// - parameter service: The service that should be parsed
     
-    public func parse(service: ServiceConfiguration) -> Void {
-        for file in service.files {
+    public func parse(files: [URL]) -> Void {
+        outputMessage(msg: "Parsing files ...")
+        for url in files {
             
             /// Only parse .swift files
-            if file.fileURL.pathExtension == "swift" {
-                outputMessage(msg: "Parsing file \(file.fileName)")
+            if url.pathExtension == "swift" {
+                
                 do {
                     /// Try to parse the swift source file and generate the parse context
-                    let sourceFileSyntax = try SyntaxParser.parse(file.fileURL)
-                    let parseContext = ParseContext(fileURL: file.fileURL, sourceFileSyntax: sourceFileSyntax)
+                    let sourceFileSyntax = try SyntaxParser.parse(url)
+                    let parseContext = ParseContext(fileURL: url, sourceFileSyntax: sourceFileSyntax)
                     
                     /// Create the token generator and let it walk over the AST
                     let tokenGenerator: TokenGenerator = TokenGenerator(parseContext: parseContext)
@@ -40,7 +40,7 @@ public class Parser {
                     tokens.append(contentsOf: tokenGenerator.tokens)
                     tokenExtensions.merge(tokenGenerator.tokenExtensions){ (current, _) in current }
                 } catch  {
-                    warningMessage(msg: "Couldn't parse source file \(file.fileName)")
+                    warningMessage(msg: "Couldn't parse source file at \(url.path)")
                 }
             }
         }
