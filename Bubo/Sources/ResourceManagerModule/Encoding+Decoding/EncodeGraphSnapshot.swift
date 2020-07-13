@@ -4,7 +4,7 @@
 
 
 import Foundation
-
+import GraphBuilderModule
 
 extension ResourceManager {
     
