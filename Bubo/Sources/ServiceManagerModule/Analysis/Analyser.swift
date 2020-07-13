@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import BuboModelsModule
+import ResourceManagerModule
 
 public class Analyser {
     var graphSnapshot: GraphSnapshot

@@ -32,10 +32,10 @@ public class GraphSnapshot: Codable, Equatable {
     
     
     public init(
-        lcom: Int? = nil,
-        fanIn: Int? = nil,
-        fanOut: Int? = nil,
-        cbo: Int? = nil,
+        lcom: [Int:Int]? = nil,
+        fanIn: [Int:Int]? = nil,
+        fanOut: [Int:Int]? = nil,
+        cbo: [Int:Int]? = nil,
         timestamp: String,
         buildGitHash: String,
         graph: RefinedDependencyGraph<Node>

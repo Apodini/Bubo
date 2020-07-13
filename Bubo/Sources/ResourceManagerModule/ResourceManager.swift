@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import BuboModelsModule
 
 public class ResourceManager {
     

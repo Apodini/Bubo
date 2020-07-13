@@ -22,28 +22,12 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "OutputStylingModule",
-            dependencies: [
-                .product(name: "ColorizeSwift", package: "ColorizeSwift")
-            ]
-        ),
-        .target(
-            name: "BuboModelsModule",
-            dependencies: [
-                .product(name: "SwiftGraph", package: "SwiftGraph"),
-                .product(name: "SwiftSyntax", package: "SwiftSyntax"),
-                .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .target(name: "OutputStylingModule")
-            ]
-        ),
-        .target(
             name: "GraphBuilderModule",
             dependencies: [
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .target(name: "BuboModelsModule"),
-                .target(name: "OutputStylingModule")
+                .target(name: "ResourceManagerModule")
             ]
         ),
         .target(
@@ -52,8 +36,7 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .target(name: "BuboModelsModule"),
-                .target(name: "OutputStylingModule")
+                .product(name: "ColorizeSwift", package: "ColorizeSwift")
             ]
         ),
         .target(
@@ -62,8 +45,7 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
                 .product(name: "IndexStoreDB", package: "IndexStoreDB"),
-                .target(name: "BuboModelsModule"),
-                .target(name: "OutputStylingModule"),
+                .target(name: "ResourceManagerModule"),
                 .target(name: "GraphBuilderModule")
             ]
         ),
@@ -75,8 +57,6 @@ let package = Package(
                 .product(name: "SwiftGraph", package: "SwiftGraph"),
                 .target(name: "GraphBuilderModule"),
                 .target(name: "ResourceManagerModule"),
-                .target(name: "BuboModelsModule"),
-                .target(name: "OutputStylingModule"),
                 .target(name: "ServiceManagerModule")
         ]),
         .testTarget(
@@ -84,9 +64,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Bubo"),
                 .target(name: "GraphBuilderModule"),
-                .target(name: "ResourceManagerModule"),
-                .target(name: "BuboModelsModule"),
-                .target(name: "OutputStylingModule")
+                .target(name: "ResourceManagerModule")
         ]),
     ]
 )

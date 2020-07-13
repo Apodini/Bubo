@@ -4,8 +4,6 @@
 
 import Foundation
 import ShellOut
-import OutputStylingModule
-import BuboModelsModule
 import GraphBuilderModule
 import ResourceManagerModule
 
@@ -59,12 +57,9 @@ public class ServiceManager {
     }
     
     private func updateGraph() -> Void {
+        let graphsnapshot: GraphSnapshot = GraphSnapshot(timestamp: Date().description(with: .current), buildGitHash: service.currentGitHash, graph: graphBuilder!.graph)
         
-        let timestamp = Date().description(with: .current)
-        
-        let graphsnapshot: GraphSnapshot = GraphSnapshot(timestamp: timestamp, buildGitHash: service.currentGitHash, graph: graphBuilder!.graph)
-        
-        if let url = self.resourceManager.encodeGraphSnapshot(pName: projectName, serviceName: service.name, graphSnapshot: graphsnapshot, timestamp: timestamp) {
+        if let url = self.resourceManager.encodeGraphSnapshot(pName: projectName, serviceName: service.name, graphSnapshot: graphsnapshot) {
             self.service.addGraphSnapshot(url: url)
             self.resourceManager.encodeServiceConfig(pName: projectName, configData: self.service)
             self.mostRecentGraphSnapshot = graphsnapshot

@@ -3,7 +3,6 @@
  //
  
  import Foundation
- import OutputStylingModule
  
  public struct ProgramConfiguration: Codable {
     

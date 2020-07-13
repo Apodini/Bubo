@@ -1,7 +1,6 @@
 import Foundation
 import IndexStoreDB
-import BuboModelsModule
-import OutputStylingModule
+import ResourceManagerModule
 
 
 /// The indexingserver object provides an endpoint to query an indexing database

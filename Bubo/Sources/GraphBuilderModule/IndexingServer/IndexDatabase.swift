@@ -1,7 +1,6 @@
 import Foundation
 import IndexStoreDB
-import BuboModelsModule
-import OutputStylingModule
+import ResourceManagerModule
 
 
 /// Represents an IndexingDatabase instance

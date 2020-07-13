@@ -4,8 +4,7 @@
 
 import ArgumentParser
 import Foundation
-import OutputStylingModule
-import BuboModelsModule
+import ResourceManagerModule
 
 
 extension Bubo {

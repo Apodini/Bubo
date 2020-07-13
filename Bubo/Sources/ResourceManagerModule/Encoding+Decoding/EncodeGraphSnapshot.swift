@@ -4,8 +4,7 @@
 
 
 import Foundation
-import BuboModelsModule
-import OutputStylingModule
+
 
 extension ResourceManager {
     
@@ -15,7 +14,7 @@ extension ResourceManager {
     ///     - pName: The project name
     ///     - configData: The configuration data that should be encoded for the project
     
-    public func encodeGraphSnapshot(pName: String?, serviceName: String, graphSnapshot: GraphSnapshot, timestamp: String) -> URL? {
+    public func encodeGraphSnapshot(pName: String?, serviceName: String, graphSnapshot: GraphSnapshot) -> URL? {
         
         /// Fetch projects and validate project name
         guard let (_, projectConfig) = self.decodeProjectConfig(pName: pName) else {
@@ -29,7 +28,7 @@ extension ResourceManager {
         }
         
         /// Fetch the projects configuration file URL
-        let snapshotURL: URL = serviceURL.deletingPathExtension().deletingLastPathComponent().appendingPathComponent("\(timestamp)").appendingPathExtension("json")
+        let snapshotURL: URL = serviceURL.deletingPathExtension().deletingLastPathComponent().appendingPathComponent("\(graphSnapshot.buildGitHash)").appendingPathExtension("json")
         
         /// Encode the configuration data to JSON
         guard let encode = encodeDataToJSON(config: graphSnapshot) else {

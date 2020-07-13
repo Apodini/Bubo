@@ -4,8 +4,7 @@
 
 import Foundation
 import IndexStoreDB
-import BuboModelsModule
-import OutputStylingModule
+import ResourceManagerModule
 
 extension GraphBuilder {
     

@@ -6,8 +6,7 @@ import Foundation
 import SwiftGraph
 import SwiftSyntax
 import IndexStoreDB
-import BuboModelsModule
-import OutputStylingModule
+import ResourceManagerModule
 
 
 /// Creates a dependency graph for a service (a Swift package) based on a set of parsed tokens from a syntax parser

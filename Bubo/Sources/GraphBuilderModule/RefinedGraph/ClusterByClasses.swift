@@ -3,8 +3,7 @@
 //
 
 import Foundation
-import BuboModelsModule
-import OutputStylingModule
+import ResourceManagerModule
 
 extension GraphBuilder {
     
