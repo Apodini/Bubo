@@ -16,8 +16,8 @@ extension StructuralAnalyser {
         let graphsnapshot: GraphSnapshot = GraphSnapshot(timestamp: Date().description(with: .current), buildGitHash: service.currentGitHash, graph: gb.graph)
         
         if let url = self.resourceManager.encodeGraphSnapshot(pName: projectName, serviceName: service.name, graphSnapshot: graphsnapshot) {
+            self.service.addGraphSnapshot(url: url)
             if self.resourceManager.encodeServiceConfig(pName: projectName, configData: self.service) != nil {
-                self.service.addGraphSnapshot(url: url)
                 self.mostRecentGraphSnapshot = graphsnapshot
             } else {
                 abortMessage(msg: "Graph snapshot creation")
