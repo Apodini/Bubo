@@ -17,16 +17,15 @@ extension GraphBuilder {
         
         /// Init queueMemory and add all symbols that are in the queue
         var queueMemory: ThreadSafeSet<SymbolHashToken> = ThreadSafeSet<SymbolHashToken>() // one half is queue the other half is visited
-        DispatchQueue.concurrentPerform(iterations: inQueue.count) { index in
-            queueMemory.insert(element: SymbolHashToken(usr: inQueue[index].usr, kind: inQueue[index].kind))
+        for symbol in inQueue {
+            queueMemory.insert(element: SymbolHashToken(usr: symbol.usr, kind: symbol.kind))
         }
         
         var filter: ThreadSafeSet<SymbolOccurenceHashToken> = ThreadSafeSet<SymbolOccurenceHashToken>()
+        
         var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
         
         outputMessage(msg: "Generating edge and node role permutaions")
-        self.nodeRoleCombinations = NodeRole.getAllRoleCombinations()
-        self.edgeRoleCombinations = EdgeRole.getAllRoleCombinations()
         
         /// Modified Breadth-First Search that filters out SymbolOccurences that are in the main packages external depenencies and finds all symbols of the main package (the anlysed service)
         outputMessage(msg: "Querying nodes")
@@ -34,70 +33,49 @@ extension GraphBuilder {
             print(queue.count)
             let symbol = queue.removeFirst()
             /// Check if symbol has already been visited
-            let symHash = SymbolHashToken(usr: symbol.usr, kind: symbol.kind)
-            if !visited.contains(symHash) {
-                
+            let (inserted, memberAfterInsert) = visited.insert(SymbolHashToken(usr: symbol.usr, kind: symbol.kind))
+            
+            if inserted {
                 /// Concurrently get all symbol occurences and related symbol occurences for queue symbol
                 let symbolOccurrences = self.getSymbolOccurences(symbol: symbol, indexingServer: indexingServer)
-                                
+                
                 /// Concurrently fIlter all occurences for already visited occurences and location
-                var safeSymbolOccurrences = ThreadSafeArray<SymbolOccurrence>()
                 DispatchQueue.concurrentPerform(iterations: symbolOccurrences.count) { index in
                     /// Check if the symbol occurence is part of an imported project
                     let occ: SymbolOccurrence = symbolOccurrences[index]
                     
+                    /// Create hash token for SymbolOccurence
                     let symHashToken = SymbolOccurenceHashToken(usr: occ.symbol.usr, kind: occ.symbol.kind, roles: occ.roles, path: occ.location.path, isSystem: occ.location.isSystem, line: occ.location.line, utf8Column: occ.location.utf8Column)
                     
-                    if !filter.contains(element: symHashToken) && !URL(fileURLWithPath: occ.location.path).pathComponents.contains(".build") { // IMPORTANT!!!! IF NOT ALL EXTERNAL DEPENDENCIES ARE SCANNED TOO
-                        /// Check if the occurence has already been processed once -> if yes ignore it else add it to the occurences that are going to be processed
-                        if !occ.location.isSystem {
-                            safeSymbolOccurrences.append(elements: [occ])
-                        }
-                    }
-                    filter.insert(element: symHashToken)
-                }
-                
-                /// Add all new and filtered occurences to the graph (Insertion in the threadysafe dictionary with usr as key. If duplicated key, then merge occurences :)
-                DispatchQueue.concurrentPerform(iterations: safeSymbolOccurrences.value.count) { index in
-                    let symbols = toBeNodes.set(occurrence: safeSymbolOccurrences.value[index])
-                    
-                    /// Check if the symbols that should be added to the queue have already been visited and only add not visited symbols to the queue
-                    for symbol in symbols {
-                        let currSymHash = SymbolHashToken(usr: symbol.usr, kind: symbol.kind)
-                        if !queueMemory.contains(element: currSymHash) {
-                            queue.append(elements: [symbol])
-                            queueMemory.insert(element: currSymHash)
+                    let (inserted, memberAfterInsert) = filter.insert(element: symHashToken)
+                    /// Check if the occurence has already been processed once -> if yes ignore it else add it to the occurences that are going to be processed
+                    /// if inserted is false, then the SymbolOccourence is already registered in the filter set
+                    if inserted
+                        && !URL(fileURLWithPath: occ.location.path).pathComponents.contains(".build")
+                        && !occ.location.isSystem
+                    {
+                        /// Add all new and filtered occurences to the graph (Insertion in the threadsafe dictionary with usr as key. If duplicated key, then merge occurences :)
+                        /// Check if the symbols that should be added to the queue have already been visited and only add not visited symbols to the queue
+                        for symbol in toBeNodes.set(occurrence: occ) {
+                            /// If it's not possible to insert the element, then it already exists
+                            let (inserted, memberAfterInsert) = queueMemory.insert(element: SymbolHashToken(usr: symbol.usr, kind: symbol.kind))
+                            if inserted {
+                                queue.append(elements: [symbol])
+                            }
                         }
                     }
                 }
-                
-                /// Add the processed symbol to the visited set
-                visited.insert(symHash)
             }
         }
-        //        print(visited.count)
-        //        print(toBeNodes.value.count)
-        
         print(toBeNodes.count)
         return toBeNodes
     }
     
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
-        
-        var safeSymbolOccurrences = ThreadSafeArray<SymbolOccurrence>()
-        
-        DispatchQueue.concurrentPerform(iterations: 2) { index in
-            DispatchQueue.concurrentPerform(iterations: nodeRoleCombinations.count) { index in
-                let occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: nodeRoleCombinations[index])
-                safeSymbolOccurrences.append(elements: occurences)
-            }
-            
-            DispatchQueue.concurrentPerform(iterations: edgeRoleCombinations.count) { index in
-                let occurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: edgeRoleCombinations[index])
-                safeSymbolOccurrences.append(elements: occurences)
-            }
-        }
-        return safeSymbolOccurrences.value
+        var occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: .all)
+        var relatedOccurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: .all)
+        occurences.append(contentsOf: relatedOccurences)
+        return occurences
     }
     
     private func binarySearch<T: Comparable>(_ a: [T], key: T) -> Bool {
