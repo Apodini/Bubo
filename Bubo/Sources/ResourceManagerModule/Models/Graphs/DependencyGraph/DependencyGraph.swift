@@ -10,7 +10,7 @@ import SwiftSyntax
 /// Extension of **SwiftGraph**'s `Graph` class that models a swift dependency graph
 open class DependencyGraph<V: Equatable & Codable>: Graph {
     public var vertices: [V] = [V]()
-    public var edges: [[RawDependencyEdge]] = [[RawDependencyEdge]]() //adjacency lists
+    public var edges: [[DependencyEdge]] = [[DependencyEdge]]() //adjacency lists
     public var groupMap: [Int:DependencyGraph<Node>] = [Int:DependencyGraph<Node>]()
 
     
@@ -40,7 +40,7 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
     /// - parameter directed: If false, undirected edges are created.
     ///                       If true, a reversed edge is also created.
     ///                       Default is false.
-    public func addEdge(_ e: RawDependencyEdge, directed: Bool) {
+    public func addEdge(_ e: DependencyEdge, directed: Bool) {
         edges[e.u].append(e)
         if !directed && e.u != e.v {
             edges[e.v].append(e.reversed())
@@ -82,7 +82,7 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
 }
 
 /// Adjust **SwiftGraph**'s functions to accept edges of type `DependencyEdge`
-extension Graph where E == RawDependencyEdge {
+extension Graph where E == DependencyEdge {
 
     /// Initialize an UnweightedGraph consisting of path.
     ///
@@ -153,7 +153,7 @@ extension Graph where E == RawDependencyEdge {
     /// - parameter to: The ending vertex's index.
     /// - parameter directed: Is the edge directed? (default `false`)
     public func addEdge(fromIndex: Int, toIndex: Int, directed: Bool = false, role: [EdgeRole]) {
-        addEdge(RawDependencyEdge(u: fromIndex, v: toIndex, directed: directed, roles: role), directed: directed)
+        addEdge(DependencyEdge(u: fromIndex, v: toIndex, directed: directed, roles: role), directed: directed)
     }
     
     /// This is a convenience method that adds an unweighted, undirected edge between the first occurence of two vertices. It takes O(n) time.
@@ -163,7 +163,7 @@ extension Graph where E == RawDependencyEdge {
     /// - parameter directed: Is the edge directed? (default `false`)
     public func addEdge(from: V, to: V, directed: Bool = false, role: [EdgeRole]) {
         if let u = indexOfVertex(from), let v = indexOfVertex(to) {
-            addEdge(RawDependencyEdge(u: u, v: v, directed: directed, roles: role), directed: directed)
+            addEdge(DependencyEdge(u: u, v: v, directed: directed, roles: role), directed: directed)
         }
     }
 

@@ -3,13 +3,13 @@
 //
 
 import Foundation
-
+import ResourceManagerModule
 
 extension GraphBuilder {
     public func generateRefinedDependencyGraph() -> Void {
         
-        if let rawGraph: RawDependencyGraph<Node> = self.generateRawDependencyGraph() {
-            let refinedGraph: RefinedDependencyGraph<Node> = RefinedDependencyGraph<Node>()
+        if let rawGraph: DependencyGraph<Node> = self.generateRawDependencyGraph() {
+            let refinedGraph: DependencyGraph<Node> = DependencyGraph<Node>()
             
             /// Copy the raw graph
             for v in rawGraph.vertices {
@@ -22,7 +22,7 @@ extension GraphBuilder {
             
             /// Create the groups
             
-            let rawGraphClustered: [RawDependencyGraph<Node>] = clusterByClasses(originalGraph: rawGraph)
+            let rawGraphClustered: [DependencyGraph<Node>] = clusterByClasses(originalGraph: rawGraph)
 
             for cluster in rawGraphClustered {
                 let groupID = refinedGraph.addGroup(group: cluster)

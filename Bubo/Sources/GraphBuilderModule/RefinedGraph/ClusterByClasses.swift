@@ -3,11 +3,12 @@
 //
 
 import Foundation
+import ResourceManagerModule
 
 extension GraphBuilder {
     
-    public func clusterByClasses(originalGraph: RawDependencyGraph<Node>) -> [RawDependencyGraph<Node>] {
-        let reducedGraph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
+    public func clusterByClasses(originalGraph: DependencyGraph<Node>) -> [DependencyGraph<Node>] {
+        let reducedGraph: DependencyGraph<Node> = DependencyGraph<Node>()
         
         for v in originalGraph.vertices {
             reducedGraph.addVertex(v)
@@ -33,9 +34,9 @@ extension GraphBuilder {
             }
         }
         
-        var safeGraphArray: ThreadSafeArray<RawDependencyGraph<Node>> = ThreadSafeArray<RawDependencyGraph<Node>>()
+        var safeGraphArray: ThreadSafeArray<DependencyGraph<Node>> = ThreadSafeArray<DependencyGraph<Node>>()
         DispatchQueue.concurrentPerform(iterations: components.count) { index in
-            let graph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
+            let graph: DependencyGraph<Node> = DependencyGraph<Node>()
             for node in components[index] {
                 graph.addVertex(node)
             }
@@ -52,7 +53,7 @@ extension GraphBuilder {
         return safeGraphArray.value
     }
     
-    private func depthFirstSearch(node: Int, visited: [Bool], component: [Node], reducedGraph: RawDependencyGraph<Node>) -> ([Bool],[Node]) {
+    private func depthFirstSearch(node: Int, visited: [Bool], component: [Node], reducedGraph: DependencyGraph<Node>) -> ([Bool],[Node]) {
         
         var visited: [Bool] = visited
         var component: [Node] = component
