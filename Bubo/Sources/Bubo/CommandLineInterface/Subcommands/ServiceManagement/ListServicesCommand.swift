@@ -4,7 +4,6 @@
 
 import Foundation
 import ArgumentParser
-import ResourceManagerModule
 
 
 extension Bubo.Service {
@@ -25,7 +24,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            Main.resourceManager.printServices(projectName: options.projectName)
+            Main.operationsManager.printServices(projectName: options.projectName)
         }
     }
 }

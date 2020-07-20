@@ -17,6 +17,7 @@ struct Bubo: ParsableCommand {
             New.self,
             List.self,
             Remove.self,
+            Register.self,
             Open.self,
             Service.self
     ])

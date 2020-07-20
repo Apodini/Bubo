@@ -7,9 +7,9 @@ import GraphBuilderModule
 import ResourceManagerModule
 
 extension StructuralAnalyser {
-    public func createDependencyGraph() -> RefinedDependencyGraph<Node>? {
+    public func createDependencyGraph() -> DependencyGraph<Node>? {
         // Build service
-        headerMessage(msg: "Checking Graph...")
+        headerMessage(msg: "Checking Graph")
         self.mostRecentGraphSnapshot = resourceManager.getMostRecentGraphSnapshot(service: service)
         
         var fileURLs: [URL] = [URL]()
@@ -23,7 +23,6 @@ extension StructuralAnalyser {
             self.buildService()
             
             // Init graph builder service
-            
             self.graphBuilder = GraphBuilder(packageRoot: service.gitRootURL, fileURLs: fileURLs)
             
             self.graphBuilder!.generateRefinedDependencyGraph()

@@ -29,9 +29,15 @@ struct ThreadSafeArray<Element> {
         }
     }
     
-    mutating func removeFirst() -> Element{
+    mutating func removeFirst() -> Element {
         queue.sync {
             return wrappedValue.removeFirst()
+        }
+    }
+    
+    mutating func popLast() -> Element? {
+        queue.sync {
+            return wrappedValue.popLast()
         }
     }
     

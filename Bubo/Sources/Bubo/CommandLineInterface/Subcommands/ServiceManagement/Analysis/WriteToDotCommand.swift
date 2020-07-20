@@ -1,5 +1,5 @@
 //
-//  Created by Valentin Hartig on 17.05.20.
+//  Created by Valentin Hartig on 20.07.20.
 //
 
 
@@ -11,10 +11,10 @@ import ServiceAnalyserModule
 extension Bubo.Service.Analyse {
     
     /// **Subcommand**: Subcommand to generate a dependency graph and save it to a .dot file
-    struct Graph: ParsableCommand {
+    struct Dot: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Generates a graph for a given service",
-            discussion: "The program only generates a graph for each indiviudal commit.")
+            abstract: "Parses all files of a service and outputs the graph as a .dot file",
+            discussion: "This command is only for testing the new features")
         
         @OptionGroup()
         var options: Bubo.Options
@@ -34,7 +34,8 @@ extension Bubo.Service.Analyse {
         }
         
         func run() {
-            Main.operationsManager.buildGraph(projectName: options.projectName, serviceName: options.serviceName)
+            Main.operationsManager.writeToDot(projectName: options.projectName, serviceName: options.serviceName)
         }
     }
 }
+

@@ -4,7 +4,6 @@
 
 import Foundation
 import ArgumentParser
-import ResourceManagerModule
 
 
 extension Bubo.Service {
@@ -36,9 +35,9 @@ extension Bubo.Service {
         func run() {
             
             if all {
-                Main.resourceManager.pullAllServices(projectName: options.projectName)
+                Main.operationsManager.pullAllServices(projectName: options.projectName)
             } else {
-                Main.resourceManager.pullService(projectName: options.projectName, serviceName: options.serviceName)
+                Main.operationsManager.pullService(projectName: options.projectName, serviceName: options.serviceName)
             }
         }
     }

@@ -13,6 +13,7 @@ public class ResourceManager {
         projects: [:]
     )
     public var initStatus: Bool = false
+    public static var verbose: Bool = false
     
     public init() {
         self.fileManager = FileManager.default
@@ -26,13 +27,14 @@ public class ResourceManager {
             /// else decode the root configuration
             self.decodeRootConfig()
         }
+        ResourceManager.verbose = rootConfig.verboseMode
     }
     
     /// Fetches the projectHandle and the project URL for a given project
     ///
     /// - parameter projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
     
-    func getProjectURL(projectName: String?) -> (projectHandle: String, projectURL: URL)? {
+    public func getProjectURL(projectName: String?) -> (projectHandle: String, projectURL: URL)? {
         guard let (projectHandle, projects) = fetchHandleAndProjects(pName: projectName) else {
             return nil
         }

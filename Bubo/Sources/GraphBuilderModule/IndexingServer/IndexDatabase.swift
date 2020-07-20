@@ -1,5 +1,6 @@
 import Foundation
 import IndexStoreDB
+import ResourceManagerModule
 
 
 /// Represents an IndexingDatabase instance

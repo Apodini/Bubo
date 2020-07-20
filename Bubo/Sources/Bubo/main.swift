@@ -1,11 +1,10 @@
 import ArgumentParser
 import Foundation
-import ResourceManagerModule
+import OperationsManagerModule
 
 class Main {
-    
-    public static let resourceManager = ResourceManager()
-    
+    public static let operationsManager: OperationsManager = OperationsManager()
+
     init() {
         /// kick off program execution
         Bubo.main()

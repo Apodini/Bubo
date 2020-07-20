@@ -4,17 +4,18 @@
 
 import ArgumentParser
 import Foundation
+import ResourceManagerModule
 
-extension Bubo.Service {
+
+extension Bubo {
     
-    /// **Subcommand**: Refresh the service registrations of a project (Update all service configurations) 
-    struct Refresh: ParsableCommand {
+    /// **Subcommand**:  Create a new project
+    struct New: ParsableCommand {
         static let configuration = CommandConfiguration(
-            abstract: "Refresh service registration in a projects configuration file",
-            discussion: "Tipp: Only use this command when you manually add a new service to the services directory of your project."
-            )
+            abstract: "Create a new Bubo project",
+            discussion: "Creates a new Bubo project in the current directory. The default project name is the name of the current directory. To speecify a dedicated projeect name use the corresponding option" )
         
-       @OptionGroup()
+        @OptionGroup()
         var options: Bubo.OptionsPNonly
         
         // Validate Input
@@ -28,7 +29,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            Main.operationsManager.refreshServices(projectName: options.projectName)
+            Main.operationsManager.newProject(pName: options.projectName)
         }
     }
 }

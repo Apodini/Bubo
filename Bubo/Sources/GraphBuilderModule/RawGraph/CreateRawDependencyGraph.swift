@@ -4,15 +4,16 @@
 
 import Foundation
 import IndexStoreDB
+import ResourceManagerModule
 
 extension GraphBuilder {
     
     /// Builds the dependency graph
-     func generateRawDependencyGraph() -> RawDependencyGraph<Node>? {
+     func generateRawDependencyGraph() -> DependencyGraph<Node>? {
         headerMessage(msg: "Building graph")
         
         /// Find all relations between all nodes and missed nodes
-        var queue: [Symbol] = [Symbol]()
+        var queue: ThreadSafeArray<Symbol> = ThreadSafeArray<Symbol>()
         
         /// Unwrap IndexingServer
         guard let indexingServer = self.indexingServer else {
@@ -22,24 +23,30 @@ extension GraphBuilder {
         }
         
         /// Get all symbols for generated tokns
-        for token in self.parser.tokens {
-            for occ in indexingServer.findWorkspaceSymbols(matching: token.name) {
+        outputMessage(msg: "Querying parsed tokens in the indexing database")
+        var queueMemory: ThreadSafeSet<SymbolOccurenceHashToken> = ThreadSafeSet<SymbolOccurenceHashToken>()
+        
+        DispatchQueue.concurrentPerform(iterations: self.parser.tokens.count) { index in
+            var tmpQueue: [Symbol] = [Symbol]()
+            for occ in indexingServer.findWorkspaceSymbols(matching: self.parser.tokens[index].name) {
                 /// Do not add duplicates
-                if !queue.contains(where: {(sym: Symbol) -> Bool in sym.usr == occ.symbol.usr && sym.kind == occ.symbol.kind}) {
-                    queue.append(occ.symbol)
+                let symOccHash: SymbolOccurenceHashToken = SymbolOccurenceHashToken (usr: occ.symbol.usr, kind: occ.symbol.kind, roles: occ.roles, path: occ.location.path, isSystem: occ.location.isSystem, line: occ.location.line, utf8Column: occ.location.utf8Column)
+                if !queueMemory.contains(element: symOccHash) {
+                    tmpQueue.append(occ.symbol)
                 }
             }
+            queue.append(elements: tmpQueue)
         }
         
         /// Recursively find all nodes
-        let toBeNodes = breadthFirstSymbolDiscovery(inQueue: queue, indexingServer: indexingServer)
+        let toBeNodes = breadthFirstSymbolDiscovery(inQueue: queue.value, indexingServer: indexingServer)
         
         return createRawDependencyGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
     }
     
-    private func createRawDependencyGraph(symbolOccurences: [SymbolOccurrence]) -> RawDependencyGraph<Node> {
+    private func createRawDependencyGraph(symbolOccurences: [SymbolOccurrence]) -> DependencyGraph<Node> {
         outputMessage(msg: "Creating nodes")
-        let graph: RawDependencyGraph<Node> = RawDependencyGraph<Node>()
+        let graph: DependencyGraph<Node> = DependencyGraph<Node>()
         /// Check filtered symbols
         var relations: ThreadSafeArray<(Symbol,SymbolRelation)> = ThreadSafeArray<(Symbol,SymbolRelation)>()
         var safeNodes: ThreadSafeArray<Node> = ThreadSafeArray<Node>()
@@ -55,21 +62,27 @@ extension GraphBuilder {
         for node in safeNodes.value {
             graph.addVertex(node)
         }
-        
+        successMessage(msg: "Nodes created")
         outputMessage(msg: "Creating edges")
         /// Create Edges
-        for (symbol, relation) in relations.value {
-            if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == symbol.usr}) {
-                let fromNode: Node = graph.vertexAtIndex(index)
-                if let index = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
-                    let toNode: Node = graph.vertexAtIndex(index)
+        
+        var edges: ThreadSafeArray<DependencyEdge> = ThreadSafeArray<DependencyEdge>()
+        
+        DispatchQueue.concurrentPerform(iterations: relations.count) { index in
+            let (symbol, relation) = relations[index]
+            if let u = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == symbol.usr}) {
+                if let v = graph.vertices.firstIndex(where: { (node: Node) -> Bool in return node.usr == relation.symbol.usr}) {
                     /// Check if there is an already existing edge between the node and the related node and genereate edge if not
                     let roles = EdgeRole.getEdgeRoles(symbolRole: relation.roles)
-                    if !graph.edgeExists(from: fromNode, to: toNode, role: roles) {
-                        graph.addEdge(from: fromNode, to: toNode, directed: true, role: roles)
+                    if !graph.edgeExists(fromIndex: u, toIndex: v, role: roles) {
+                        edges.append(elements: [DependencyEdge(u: u, v: v, directed: true, roles: roles)])
                     }
                 }
             }
+        }
+        
+        for edge in edges.value {
+            graph.addEdge(edge, directed: true)
         }
         
         /// Connect all extensions to their classes or structs
@@ -86,6 +99,7 @@ extension GraphBuilder {
                 }
             }
         }
+        successMessage(msg: "Edges created")
         return graph
     }
 }

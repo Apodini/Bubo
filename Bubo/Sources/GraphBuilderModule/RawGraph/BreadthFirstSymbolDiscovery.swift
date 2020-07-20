@@ -4,6 +4,7 @@
 
 import Foundation
 import IndexStoreDB
+import ResourceManagerModule
 
 extension GraphBuilder {
     
@@ -24,13 +25,10 @@ extension GraphBuilder {
         var filter: ThreadSafeSet<SymbolOccurenceHashToken> = ThreadSafeSet<SymbolOccurenceHashToken>()
         
         var toBeNodes: ThreadSafeDictionary = ThreadSafeDictionary()
-        
-        outputMessage(msg: "Generating edge and node role permutaions")
-        
+                
         /// Modified Breadth-First Search that filters out SymbolOccurences that are in the main packages external depenencies and finds all symbols of the main package (the anlysed service)
         outputMessage(msg: "Querying nodes")
         while !queue.value.isEmpty {
-            print(queue.count)
             let symbol = queue.removeFirst()
             /// Check if symbol has already been visited
             let (inserted, memberAfterInsert) = visited.insert(SymbolHashToken(usr: symbol.usr, kind: symbol.kind))
@@ -67,7 +65,6 @@ extension GraphBuilder {
                 }
             }
         }
-        print(toBeNodes.count)
         return toBeNodes
     }
     
@@ -94,33 +91,7 @@ extension GraphBuilder {
         return false
     }
     
-    private struct SymbolOccurenceHashToken: Hashable {
-        var usr: String
-        var kind: IndexSymbolKind
-        var roles: SymbolRole
-        var path: String
-        var isSystem: Bool
-        var line: Int
-        var utf8Column: Int
-        
-        init(usr: String, kind: IndexSymbolKind, roles: SymbolRole, path: String, isSystem: Bool, line: Int, utf8Column: Int) {
-            self.usr = usr
-            self.kind = kind
-            self.roles = roles
-            self.path = path
-            self.isSystem = isSystem
-            self.line = line
-            self.utf8Column = utf8Column
-        }
-    }
+ 
     
-    private struct SymbolHashToken: Hashable {
-        var usr: String
-        var kind: IndexSymbolKind
-        
-        init(usr: String, kind: IndexSymbolKind) {
-            self.usr = usr
-            self.kind = kind
-        }
-    }
+
 }

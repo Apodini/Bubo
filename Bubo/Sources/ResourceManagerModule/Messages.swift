@@ -47,7 +47,9 @@ public func headerMessage(msg: String) -> Void {
 /// - parameter msg: The message to output.
 
 public func outputMessage(msg: String) -> Void {
-    print(msg .dim())
+    if ResourceManager.verbose {
+        print(msg .dim())
+    }
 }
 
 

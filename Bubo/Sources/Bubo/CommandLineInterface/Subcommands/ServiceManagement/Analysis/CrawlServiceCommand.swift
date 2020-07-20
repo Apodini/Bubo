@@ -34,12 +34,16 @@ extension Bubo.Service.Analyse {
         
         func run() {
             
-            guard let (_, service) = Main.resourceManager.decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName) else {
+            guard let (_, service) = Main
+                .operationsManager
+                .resourceManager
+                .decodeServiceConfig(pName: options.projectName, serviceName: options.serviceName)
+            else {
                 errorMessage(msg: "Can't crawl, sorry")
                 return
             }
             headerMessage(msg: "Found following urls for service \(options.serviceName)")
-            for file in Main.resourceManager.fileCrawler(startURL: service.url) {
+            for file in Main.operationsManager.resourceManager.fileCrawler(startURL: service.url) {
                 print("Name: \(file.fileName)\nPath: \(file.fileURL.path)\n")
             }
         }

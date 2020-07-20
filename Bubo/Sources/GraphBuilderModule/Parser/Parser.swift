@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftSyntax
+import ResourceManagerModule
 
 /// A syntax parser that uses a **SwiftSyntax** `SyntaxVisitor` to craw the AST of a sourcefile and generate relevant tokens
 public class Parser {

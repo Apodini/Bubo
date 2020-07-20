@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import GraphBuilderModule
+import ResourceManagerModule
 
 
 extension StructuralAnalyser {

@@ -22,17 +22,17 @@ extension Bubo {
         
         func run() {
             if verbose {
-                Main.resourceManager.rootConfig.verboseMode = !Main.resourceManager.rootConfig.verboseMode
-                Main.resourceManager.encodeRootConfig(config: Main.resourceManager.rootConfig) // persist change in root config
+                Main.operationsManager.resourceManager.rootConfig.verboseMode = !Main.operationsManager.resourceManager.rootConfig.verboseMode
+                Main.operationsManager.resourceManager.encodeRootConfig(config: Main.operationsManager.resourceManager.rootConfig) // persist change in root config
             }
             let colorBubo = "Bubo" .blue()
             headerMessage(msg: "Status of \(colorBubo) root configuration \n".underline())
-            print("\(makeBold(string: "Initialisation Status")): \(Main.resourceManager.initStatus)")
-            print("\(makeBold(string: "Initialisation Date")): \(Main.resourceManager.rootConfig.initialisationDate)")
-            print("\(makeBold(string: "Version")): \(Main.resourceManager.rootConfig.version)")
-            print("\(makeBold(string: "Verbose")): \(Main.resourceManager.rootConfig.verboseMode)")
-            print("\(makeBold(string: "Location")): \(Main.resourceManager.rootConfig.rootUrl?.path ?? "None")")
-            print("\(makeBold(string: "Number of Projects")): \(Main.resourceManager.rootConfig.projects?.count ?? 0)")
+            print("\(makeBold(string: "Initialisation Status")): \(Main.operationsManager.resourceManager.initStatus)")
+            print("\(makeBold(string: "Initialisation Date")): \(Main.operationsManager.resourceManager.rootConfig.initialisationDate)")
+            print("\(makeBold(string: "Version")): \(Main.operationsManager.resourceManager.rootConfig.version)")
+            print("\(makeBold(string: "Verbose")): \(Main.operationsManager.resourceManager.rootConfig.verboseMode)")
+            print("\(makeBold(string: "Location")): \(Main.operationsManager.resourceManager.rootConfig.rootUrl?.path ?? "None")")
+            print("\(makeBold(string: "Number of Projects")): \(Main.operationsManager.resourceManager.rootConfig.projects?.count ?? 0)")
         }
     }
 }

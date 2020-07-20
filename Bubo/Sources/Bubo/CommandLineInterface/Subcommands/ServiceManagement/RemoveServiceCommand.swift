@@ -29,7 +29,7 @@ extension Bubo.Service {
         }
         
         func run() {
-            Main.resourceManager.removeService(projectName: options.projectName, serviceName: options.serviceName)
+            Main.operationsManager.removeService(projectName: options.projectName, serviceName: options.serviceName)
         }
     }
 }

@@ -6,12 +6,13 @@ import Foundation
 import SwiftGraph
 import SwiftSyntax
 import IndexStoreDB
+import ResourceManagerModule
 
 
 /// Creates a dependency graph for a service (a Swift package) based on a set of parsed tokens from a syntax parser
 /// and the raw indexing data of a build process of the service
 public class GraphBuilder {
-    public var graph: RefinedDependencyGraph<Node>
+    public var graph: DependencyGraph<Node>
     
     /// Parser for parsing the raw syntax of all swift files
     public let parser: Parser
@@ -34,8 +35,8 @@ public class GraphBuilder {
     
     /// Constructs a GraphBuilder object and initialises the indexing server needed to query raw indexing data
     public init(packageRoot: URL, fileURLs: [URL]) {
-        headerMessage(msg: "Initialising graph builder...")
-        self.graph = RefinedDependencyGraph<Node>()
+        headerMessage(msg: "Graph Builder")
+        self.graph = DependencyGraph<Node>()
         self.parser = Parser()
         parser.parse(files: fileURLs)
         successMessage(msg: "Files parsed")

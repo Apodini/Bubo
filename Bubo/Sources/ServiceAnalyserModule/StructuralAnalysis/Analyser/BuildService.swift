@@ -12,7 +12,7 @@ import ShellOut
 
 extension StructuralAnalyser {
     public func buildService() -> Void {
-        headerMessage(msg: "Initialising building process...")
+        headerMessage(msg: "Building \(service.name)")
         if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
             if self.fileManager.changeCurrentDirectoryPath(
                 packageDotSwiftURL
