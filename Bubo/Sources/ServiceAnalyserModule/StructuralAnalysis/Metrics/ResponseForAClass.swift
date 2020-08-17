@@ -7,7 +7,6 @@ import Foundation
 
 extension StructuralAnalyser {
 
-    public func fanOutCoupling() -> Void {
-
+    public func responseForAClass() -> Void {
     }
 }
