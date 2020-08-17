@@ -6,6 +6,9 @@ import Foundation
 
 
 extension ResourceManager {
+    
+    /// Fetches the most recent graphsnapshot for a given service configuration
+    
     public func getMostRecentGraphSnapshot(service: ServiceConfiguration) -> GraphSnapshot? {
         
         var snaps = service.graphSnapshots

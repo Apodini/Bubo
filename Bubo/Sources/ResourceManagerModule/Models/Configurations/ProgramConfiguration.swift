@@ -6,7 +6,7 @@
  
  public struct ProgramConfiguration: Codable {
     
-    /// The version of the currently used application
+    /// The current version of Bubo
     public var version: String
     
     /// A verbose mode that activates or deactivates verbose command line outputs

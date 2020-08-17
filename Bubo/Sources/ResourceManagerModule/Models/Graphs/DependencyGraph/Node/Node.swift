@@ -9,7 +9,7 @@ import IndexStoreDB
 /// Represents a node in the raw dependency graph
 public class Node: Codable, Equatable, CustomStringConvertible {
     
-    /// Each node is uniquely identified via it's USR (Unified Symbol Resolution)
+    /// Each node is uniquely identified via its USR (Unified Symbol Resolution)
     public var usr: String
     
     /// The kind of the node. Refer to the type `NodeKind` to see different possible kinds

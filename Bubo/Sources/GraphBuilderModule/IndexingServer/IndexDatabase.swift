@@ -9,7 +9,7 @@ public class IndexDatabase {
     /// The path to the XCode default toolchain that contains the indexStore library needed to create a database
     static let libIndexStore = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libIndexStore.dylib"
         
-    /// The indexStore configuration that contains the database and the store pat
+    /// The indexStore configuration that contains the database and the store path
     let indexDBConfig: IndexDatabaseConfiguration
 
     /// The source code index, if available.

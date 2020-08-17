@@ -7,6 +7,8 @@ import GraphBuilderModule
 import ResourceManagerModule
 
 extension StructuralAnalyser {
+    
+    /// Checks if the currently available data of a service and initiates a new graphsnapshot when data is not up to date. If Data is not up to date, the services indexingdata is pruged and the service is rebuild
     public func createDependencyGraph() -> DependencyGraph<Node>? {
         // Build service
         headerMessage(msg: "Checking Graph")

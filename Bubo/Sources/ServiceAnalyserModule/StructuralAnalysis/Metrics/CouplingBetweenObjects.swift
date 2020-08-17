@@ -7,7 +7,7 @@ import ResourceManagerModule
 
 
 extension StructuralAnalyser {
-
+    /// Calculate CBO' for a specified graphsnapshot
     public func couplingBetweenObjects(graphSnapshot: GraphSnapshot) -> Void {
         var graph = graphSnapshot.graph
     }

@@ -18,7 +18,7 @@ public struct ProjectConfiguration: Codable {
     /// A timestamp for the last time the project was updated or changed by the program
     public var lastUpdated: String
     
-    /// All services of this project identified by thier service name
+    /// All services of this project identified by thier service name and service configuration url <serviceName, URL>
     public var repositories: [String: URL]
 
     

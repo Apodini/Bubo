@@ -7,10 +7,12 @@ import Foundation
 
 extension ResourceManager {
     
-    /// Decodes a project configuration based on a project name
+    /// Decodes all graphsnapshots for a given project and service name
     ///
-    /// - parameter projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
-    /// - returns: The validated project handle and the project configuration data
+    /// - parameters:
+    ///     - projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
+    ///     - serviceName: The name of the service that should be decoded
+    /// - returns: The validated project handle and an array of graphsnapshots that have been decoded
     
     public func decodeAllGraphSnapshots(pName: String?, serviceName: String) -> (projectHandle: String, graphSnapshots: [GraphSnapshot])? {
         

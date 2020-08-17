@@ -3,10 +3,12 @@
 //
 
 import Foundation
+import ResourceManagerModule
 
 
 extension StructuralAnalyser {
 
-    public func responseForAClass() -> Void {
+     /// Calculate RFC' for a specified graphsnapshot
+    public func responseForAClass(graphSnapshot: GraphSnapshot) -> Void {
     }
 }

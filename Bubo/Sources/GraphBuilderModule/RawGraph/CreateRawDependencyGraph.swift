@@ -28,7 +28,7 @@ extension GraphBuilder {
         
         DispatchQueue.concurrentPerform(iterations: self.parser.tokens.count) { index in
             var tmpQueue: [Symbol] = [Symbol]()
-            for occ in indexingServer.findWorkspaceSymbols(matching: self.parser.tokens[index].name) {
+            for occ in indexingServer.findSymbolsMatchingName(matching: self.parser.tokens[index].name) {
                 /// Do not add duplicates
                 let symOccHash: SymbolOccurenceHashToken = SymbolOccurenceHashToken (usr: occ.symbol.usr, kind: occ.symbol.kind, roles: occ.roles, path: occ.location.path, isSystem: occ.location.isSystem, line: occ.location.line, utf8Column: occ.location.utf8Column)
                 if !queueMemory.contains(element: symOccHash) {
@@ -40,7 +40,7 @@ extension GraphBuilder {
         
         /// Recursively find all nodes
         let toBeNodes = breadthFirstSymbolDiscovery(inQueue: queue.value, indexingServer: indexingServer)
-        
+        print("toBeNodes: \(toBeNodes.capacity)")
         return createRawDependencyGraph(symbolOccurences: [SymbolOccurrence](toBeNodes.values))
     }
     

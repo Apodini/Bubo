@@ -6,6 +6,9 @@ import Foundation
 import ResourceManagerModule
 
 extension GraphBuilder {
+    
+    /// Generates  a dependency graph where the nodes have groupIDs identifing related groups of code. These are also stored as their own graphs in a group dictionary to search groups of related code.
+    
     public func generateRefinedDependencyGraph() -> Void {
         
         if let rawGraph: DependencyGraph<Node> = self.generateRawDependencyGraph() {
@@ -21,7 +24,6 @@ extension GraphBuilder {
             }
             
             /// Create the groups
-            
             let rawGraphClustered: [DependencyGraph<Node>] = clusterByClasses(originalGraph: rawGraph)
 
             for cluster in rawGraphClustered {

@@ -7,10 +7,12 @@ import Foundation
 
 extension ResourceManager {
     
-    /// Decodes a project configuration based on a project name
+    /// Decodes a service configuration based on a project name
     ///
-    /// - parameter projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
-    /// - returns: The validated project handle and the project configuration data
+    /// - parameters:
+    ///     - projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
+    ///     - serviceName: The name of the service that should be decoded
+    /// - returns: The validated project handle and the service configuration data
     
     public func decodeServiceConfig(pName: String?, serviceName: String) -> (projectHandle: String, serviceConfig: ServiceConfiguration)? {
         

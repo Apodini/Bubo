@@ -19,7 +19,7 @@ public class IndexingServer {
     /// - parameter matching: The name of the symbol that is searched for
     /// - returns: An array of indexStoreDB `SymbolOccurence`s
     
-    func findWorkspaceSymbols(matching: String) -> [SymbolOccurrence] {
+    func findSymbolsMatchingName(matching: String) -> [SymbolOccurrence] {
         var symbolOccurrenceResults: [SymbolOccurrence] = []
         indexDatabase?.index?.forEachCanonicalSymbolOccurrence(
           containing: matching,

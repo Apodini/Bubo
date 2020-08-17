@@ -38,6 +38,9 @@ public struct ThreadSafeDictionary {
             } else {
                 if var duplicate = wrappedValue.removeValue(forKey: occurrence.symbol.usr) {
                     duplicate.roles.formUnion(occurrence.roles)
+                    if occurrence.roles.contains(.definition) {
+                        duplicate.location = occurrence.location
+                    }
                     for relation in occurrence.relations {
                         if !duplicate.relations.contains(relation) {
                             duplicate.relations.append(relation)
