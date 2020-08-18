@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 27.05.20.
+//  Token.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 27/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: Token
 /// Represents a syntax token parsed with **SwiftSyntax**
 public struct Token {
     
@@ -26,7 +32,7 @@ public struct Token {
     }
 }
 
-
+// MARK: Token: CustomStringConvertible
 /// Conform to the `CustomStringConvertible` protocol
 extension Token: CustomStringConvertible {
     public var description: String {
@@ -34,7 +40,7 @@ extension Token: CustomStringConvertible {
     }
 }
 
-
+// MARK: Token: Equatable
 /// Confrom to the `Equatable` protocol
 extension Token: Equatable {
     public static func == (lhs: Token, rhs: Token) -> Bool {

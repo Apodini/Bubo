@@ -1,6 +1,11 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  GraphBuilder.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 12/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import SwiftGraph
@@ -9,6 +14,7 @@ import IndexStoreDB
 import ResourceManagerModule
 
 
+// MARK: GraphBuilder
 /// Creates a dependency graph for a service (a Swift package) based on a set of parsed tokens from a syntax parser
 /// and the raw indexing data of a build process of the service
 public class GraphBuilder {

@@ -1,8 +1,17 @@
+//
+//  IndexDatabase.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 20/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
+
 import Foundation
 import IndexStoreDB
 import ResourceManagerModule
 
-
+// MARK: IndexDatabase
 /// Represents an IndexingDatabase instance
 public class IndexDatabase {
     

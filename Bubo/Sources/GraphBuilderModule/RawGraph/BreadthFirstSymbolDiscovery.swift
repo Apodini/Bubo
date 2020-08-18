@@ -1,11 +1,18 @@
 //
-//  Created by Valentin Hartig on 30.06.20.
+//  BreadthFirstSymbolDiscovery.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 30/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import IndexStoreDB
 import ResourceManagerModule
 
+
+// MARK: GraphBuilder breadthFirstSymbolDiscovery
 extension GraphBuilder {
     
     /// - note: Filtering already visited nodes leads to a very steep performance drop. It's somehow faster to process everything over and over again
@@ -68,6 +75,12 @@ extension GraphBuilder {
         return toBeNodes
     }
     
+    
+    /// FInd all SymbolOccurrences and related SymbolOccurrence for a given Symbol and indexing Server
+    /// - parameters:
+    ///     - symbol The symbol tobe searched
+    ///     - indexingServer the indexing server thatc ontains the corresponding indexing database
+    /// - returns: An array of all  SymbolOccurrence related to the usr of the symbol
     private func getSymbolOccurences(symbol: Symbol, indexingServer: IndexingServer) -> [SymbolOccurrence] {
         var occurences = indexingServer.occurrences(ofUSR: symbol.usr, roles: .all)
         var relatedOccurences = indexingServer.findRelatedSymbols(relatedToUSR: symbol.usr, roles: .all)
@@ -75,6 +88,11 @@ extension GraphBuilder {
         return occurences
     }
     
+    /// Generic binary search
+    /// - parameters:
+    ///     - a Collections to be searched
+    ///     - key key that is to be searched in the collection
+    /// - returns: True if the key is present, false if not
     private func binarySearch<T: Comparable>(_ a: [T], key: T) -> Bool {
         var lowerBound = 0
         var upperBound = a.count

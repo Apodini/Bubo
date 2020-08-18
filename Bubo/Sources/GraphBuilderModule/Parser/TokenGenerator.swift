@@ -1,11 +1,16 @@
 //
-//  Created by Valentin Hartig on 27.05.20.
+//  TokenGenerator.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 27/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import SwiftSyntax
 
 
+// MARK: TokenGenerator: SyntaxVisitor
 /// Standard implementaion of a **SwiftSnytax** `SyntaxVisitor`. Please refer to the **SwfitSyntax** documentation
 class TokenGenerator: SyntaxVisitor {
     
@@ -87,6 +92,7 @@ class TokenGenerator: SyntaxVisitor {
 }
 
 
+// MARK: TokenGenerator to SwiftSyntax.SourceLocation
 extension TokenGenerator {
     
     /// Converts a SwiftSyntax location to a token location

@@ -1,12 +1,22 @@
 //
-//  Created by Valentin Hartig on 23.06.20.
+//  SymbolHashToken.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 23/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import ResourceManagerModule
 
+
+// MARK: GraphBuilder
 extension GraphBuilder {
     
+    
+    /// Cluster a dependency graph by its highlevel entities and retrun all connected componets of the graph, only containing childOf and extensionOf Relationships
+    /// - parameter originalGraph: The graph that should be assigned groupIDs
+    /// - returns: An array of connected components
     public func clusterByClasses(originalGraph: DependencyGraph<Node>) -> [DependencyGraph<Node>] {
         let reducedGraph: DependencyGraph<Node> = DependencyGraph<Node>()
         
@@ -52,6 +62,14 @@ extension GraphBuilder {
         
         return safeGraphArray.value
     }
+    
+    /// A recursive depth first search that searches connected components for a given node, idetified by its position in the graphs vertecies array.
+    /// - parameters:
+    ///     - node the index node that is currently processed
+    ///     - visited all nodes that have been visited identified by their index in the vertices array in the graph
+    ///     - component the aggregator for the connected component that is currently generated
+    ///     - reducedGraph: The graph that is searched
+    /// - note: This algorithm is very slow, please optimise it :(
     
     private func depthFirstSearch(node: Int, visited: [Bool], component: [Node], reducedGraph: DependencyGraph<Node>) -> ([Bool],[Node]) {
         

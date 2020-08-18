@@ -1,11 +1,18 @@
 //
-//  Created by Valentin Hartig on 30.06.20.
+//  CreateRawDependencyGraph.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 30/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import IndexStoreDB
 import ResourceManagerModule
 
+
+// MARK: GraphBuilder
 extension GraphBuilder {
     
     /// Builds the dependency graph
