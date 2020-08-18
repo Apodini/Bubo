@@ -1,17 +1,22 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  RemoveProject.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Removes a project and all its subdirectories permanently from disk. Use with special care!
     ///
     /// - parameter pName: The name of the project to remove. If `pName` is nil, the program checks if the current directory name is a project and removes it.
-    
     public func removeProject(pName: String?) -> Void {
         
         guard var (projectHandle, projects) = self.resourceManager.fetchHandleAndProjects(pName: pName) else {

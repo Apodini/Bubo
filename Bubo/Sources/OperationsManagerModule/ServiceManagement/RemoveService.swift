@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  RemoveService.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Removes service from project configuration and deletes it permanently from disk. Use with caution!

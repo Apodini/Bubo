@@ -1,17 +1,23 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  PrintServices.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Prints all services of a project to stdout
     ///
     /// - parameter projectName: The name of the project  for which all services should be printed. If `projectName` is nil, the program checks if the current directory name is a project.
-    
+
     public func printServices(projectName: String?) -> Void {
         
         /// Get the `projectHandle` that identifies the project in the roots `projects`

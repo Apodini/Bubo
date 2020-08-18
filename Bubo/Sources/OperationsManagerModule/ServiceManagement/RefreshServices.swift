@@ -1,5 +1,9 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  RefreshServices.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 12/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
@@ -7,13 +11,13 @@ import ShellOut
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Checks a projects service directory for new, deleted or changed services and refreshes the project configuration
     ///
     /// - parameter projectName: The name of the project to refresh. If `projectName` is nil, the program checks if the current directory name is a project.
     /// - returns: A boolean value to indicate if the projectt refresh was successfu
-    
     public func refreshServices(projectName: String?) -> Void {
         
         /// Get the `projecHandle` and the project configuration `projectConfig`

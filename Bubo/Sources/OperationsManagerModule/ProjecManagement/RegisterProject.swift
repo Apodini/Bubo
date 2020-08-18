@@ -1,12 +1,20 @@
 //
-//  Created by Valentin Hartig on 20.07.20.
+//  RegisterProject.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 20/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
+    
+    // Checks if the current directory of the user is a project and if yes registers it in the root config
     public func registerProject() -> Void {
         
         guard let currentDirURL = URL(string: fileManager.currentDirectoryPath) else {

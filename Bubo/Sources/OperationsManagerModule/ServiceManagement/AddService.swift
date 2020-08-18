@@ -1,6 +1,11 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  AddService.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ShellOut
@@ -8,6 +13,7 @@ import ColorizeSwift
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Adds a new service to a project. The service is cloned from a valid git URL.
@@ -17,7 +23,6 @@ extension OperationsManager {
     ///     - serviceName: The name of the service you want to add. It's recommended to choose the same name as the git repository.
     ///     - gitRepoURL: The URL string to the git repository the service is based on.
     /// - returns: A boolean value that indicates if adding the service was successful or not.
-
     public func addService(projectName: String?, serviceName: String, gitRepoURL: String) -> Bool {
 
         /// Fetch the `projectHandle` and all `projects` registered in the root configuration

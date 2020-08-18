@@ -1,12 +1,17 @@
 //
-//  Created by Valentin Hartig on 23.04.20.
+//  NewProject.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 23/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ResourceManagerModule
 
 
-
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Initialises a new project and registeres it in the root configuration.
@@ -14,7 +19,6 @@ extension OperationsManager {
     /// - parameter pName: The name of the project to create. If `pName` is nil, the program creates a new project in the current directory,
     ///                    else it creates a new directory with the name `pName` where the project is initialised in.
     /// - returns: Returns a boolean value that indicates if the project has successfully been created
-    
     public func newProject(pName: String?) -> Void {
         let projectHandle: String
         let projectURL: URL

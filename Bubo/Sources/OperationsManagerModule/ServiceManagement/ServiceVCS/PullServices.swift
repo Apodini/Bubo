@@ -1,12 +1,18 @@
 //
-//  Created by Valentin Hartig on 01.05.20.
+//  PullServices.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 01/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ShellOut
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Pull latest changes on a services git repository
@@ -14,7 +20,6 @@ extension OperationsManager {
     /// - parameters:
     ///     - projectName: The name of the project where the service is located. If `projectName` is nil, the program checks if the current directory name is a project.
     ///     - serviceName: The name of the service you want to pull.
-    
     public func pullService(projectName: String?, serviceName: String) -> Void {
         
         /// Refresh the services of the project to make sure all services (also manually cloned) are registered and up to date

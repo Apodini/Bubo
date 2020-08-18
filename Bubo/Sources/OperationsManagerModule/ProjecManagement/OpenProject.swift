@@ -1,18 +1,23 @@
 //
-//  Created by Valentin Hartig on 01.05.20.
+//  OpenProject.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 01/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ShellOut
 import ResourceManagerModule
 
 
+// MARK: OperationsManager
 extension OperationsManager {
     
     /// Opens a project in Finder
     ///
     /// - parameter pName: The name of the project to open. If `pName` is nil, the program checks if the current directory name is a project and opens it.
-
     public func openProject(pName: String?) -> Void {
         
         guard let (projectHandle, projectURL) = self.resourceManager.getProjectURL(projectName: pName) else {
