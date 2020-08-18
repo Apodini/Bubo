@@ -1,11 +1,16 @@
 //
-//  Created by Valentin Hartig on 01.06.20.
+//  NodeKind.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 01/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import IndexStoreDB
 
 
+// MARK: NodeKind
 /// An enum that represents the different types of nodes that can exists in the dependency graph.
 /// These kinds are based on the indexStoreDB SymbolKinds
 public enum NodeKind {

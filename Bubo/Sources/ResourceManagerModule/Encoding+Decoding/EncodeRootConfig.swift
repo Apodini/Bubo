@@ -1,19 +1,20 @@
 //
-//  File.swift
-//  
+//  EncodeRootConfig.swift
+//  Bubo
 //
-//  Created by Valentin Hartig on 06.05.20.
+//  Created by Valentin Hartig on 17/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 
 
+// MARK: ReosurceManager
 extension ResourceManager {
     
     /// Encode a root configuration to persist it as the working configuration for the application
     ///
     /// - parameter config: The application root configuration that should be encoded
-    
     public func encodeRootConfig(config: ProgramConfiguration) -> Void {
         
         /// Fetch the root configuration file UR

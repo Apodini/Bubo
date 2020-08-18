@@ -1,11 +1,16 @@
 //
-//  Created by Valentin Hartig on 01.06.20.
+//  EdgeRole.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 01/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import IndexStoreDB
 
 
+// MARK: EdgeRole: CaseIterable
 /// `EdgeRole` converts the `indexStoreDB`'s type `SymbolRole` into codeable enum roles to annotate the dependency graphs edges
 public enum EdgeRole: CaseIterable {
    // MARK: Relation roles, from indexstore
@@ -24,6 +29,8 @@ public enum EdgeRole: CaseIterable {
     case unknow
 }
 
+
+// MARK: EdgeRole: Codable
 /// Make the `EdgeRole` enum conform to the `Codable` protocol
 extension EdgeRole: Codable {
     
@@ -114,6 +121,8 @@ extension EdgeRole: Codable {
     }
 }
 
+
+// MARK: EdgeRole
 extension EdgeRole {
     
     /// Convert a `indexStoreDB` `SymbolRole` into an array of `EdgeRoles`

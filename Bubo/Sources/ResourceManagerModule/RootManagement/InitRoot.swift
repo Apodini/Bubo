@@ -1,17 +1,22 @@
 //
-//  Created by Valentin Hartig on 23.04.20.
+//  InitRoot.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 23/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Initialieses the application based on passed configuration data
     ///
     /// - parameter configData: An application configuration that provides the environment context for the application.
-    ///                         Based on this configuration data the applications root configuration is created.
-    
+    /// - note: Based on this configuration data the applications root configuration is created.
     public func initRoot(configData: ProgramConfiguration) -> Void {
         headerMessage(msg: "Starting initialisation of Bubo")
         

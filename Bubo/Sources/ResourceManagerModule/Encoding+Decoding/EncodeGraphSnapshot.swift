@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 07.07.20.
+//  EncodeGraphSnapshot.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 17/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 
 import Foundation
 
+
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Encodes passed service configuration data for a project
@@ -12,7 +18,6 @@ extension ResourceManager {
     /// - parameters:
     ///     - pName: The project name
     ///     - configData: The configuration data that should be encoded for the project
-    
     public func encodeGraphSnapshot(pName: String?, serviceName: String, graphSnapshot: GraphSnapshot) -> URL? {
         
         /// Fetch projects and validate project name

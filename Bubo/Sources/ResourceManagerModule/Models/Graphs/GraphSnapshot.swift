@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 07.07.20.
+//  GraphSnapshot.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 07/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: GraphSnapshot: Codable, Equatable
 public class GraphSnapshot: Codable, Equatable {
     
 ///Metrics: [GroupID:MetricValue] MetricValue is between 0 and 100 to represent the interval [0,1]

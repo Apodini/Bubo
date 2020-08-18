@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 01.06.20.
+//  DependencyEdge.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 17/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import SwiftGraph
 
 
+// MARK: DependencyEdge: Edge, CustomStringConvertible, Equatable
 /// Extension of **SwiftGraph**'s `Edge` class that considers Edge roles
 public struct DependencyEdge: Edge, CustomStringConvertible, Equatable {
     public var u: Int

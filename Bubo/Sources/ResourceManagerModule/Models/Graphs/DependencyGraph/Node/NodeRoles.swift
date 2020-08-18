@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 23.06.20.
+//  NodeRoles.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 23/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import IndexStoreDB
 
 
+// MARK: NodeRole: CaseIterable
 /// `NodeRole` converts the `indexStoreDB`'s type `SymbolRole` into codeable enum roles to annotate the dependency graphs nodes
 public enum NodeRole: CaseIterable {
     // MARK: Primary roles, from indexstore
@@ -23,6 +29,7 @@ public enum NodeRole: CaseIterable {
     case unknow
 }
 
+// MARK: NodeRole: Codable
 /// Make the `NodeRole` enum conform to the `Codable` protocol
 extension NodeRole: Codable {
     
@@ -103,6 +110,8 @@ extension NodeRole: Codable {
     }
 }
 
+
+// MARK: NodeRole
 extension NodeRole {
     
     /// Convert a `indexStoreDB` `SymbolRole` into an array of `NodeRoles`

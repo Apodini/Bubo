@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 17.05.20.
+//  Node.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 17/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import IndexStoreDB
 
 
+// MARK: Node: Codable, Equatable, CustomStringConvertible
 /// Represents a node in the raw dependency graph
 public class Node: Codable, Equatable, CustomStringConvertible {
     

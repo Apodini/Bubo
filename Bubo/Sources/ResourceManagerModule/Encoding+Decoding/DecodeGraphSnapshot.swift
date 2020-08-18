@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 07.07.20.
+//  DecodeGraphSnapshot.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 07/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Decodes all graphsnapshots for a given project and service name
@@ -13,7 +19,6 @@ extension ResourceManager {
     ///     - projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
     ///     - serviceName: The name of the service that should be decoded
     /// - returns: The validated project handle and an array of graphsnapshots that have been decoded
-    
     public func decodeAllGraphSnapshots(pName: String?, serviceName: String) -> (projectHandle: String, graphSnapshots: [GraphSnapshot])? {
         
         /// Validates the project name and fetches the `projectHandle` and the `projectURL`

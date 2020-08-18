@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  InitUtils.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 12/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Fetch application configuration root directory for initialisation.

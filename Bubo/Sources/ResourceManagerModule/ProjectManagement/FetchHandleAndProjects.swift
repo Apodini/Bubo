@@ -1,19 +1,22 @@
 //
-//  Created by Valentin Hartig on 06.05.20.
+//  FetchHandleAndProjects.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 06/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
-    
-    
+
     /// Fetches all projects from the root configuration and checks if the provided project name exists.
     ///
     /// - parameter pName: The name of the project to retrieve. If `pName` is nil, the program checks if the current directory name is a project.
     /// - returns: A tuple that consists of the `projectHandle` and the `projects` dictionary. The `projectHandle` is the key that identifies the project
     /// in the dictionary.
-    
     public func fetchHandleAndProjects(pName: String?) -> (projectHandle: String, projects: [String:URL])? {
         
         /// Check if project name was passed, if not choose current directory as projectHandle

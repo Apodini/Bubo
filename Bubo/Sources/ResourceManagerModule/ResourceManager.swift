@@ -1,9 +1,17 @@
 //
-//  Created by Valentin Hartig on 20.04.20.
+//  ResourceManager.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 20/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
+
+// MARK: ResourceManager
+/// ResourceManager Root - recovers program state on init
 public class ResourceManager {
     
     /// A public filemanager object that unifies the use of the same filemanager in all extensions

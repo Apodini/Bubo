@@ -1,10 +1,15 @@
 //
-//  Created by Valentin Hartig on 17.06.20.
+//  DecodeServiceConfig.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 17/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Decodes a service configuration based on a project name
@@ -13,7 +18,6 @@ extension ResourceManager {
     ///     - projectName: The name of the project. If `projectName` is nil, the program checks if the current directory name is a project.
     ///     - serviceName: The name of the service that should be decoded
     /// - returns: The validated project handle and the service configuration data
-    
     public func decodeServiceConfig(pName: String?, serviceName: String) -> (projectHandle: String, serviceConfig: ServiceConfiguration)? {
         
         /// Validates the project name and fetches the `projectHandle` and the `projectURL`

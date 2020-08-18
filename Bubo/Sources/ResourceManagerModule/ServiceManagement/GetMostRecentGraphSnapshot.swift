@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 07.07.20.
+//  GetMostRecentGraphSnapshot.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 07/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Fetches the most recent graphsnapshot for a given service configuration

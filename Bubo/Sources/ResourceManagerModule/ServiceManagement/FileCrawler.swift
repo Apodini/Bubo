@@ -1,16 +1,22 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  FileCrawler.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 12/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
+
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// An recursive file system crawler that finds all files that are in a not hidden directory in a filesystem subtree
     ///
     /// - parameter startURL: The URL of a directory where the crawler starts crawling the file tree
     /// - returns: An array of file objects that identify a file
-    
     public func fileCrawler(startURL: URL) -> [File] {
         var files: [File] = []
         

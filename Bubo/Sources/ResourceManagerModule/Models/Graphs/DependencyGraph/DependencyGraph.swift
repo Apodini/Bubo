@@ -1,12 +1,18 @@
 //
-//  Created by Valentin Hartig on 17.05.20.
+//  DependencyGraph.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 17/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import SwiftGraph
 import SwiftSyntax
 
 
+// MARK: DependencyGraph<V: Equatable & Codable>: Graph
 /// Extension of **SwiftGraph**'s `Graph` class that models a swift dependency graph
 open class DependencyGraph<V: Equatable & Codable>: Graph {
     public var vertices: [V] = [V]()
@@ -81,6 +87,8 @@ open class DependencyGraph<V: Equatable & Codable>: Graph {
     }
 }
 
+
+// MARK: Graph where E == DependencyEdge
 /// Adjust **SwiftGraph**'s functions to accept edges of type `DependencyEdge`
 extension Graph where E == DependencyEdge {
 

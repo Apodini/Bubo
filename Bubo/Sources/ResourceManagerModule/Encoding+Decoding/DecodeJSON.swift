@@ -1,16 +1,21 @@
 //
-//  Created by Valentin Hartig on 06.05.20.
+//  DecodeJSON.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 06/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Decodes a root configuration that is encoded in JSON
     ///
     /// - parameter url: The URL the JSON encoded root configuration is located at
-    
     public func decodeDatafromJSON(url: URL) -> Optional<ProgramConfiguration> {
         let decoder = JSONDecoder()
         var config: ProgramConfiguration?
@@ -27,7 +32,6 @@ extension ResourceManager {
     /// Decodes a project configuration that is encoded in JSON
     ///
     /// - parameter url: The URL the JSON encoded project configuration is located at
-    
     public func decodeProjectConfigfromJSON(url: URL) -> Optional<ProjectConfiguration> {
         let decoder = JSONDecoder()
         var config: ProjectConfiguration?
@@ -43,8 +47,7 @@ extension ResourceManager {
     
     /// Decodes a service configuration that is encoded in JSON
     ///
-    /// - parameter url: The URL the JSON encoded project configuration is located at
-    
+    /// - parameter url: The URL the JSON encoded service configuration is located at
     public func decodeServiceConfigfromJSON(url: URL) -> Optional<ServiceConfiguration> {
         let decoder = JSONDecoder()
         var config: ServiceConfiguration?
@@ -57,6 +60,9 @@ extension ResourceManager {
         return config
     }
     
+    /// Decodes a graphSnapshot that is encoded in JSON
+    ///
+    /// - parameter url: The URL the JSON encoded graphSnapshot  is located at
     public func decodeGraphSnapshotfromJSON(url: URL) -> Optional<GraphSnapshot> {
         let decoder = JSONDecoder()
         var config: GraphSnapshot?

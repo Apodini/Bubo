@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 06.05.20.
+//  EncodeJSON.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 17/06/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ResouceManager
 extension ResourceManager {
     
     /// Encodes root configuration data to JSON
@@ -28,7 +34,6 @@ extension ResourceManager {
     ///
     /// - parameter config: The project configuration data that should be encoded
     /// - returns: The encoded project configuration data if encoding was successful
-    
     public func encodeDataToJSON(config: ProjectConfiguration) -> Data? {
         let encoder = JSONEncoder()
         do {
@@ -43,9 +48,8 @@ extension ResourceManager {
     
     /// Encodes service configuration data to JSON
     ///
-    /// - parameter config: The project configuration data that should be encoded
-    /// - returns: The encoded project configuration data if encoding was successful
-    
+    /// - parameter config: The service configuration data that should be encoded
+    /// - returns: The encoded service configuration data if encoding was successful
     public func encodeDataToJSON(config: ServiceConfiguration) -> Data? {
         let encoder = JSONEncoder()
         do {
@@ -58,6 +62,10 @@ extension ResourceManager {
     }
     
     
+    /// Encodes graphSnapshot data to JSON
+    ///
+    /// - parameter config: The graphSnapshot data that should be encoded
+    /// - returns: The encoded graphSnapshot data if encoding was successful
     public func encodeDataToJSON(config: GraphSnapshot) -> Data? {
         let encoder = JSONEncoder()
         do {

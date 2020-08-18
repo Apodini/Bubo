@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 27.04.20.
+//  ServiceConfiguration.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 27/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
 
+// MARK: ServiceConfiguration: Codable, Equatable
 public struct ServiceConfiguration: Codable, Equatable {
     
     /// The name of the service that acts as a unique identifier for the service

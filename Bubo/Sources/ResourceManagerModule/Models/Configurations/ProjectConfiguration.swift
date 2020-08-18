@@ -1,9 +1,16 @@
 //
-//  Created by Valentin Hartig on 21.04.20.
+//  ProjectConfiguration.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 21/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 
+
+// MARK: ProjectConfiguration: Codable
 public struct ProjectConfiguration: Codable {
     
     /// The URL where the project is located

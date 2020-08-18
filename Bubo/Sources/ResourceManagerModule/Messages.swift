@@ -1,6 +1,11 @@
 //
-//  Created by Valentin Hartig on 25.04.20.
+//  Messages.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 25/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ColorizeSwift
@@ -9,7 +14,6 @@ import ColorizeSwift
 /// Output an error message on stdout.
 ///
 /// - parameter msg: The message to output.
-
 public func errorMessage(msg: String) -> Void {
     print("ERROR: \(msg)" .red())
 }
@@ -18,7 +22,6 @@ public func errorMessage(msg: String) -> Void {
 /// Output a warning message on stdout.
 ///
 /// - parameter msg: The message to output.
-
 public func warningMessage(msg: String) -> Void {
     print("WARNING: \(msg)" .yellow())
 }
@@ -27,7 +30,6 @@ public func warningMessage(msg: String) -> Void {
 /// Output a success message on stdout.
 ///
 /// - parameter msg: The message to output.
-
 public func successMessage(msg: String) -> Void {
         print("✓ \(msg)" .green())
 }
@@ -36,7 +38,6 @@ public func successMessage(msg: String) -> Void {
 /// Output a header message on stdout that seperates different main operations.
 ///
 /// - parameter msg: The message to output.
-
 public func headerMessage(msg: String) -> Void {
     print(msg .bold())
 }
@@ -45,7 +46,6 @@ public func headerMessage(msg: String) -> Void {
 /// Output a standard output message on stdout. These are only displayed if the verbose mode is activated.
 ///
 /// - parameter msg: The message to output.
-
 public func outputMessage(msg: String) -> Void {
     if ResourceManager.verbose {
         print(msg .dim())
@@ -56,7 +56,6 @@ public func outputMessage(msg: String) -> Void {
 /// Output an abort message on stdout when an operation is aborted due to an error
 ///
 /// - parameter msg: The message to output
-
 public func abortMessage(msg: String) -> Void {
     print("ABORT: \(msg)" .red())
 }

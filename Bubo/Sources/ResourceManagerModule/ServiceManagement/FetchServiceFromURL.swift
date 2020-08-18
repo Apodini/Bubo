@@ -1,18 +1,23 @@
 //
-//  Created by Valentin Hartig on 12.05.20.
+//  FetchServiceFromURL.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 06/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ShellOut
 
 
+// MARK: ResourceManager
 extension ResourceManager {
     
     /// Validates if there is a service at the passed URL and creates a new service configuration data object.
     ///
     /// - parameter serviceURL: The URL where the service is located.
     /// - returns: A service configuration data object if the service exists, else nil.
-    
     public func fetchServiceFromURL(serviceURL: URL) -> ServiceConfiguration? {
         
         let fileManager = FileManager.default
