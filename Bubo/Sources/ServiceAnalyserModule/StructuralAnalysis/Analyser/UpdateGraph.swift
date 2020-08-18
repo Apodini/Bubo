@@ -1,12 +1,21 @@
 //
-//  Created by Valentin Hartig on 13.07.20.
+//  UpdateGraph.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 13/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import GraphBuilderModule
 import ResourceManagerModule
 
+
+// MARK: StructuralAnalyser
 extension StructuralAnalyser {
+    
+    // Update the dependency graph of tthe service registered in StructuralAnalyser --> generate a new graphSnapshot
     public func updateGraph() -> Void {
         guard let gb = self.graphBuilder else {
             errorMessage(msg: "Can't access graphbuilder because it hasn't been initialised!")

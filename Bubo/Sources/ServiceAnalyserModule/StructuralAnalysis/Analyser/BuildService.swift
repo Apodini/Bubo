@@ -1,16 +1,22 @@
 //
-//  File.swift
-//  
+//  BuildService.swift
+//  Bubo
 //
-//  Created by Valentin Hartig on 13.07.20.
+//  Created by Valentin Hartig on 13/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
+
 
 import Foundation
 import GraphBuilderModule
 import ResourceManagerModule
 import ShellOut
 
+
+// MARK: StructuralAnalyser
 extension StructuralAnalyser {
+    
+    ///Build the service that is registered in the StructuralAnalyser
     public func buildService() -> Void {
         headerMessage(msg: "Building \(service.name)")
         if let packageDotSwiftURL = service.packageDotSwift?.fileURL {
