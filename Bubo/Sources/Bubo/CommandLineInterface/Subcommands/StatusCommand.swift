@@ -11,7 +11,7 @@ import ArgumentParser
 import ResourceManagerModule
 
 
-// MARK: - Status
+// MARK: Status
 extension Bubo {
     
     /// **Subcommand**: Get the statistics and status information about the application

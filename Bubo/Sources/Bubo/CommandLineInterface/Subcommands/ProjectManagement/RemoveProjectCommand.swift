@@ -10,7 +10,7 @@ import ArgumentParser
 import Foundation
 import ResourceManagerModule
 
-// MARK: - Remove
+// MARK: Remove
 extension Bubo {
     
     /// **Subcommand**:  Remove a project from the registerd projects

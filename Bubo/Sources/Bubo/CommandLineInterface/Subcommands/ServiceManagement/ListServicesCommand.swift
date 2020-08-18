@@ -9,7 +9,7 @@
 import Foundation
 import ArgumentParser
 
-// MARK: - List
+// MARK: List
 extension Bubo.Service {
     
     /// **Subcommand**:  List all services of a project

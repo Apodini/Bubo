@@ -11,7 +11,7 @@ import Foundation
 import ArgumentParser
 
 
-// MARK: - Service
+// MARK: Service
 extension Bubo {
     
     /// **Subcommand**: Root for all service based subcommands

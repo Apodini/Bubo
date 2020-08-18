@@ -9,7 +9,7 @@
 import Foundation
 import ArgumentParser
 
-// MARK: - Add
+// MARK: Add
 extension Bubo.Service {
     
     /// **Subcommand**: Add a new service to a project

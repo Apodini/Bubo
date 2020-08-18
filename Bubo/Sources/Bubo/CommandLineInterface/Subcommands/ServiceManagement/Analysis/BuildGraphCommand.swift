@@ -12,7 +12,7 @@ import ArgumentParser
 import ServiceAnalyserModule
 
 
-// MARK: - Graph
+// MARK: Graph
 extension Bubo.Service.Analyse {
     
     /// **Subcommand**: Subcommand to generate a dependency graph and save it to a .dot file

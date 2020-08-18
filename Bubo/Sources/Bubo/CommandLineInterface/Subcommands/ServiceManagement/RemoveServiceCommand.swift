@@ -11,7 +11,7 @@ import ArgumentParser
 import Foundation
 
 
-// MARK: - Remove
+// MARK: Remove
 extension Bubo.Service {
     
     /// **Subcommand**:  Remove a service from a project

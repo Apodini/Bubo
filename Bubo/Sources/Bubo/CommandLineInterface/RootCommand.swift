@@ -11,7 +11,7 @@ import ColorizeSwift
 import Foundation
 
 
-// MARK: - Bubo
+// MARK: Bubo
 /// This is the Root Command of Bubo. All subcommands are registered here
 struct Bubo: ParsableCommand {
     

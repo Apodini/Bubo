@@ -10,7 +10,7 @@ import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
-// MARK: - Crawl
+// MARK: Crawl
 extension Bubo.Service.Analyse {
     
     /// **Subcommand**: Crawl a specified service and outout all its files to stdout 

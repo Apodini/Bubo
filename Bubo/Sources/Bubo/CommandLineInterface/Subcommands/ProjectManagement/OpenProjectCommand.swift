@@ -11,7 +11,7 @@ import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
-// MARK: - Open
+// MARK: Open
 extension Bubo {
     
     /// **Subcommand**:  Open a project in the finder

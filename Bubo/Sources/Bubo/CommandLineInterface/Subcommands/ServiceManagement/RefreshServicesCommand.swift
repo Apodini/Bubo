@@ -10,7 +10,7 @@ import ArgumentParser
 import Foundation
 
 
-// MARK: - Refresh
+// MARK: Refresh
 extension Bubo.Service {
     
     /// **Subcommand**: Refresh the service registrations of a project (Update all service configurations) 

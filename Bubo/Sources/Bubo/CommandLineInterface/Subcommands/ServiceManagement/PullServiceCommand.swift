@@ -9,7 +9,7 @@
 import Foundation
 import ArgumentParser
 
-// MARK: - Pull
+// MARK: Pull
 extension Bubo.Service {
     
     /// **Subcommand**:  Pull one or multiple services for a project

@@ -11,7 +11,7 @@ import ArgumentParser
 import Foundation
 import ResourceManagerModule
 
-// MARK: - New
+// MARK: New
 extension Bubo {
     
     /// **Subcommand**:  Create a new project

@@ -11,7 +11,7 @@ import Foundation
 import OperationsManagerModule
 
 
-// MARK: - Main
+// MARK: Main
 /// This class kicks off all operations in Bubo and initialises the command line interface 
 class Main {
     public static let operationsManager: OperationsManager = OperationsManager()

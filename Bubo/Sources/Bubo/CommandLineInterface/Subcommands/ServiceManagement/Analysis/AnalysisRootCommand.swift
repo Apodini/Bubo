@@ -9,7 +9,7 @@
 import Foundation
 import ArgumentParser
 
-// MARK: - Analyse
+// MARK: Analyse
 extension Bubo.Service {
     
     /// **Subcommand**: The root for all analysis subcommands that can be run on a project or service

@@ -11,7 +11,7 @@ import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
-// MARK: - List
+// MARK: List
 extension Bubo {
     
     /// **Subcommand**:  List all registered projects
