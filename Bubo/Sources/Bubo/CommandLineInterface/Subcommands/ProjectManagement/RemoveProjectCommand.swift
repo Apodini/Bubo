@@ -1,12 +1,16 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  RemoveProjectCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import ArgumentParser
 import Foundation
 import ResourceManagerModule
 
-
+// MARK: - Remove
 extension Bubo {
     
     /// **Subcommand**:  Remove a project from the registerd projects

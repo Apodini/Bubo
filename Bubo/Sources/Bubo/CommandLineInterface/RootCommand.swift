@@ -1,12 +1,18 @@
 //
-//  Created by Valentin Hartig on 21.04.20.
+//  RootCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 21/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import ArgumentParser
 import ColorizeSwift
 import Foundation
 
-// Main command
+
+// MARK: - Bubo
+/// This is the Root Command of Bubo. All subcommands are registered here
 struct Bubo: ParsableCommand {
     
     /// **Subcommand**:  The root command of the application that contains all subcommands and defines the option groups

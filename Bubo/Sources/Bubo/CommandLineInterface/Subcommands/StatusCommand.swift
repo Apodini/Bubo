@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 04.05.20.
+//  StatusCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 04/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
+
+// MARK: - Status
 extension Bubo {
     
     /// **Subcommand**: Get the statistics and status information about the application

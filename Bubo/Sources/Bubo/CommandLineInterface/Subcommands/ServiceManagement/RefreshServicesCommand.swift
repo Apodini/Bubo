@@ -1,10 +1,16 @@
 //
-//  Created by Valentin Hartig on 21.04.20.
+//  RefreshServicesCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 21/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import ArgumentParser
 import Foundation
 
+
+// MARK: - Refresh
 extension Bubo.Service {
     
     /// **Subcommand**: Refresh the service registrations of a project (Update all service configurations) 

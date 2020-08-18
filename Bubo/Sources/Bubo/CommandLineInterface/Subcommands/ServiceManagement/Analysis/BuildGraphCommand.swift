@@ -1,5 +1,9 @@
 //
-//  Created by Valentin Hartig on 17.05.20.
+//  BuildGraphCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 17/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 
@@ -8,6 +12,7 @@ import ArgumentParser
 import ServiceAnalyserModule
 
 
+// MARK: - Graph
 extension Bubo.Service.Analyse {
     
     /// **Subcommand**: Subcommand to generate a dependency graph and save it to a .dot file

@@ -1,5 +1,9 @@
 //
-//  Created by Valentin Hartig on 20.07.20.
+//  WriteToDotCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 20/07/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 
@@ -14,7 +18,7 @@ extension Bubo.Service.Analyse {
     struct Dot: ParsableCommand {
         static let configuration = CommandConfiguration(
             abstract: "Parses all files of a service and outputs the graph as a .dot file",
-            discussion: "This command is only for testing the new features")
+            discussion: "Warning: Large programs generate really large graphs.")
         
         @OptionGroup()
         var options: Bubo.Options

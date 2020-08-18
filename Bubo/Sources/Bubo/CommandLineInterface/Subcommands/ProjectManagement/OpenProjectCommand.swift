@@ -1,12 +1,17 @@
+
 //
-//  Created by Valentin Hartig on 01.04.20.
+//  OpenProjectsCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 01/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
-
+// MARK: - Open
 extension Bubo {
     
     /// **Subcommand**:  Open a project in the finder

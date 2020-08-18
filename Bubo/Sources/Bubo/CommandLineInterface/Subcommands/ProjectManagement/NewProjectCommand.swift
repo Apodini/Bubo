@@ -1,12 +1,17 @@
 //
-//  Created by Valentin Hartig on 21.04.20.
+//  NewProjectCommand.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 21/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import ArgumentParser
 import Foundation
 import ResourceManagerModule
 
-
+// MARK: - New
 extension Bubo {
     
     /// **Subcommand**:  Create a new project

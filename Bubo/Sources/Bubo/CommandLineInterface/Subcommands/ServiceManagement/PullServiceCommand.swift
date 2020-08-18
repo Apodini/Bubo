@@ -1,11 +1,15 @@
 //
-//  Created by Valentin Hartig on 01.05.20.
+//  PullServiceCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 01/05/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import ArgumentParser
 
-
+// MARK: - Pull
 extension Bubo.Service {
     
     /// **Subcommand**:  Pull one or multiple services for a project

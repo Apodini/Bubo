@@ -1,12 +1,17 @@
 //
-//  Created by Valentin Hartig on 27.04.20.
+//  ListProjectsCommand.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 27/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import Foundation
 import ArgumentParser
 import ResourceManagerModule
 
-
+// MARK: - List
 extension Bubo {
     
     /// **Subcommand**:  List all registered projects

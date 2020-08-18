@@ -1,11 +1,17 @@
 //
-//  Created by Valentin Hartig on 28.04.20.
+//  RemoveServiceCommand.swift
+//  Bubo
 //
+//  Created by Valentin Hartig on 28/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
+//
+
 
 import ArgumentParser
 import Foundation
 
 
+// MARK: - Remove
 extension Bubo.Service {
     
     /// **Subcommand**:  Remove a service from a project

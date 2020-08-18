@@ -1,11 +1,15 @@
 //
-//  Created by Valentin Hartig on 27.04.20.
+//  AddCommand.swift
+//  Bubo
+//
+//  Created by Valentin Hartig on 27/04/20
+//  Copyright © 2020 TUM LS1. All rights reserved.
 //
 
 import Foundation
 import ArgumentParser
 
-
+// MARK: - Add
 extension Bubo.Service {
     
     /// **Subcommand**: Add a new service to a project
