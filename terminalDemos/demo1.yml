@@ -1,0 +1,153 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: zsh
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/terminalDemos
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 100
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 20
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: 100
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: solid
+    title: null
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: /Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/images/BuboLogo.png
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Meslo for Powerline, Meslo LG M for Powerline"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 362
+    content: "\e[0m\e[49m\e[39m\e[27m\e[24m\e[1m\e[7m%\e[27m\e[1m\e[0m                                                                                                   \r\e[0m\e[49m\e[39m\e[27m\e[24m\e[K\r\n\r\n\r\n\e[3A\e7\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/terminalDemos\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m"
+  - delay: 558
+    content: "\e8\e[0m\e[49m\e[39m\e[27m\e[24m\e[J\e]2;valentinhartig@VLH-MBP: ~/Projects/Bachelor_Arbeit/Bubo/terminalDemos\a\e]1;..terminalDemos\a\e[0m\e[49m\e[39m\e[27m\e[24m\e[1m\e[7m%\e[27m\e[1m\e[0m                                                                                                   \r\e[0m\e[49m\e[39m\e[27m\e[24m\e[K\r\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/terminalDemos\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m                                      \e[0m\e[49m\e[37mminikube/default\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m\e[K\e[?1h\e=\e[?2004h"
+  - delay: 5
+    content: "\r\r\e[A\e[A\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/terminalDemos\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[38;5;242m \e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[38;5;242mdevelop\e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m                              \e[0m\e[49m\e[37mminikube/default\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m\e[K"
+  - delay: 5
+    content: "\r\r\e[A\e[A\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/terminalDemos\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[38;5;242m \e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[38;5;242mdevelop\e[0m\e[38;5;242m\e[49m\e[38;5;242m*\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m                         \e[0m\e[49m\e[37mminikube/default\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m\e[K"
+  - delay: 803
+    content: "\e[32m.\e[39m\e[90m/.build/debug/Bubo status\e[39m\e[25D"
+  - delay: 323
+    content: "\b\e[39m\e[4m.\e[39m\e[4m.\e[24m\e[90m/\e[90ms\e[90mo\e[90mf\e[90mt\e[90mw\e[90ma\e[90mr\e[90me\e[90m/\e[90mB\e[90mu\e[90mb\e[90mo\e[90m/\e[90m.\e[90mb\e[90mu\e[90mi\e[90ml\e[90md\e[90m/\e[90md\e[90me\e[90mbug/Bubo service analyse graph -n testProject Vapor\e[39m\e[75D"
+  - delay: 799
+    content: "\b\b\e[4m.\e[4m.\e[39m\e[4m/\e[24m"
+  - delay: 780
+    content: "\b\e[4m/\e[39m\e[4m.\e[24m\e[90m.\e[90m/\e[90m.\e[90m.\e[90m/\e[90mf\e[90ml\e[90mi\e[90mn\e[90mk\e[90m-\e[90m1\e[90m.\e[90m1\e[90m1\e[90m.\e[90m0\e[90m/\e[90mb\e[90mi\e[90mn\e[90m/\e[90mf\e[90ml\e[90mi\e[90mn\e[90mk\e[90m \e[90mr\e[90mu\e[90mn\e[90m \e[90m-\e[90mc\e[90m \e[90md\e[90me\e[90m.\e[90ml\e[90mr\e[90mz\e[90m.\e[90mg\e[90mi\e[90mt\e[90ml\e[90ma\e[90mb\e[90m.\e[90mE\e[90mx\e[90mp\e[90me\e[90mn\e[90ms\e[90mi\e[90mv\e[90me\e[90mM\e[90me\e[90me\e[90mt\e[90mu\e[90mp\e[90ms\e[90m \e[90m\"\e[90mE\e[90mv\e[90me\e[90mn\e[90mt\e[90m \e[90mProcessing SS20-assem\e[90mb\e[90mly-0.1-SNAPSHOT.jar\" /mnt/events.json\e[39m\e[K\r\r\n\e[K\e[A\e[A\e[6C\e[2B\r\e[K\e[A\e[A\e[6C"
+  - delay: 555
+    content: "\b\e[4m.\e[39m\e[4mb\e[24m\e[K\e[1B\r\e[K\e[1B\e[K\e[A\e[A\e[7C"
+  - delay: 275
+    content: "\b\e[4mb\e[4mu\e[24m"
+  - delay: 183
+    content: "\b\e[4mu\e[4mi\e[24m"
+  - delay: 303
+    content: "\b\e[4mi\e[4ml\e[24m"
+  - delay: 225
+    content: "\b\e[4ml\e[4md\e[24m"
+  - delay: 1172
+    content: "\b\e[4md\e[4m/\e[24m"
+  - delay: 3130
+    content: "\e[1B\r\e[J\e[1;31mcheckouts\e[0m/            \e[J\e[1;36mdebug\e[0m@                \e[J\e[1;31mrepositories\e[0m/         \e[J\e[1;31mx86_64-apple-macosx\e[0m/\e[J\e[A\e[0m\e[27m\e[24m\e[0m\e[39m\e[49m\r\e[2C\e[4m../.build/\e[24m\e[K\e[0m\e[39m\e[49m"
+  - delay: 2249
+    content: "\e[?2004l\r\r\e[A\e[A\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[27m\e[24m\e[35m❯\e[0m\e[35m\e[49m\e[39m\e[27m\e[24m \e[4m../.build/\e[24m\e[K\e[?1l\e>\r\r\n\e]2;../.build/\a\e]1;../.build/\a"
+  - delay: 12
+    content: "\e[1m\e[7m%\e[27m\e[1m\e[0m                                                                                                   \r \r\e]2;valentinhartig@VLH-MBP: ~/Projects/Bachelor_Arbeit/Bubo/.build\a\e]1;..t/Bubo/.build\a"
+  - delay: 34
+    content: "\r\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/.build\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[38;5;242m \e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[38;5;242mdevelop\e[0m\e[38;5;242m\e[49m\e[38;5;242m*\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m                                \e[0m\e[49m\e[37mminikube/default\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m\e[K\e[?1h\e=\e[?2004h"
+  - delay: 5
+    content: "\r\r\e[A\e[A\e[0m\e[27m\e[24m\e[J\e[0m\e[49m\e[39m\r\n\e[0m\e[49m\e[34m~/Projects/Bachelor_Arbeit/Bubo/.build\e[0m\e[34m\e[49m\e[34m\e[0m\e[34m\e[49m\e[38;5;242m \e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[38;5;242mdevelop\e[0m\e[38;5;242m\e[49m\e[38;5;242m*\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m \b\e[0m\e[38;5;242m\e[49m\e[38;5;242m\e[0m\e[38;5;242m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m                                \e[0m\e[49m\e[37mminikube/default\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[37m\e[0m\e[37m\e[49m\e[39m\r\n\e[0m\e[49m\e[35m❯\e[0m\e[35m\e[49m\e[35m\e[0m\e[35m\e[49m\e[30m\e[0m\e[30m\e[49m\e[39m \e[0m\e[49m\e[39m\e[K"
+  - delay: 1456
+    content: "\e[?2004l\r\r\n"
