@@ -2,7 +2,7 @@
   <img width="200" src="./images/BuboLogo.png">
 </p>
 <p align="center">
-	<a href="https://apodini.github.io/bubo/">
+	<a href="https://apodini.github.io/Bubo/">
         <img src="http://img.shields.io/badge/read_the-docs-2196f3.svg" alt="Documentation">
     </a>
     <a href="./LICENSE">
