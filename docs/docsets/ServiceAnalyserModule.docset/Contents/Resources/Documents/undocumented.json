@@ -1,0 +1,82 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/GraphBuilder.swift",
+      "line": 21,
+      "symbol": "GraphBuilder.graph",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Parser.swift",
+      "line": 25,
+      "symbol": "Parser.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 16,
+      "symbol": "TokenKind.class",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 17,
+      "symbol": "TokenKind.struct",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 18,
+      "symbol": "TokenKind.function",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 19,
+      "symbol": "TokenKind.enum",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 20,
+      "symbol": "TokenKind.protocol",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 21,
+      "symbol": "TokenKind.typealias",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 22,
+      "symbol": "TokenKind.operator",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenKind.swift",
+      "line": 23,
+      "symbol": "TokenKind.extension",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/GraphBuilderModule/Parser/Token/TokenLocation.swift",
+      "line": 49,
+      "symbol": "TokenLocation.toSwiftSyntaxLocation",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo"
+}

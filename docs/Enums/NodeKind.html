@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NodeKind Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/NodeKind" class="dashAnchor"></a>
+    <a title="NodeKind Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ResourceManagerModule Docs</a> (64% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ResourceManagerModule Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        NodeKind Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DependencyGraph.html">DependencyGraph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GraphSnapshot.html">GraphSnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResourceManager.html">ResourceManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/EdgeRole.html">EdgeRole</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeKind.html">NodeKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeRole.html">NodeRole</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Graph.html">Graph</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12abortMessage3msgySS_tF">abortMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12errorMessage3msgySS_tF">errorMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13headerMessage3msgySS_tF">headerMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13outputMessage3msgySS_tF">outputMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14successMessage3msgySS_tF">successMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14warningMessage3msgySS_tF">warningMessage(msg:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DependencyEdge.html">DependencyEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/File.html">File</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NodeLocation.html">NodeLocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProgramConfiguration.html">ProgramConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProjectConfiguration.html">ProjectConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NodeKind</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">NodeKind</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NodeKind</span><span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                </div>
+              </div>
+            <p>An enum that represents the different types of nodes that can exists in the dependency graph.
+These kinds are based on the indexStoreDB SymbolKinds</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO7unknownyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO7unknownyA2CmF">unknown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO6moduleyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/module" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO6moduleyA2CmF">module</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">module</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO9namespaceyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/namespace" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO9namespaceyA2CmF">namespace</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">namespace</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO14namespaceAliasyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/namespaceAlias" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO14namespaceAliasyA2CmF">namespaceAlias</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">namespaceAlias</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO5macroyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/macro" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO5macroyA2CmF">macro</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">macro</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO4enumyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/enum" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO4enumyA2CmF">enum</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">enum</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO6structyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/struct" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO6structyA2CmF">struct</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">struct</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO5classyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/class" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO5classyA2CmF">class</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">class</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO8protocolyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/protocol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO8protocolyA2CmF">protocol</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">protocol</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO9extensionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/extension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO9extensionyA2CmF">extension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">extension</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO5unionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/union" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO5unionyA2CmF">union</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">union</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO9typealiasyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/typealias" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO9typealiasyA2CmF">typealias</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">typealias</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO8functionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/function" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO8functionyA2CmF">function</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">function</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO8variableyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/variable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO8variableyA2CmF">variable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">variable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO5fieldyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/field" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO5fieldyA2CmF">field</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">field</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO12enumConstantyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/enumConstant" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO12enumConstantyA2CmF">enumConstant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">enumConstant</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO14instanceMethodyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/instanceMethod" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO14instanceMethodyA2CmF">instanceMethod</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">instanceMethod</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO11classMethodyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/classMethod" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO11classMethodyA2CmF">classMethod</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">classMethod</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO12staticMethodyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/staticMethod" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO12staticMethodyA2CmF">staticMethod</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">staticMethod</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO16instancePropertyyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/instanceProperty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO16instancePropertyyA2CmF">instanceProperty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">instanceProperty</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO13classPropertyyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/classProperty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO13classPropertyyA2CmF">classProperty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">classProperty</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO14staticPropertyyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/staticProperty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO14staticPropertyyA2CmF">staticProperty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">staticProperty</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO11constructoryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/constructor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO11constructoryA2CmF">constructor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">constructor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO10destructoryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/destructor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO10destructoryA2CmF">destructor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">destructor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO18conversionFunctionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/conversionFunction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO18conversionFunctionyA2CmF">conversionFunction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">conversionFunction</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO9parameteryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/parameter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO9parameteryA2CmF">parameter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">parameter</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO5usingyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/using" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO5usingyA2CmF">using</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">using</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule8NodeKindO10commentTagyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/commentTag" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule8NodeKindO10commentTagyA2CmF">commentTag</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">commentTag</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/NodeKind"></a>
+                <a name="//apple_ref/swift/Section/NodeKind" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/NodeKind"></a>
+                  <h3 class="section-name"><p>NodeKind</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

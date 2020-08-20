@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Graph Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/Graph" class="dashAnchor"></a>
+    <a title="Graph Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ResourceManagerModule Docs</a> (64% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ResourceManagerModule Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Graph Extension Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DependencyGraph.html">DependencyGraph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GraphSnapshot.html">GraphSnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResourceManager.html">ResourceManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/EdgeRole.html">EdgeRole</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeKind.html">NodeKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeRole.html">NodeRole</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Graph.html">Graph</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12abortMessage3msgySS_tF">abortMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12errorMessage3msgySS_tF">errorMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13headerMessage3msgySS_tF">headerMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13outputMessage3msgySS_tF">outputMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14successMessage3msgySS_tF">successMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14warningMessage3msgySS_tF">warningMessage(msg:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DependencyEdge.html">DependencyEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/File.html">File</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NodeLocation.html">NodeLocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProgramConfiguration.html">ProgramConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProjectConfiguration.html">ProjectConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Graph</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Graph</span> <span class="k">where</span> <span class="kt">E</span> <span class="o">==</span> <span class="kt"><a href="../Structs/DependencyEdge.html">DependencyEdge</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Adjust <strong>SwiftGraph</strong>&lsquo;s functions to accept edges of type <code><a href="../Structs/DependencyEdge.html">DependencyEdge</a></code></p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60E%60%20%3D%3D%20%60DependencyEdge%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `E` == `DependencyEdge`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60E%60%20%3D%3D%20%60DependencyEdge%60"></a>
+                  <h3 class="section-name"><p>Available where <code>E</code> == <code><a href="../Structs/DependencyEdge.html">DependencyEdge</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE8withPath_8directedxSay1VQz_SayAD0G4RoleOGtG_SbtFZ"></a>
+                    <a name="//apple_ref/swift/Method/withPath(_:directed:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE8withPath_8directedxSay1VQz_SayAD0G4RoleOGtG_SbtFZ">withPath(_:<wbr>directed:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize an UnweightedGraph consisting of path.</p>
+
+<p>The resulting graph has the vertices in path and an edge between
+each pair of consecutive vertices in path.</p>
+
+<p>If path is an empty array, the resulting graph is the empty graph.
+If path is an array with a single vertex, the resulting graph has that vertex and no edges.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    THIS FUNCTION IS CURRENTLY NOT REWORKED FOR DEPENDENCY GARPHS
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">withPath</span><span class="p">(</span><span class="n">_</span> <span class="nv">path</span><span class="p">:</span> <span class="p">[(</span><span class="kt">V</span><span class="p">,</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])],</span> <span class="nv">directed</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of vertices representing a path.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directed</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If false, undirected edges are created.
+      If true, edges are directed from vertex i to vertex i+1 in path.
+      Default is false.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE9withCycle_8directedxSay1VQz_SayAD0G4RoleOGtG_SbtFZ"></a>
+                    <a name="//apple_ref/swift/Method/withCycle(_:directed:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE9withCycle_8directedxSay1VQz_SayAD0G4RoleOGtG_SbtFZ">withCycle(_:<wbr>directed:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize an UnweightedGraph consisting of cycle.</p>
+
+<p>The resulting graph has the vertices in cycle and an edge between
+each pair of consecutive vertices in cycle,
+plus an edge between the last and the first vertices.</p>
+
+<p>If cycle is an empty array, the resulting graph is the empty graph.
+If cycle is an array with a single vertex, the resulting graph has the vertex
+and a single edge to itself if directed is true.
+If directed is false the resulting graph has the vertex and two edges to itself.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    THIS FUNCTION IS CURRENTLY NOT REWORKED FOR DEPENDENCY GARPHS
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">withCycle</span><span class="p">(</span><span class="n">_</span> <span class="nv">cycle</span><span class="p">:</span> <span class="p">[(</span><span class="kt">V</span><span class="p">,</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])],</span> <span class="nv">directed</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cycle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of vertices representing a cycle.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directed</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If false, undirected edges are created.
+      If true, edges are directed from vertex i to vertex i+1 in cycle.
+      Default is false.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE03addG09fromIndex02toJ08directed4roleySi_SiSbSayAD0G4RoleOGtF"></a>
+                    <a name="//apple_ref/swift/Method/addEdge(fromIndex:toIndex:directed:role:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE03addG09fromIndex02toJ08directed4roleySi_SiSbSayAD0G4RoleOGtF">addEdge(fromIndex:<wbr>toIndex:<wbr>directed:<wbr>role:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a convenience method that adds an unweighted edge.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addEdge</span><span class="p">(</span><span class="nv">fromIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">toIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">directed</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">role</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting vertex&rsquo;s index.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ending vertex&rsquo;s index.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directed</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Is the edge directed? (default <code>false</code>)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE03addG04from2to8directed4roley1VQz_AOSbSayAD0G4RoleOGtF"></a>
+                    <a name="//apple_ref/swift/Method/addEdge(from:to:directed:role:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE03addG04from2to8directed4roley1VQz_AOSbSayAD0G4RoleOGtF">addEdge(from:<wbr>to:<wbr>directed:<wbr>role:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a convenience method that adds an unweighted, undirected edge between the first occurence of two vertices. It takes O(n) time.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addEdge</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">directed</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">role</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting vertex.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ending vertex.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directed</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Is the edge directed? (default <code>false</code>)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE10edgeExists9fromIndex02toK04roleSbSi_SiSayAD0G4RoleOGtF"></a>
+                    <a name="//apple_ref/swift/Method/edgeExists(fromIndex:toIndex:role:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE10edgeExists9fromIndex02toK04roleSbSi_SiSayAD0G4RoleOGtF">edgeExists(fromIndex:<wbr>toIndex:<wbr>role:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check whether there is an edge from one vertex to another vertex.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">edgeExists</span><span class="p">(</span><span class="nv">fromIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">toIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">role</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the starting vertex of the edge.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the ending vertex of the edge.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if there is an edge from the starting vertex to the ending vertex.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE10edgeExists4from2to4roleSb1VQz_ANSayAD0G4RoleOGtF"></a>
+                    <a name="//apple_ref/swift/Method/edgeExists(from:to:role:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftGraph0B0P21ResourceManagerModuleAD14DependencyEdgeV1ERtzrlE10edgeExists4from2to4roleSb1VQz_ANSayAD0G4RoleOGtF">edgeExists(from:<wbr>to:<wbr>role:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check whether there is an edge from one vertex to another vertex.</p>
+
+<p>Note this will look at the first occurence of each vertex.
+Also returns false if either of the supplied vertices cannot be found in the graph.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">edgeExists</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">role</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/EdgeRole.html">EdgeRole</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The starting vertex of the edge.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ending vertex of the edge.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if there is an edge from the starting vertex to the ending vertex.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

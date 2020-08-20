@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DependencyGraph Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/DependencyGraph" class="dashAnchor"></a>
+    <a title="DependencyGraph Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ResourceManagerModule Docs</a> (64% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ResourceManagerModule Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        DependencyGraph Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DependencyGraph.html">DependencyGraph</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GraphSnapshot.html">GraphSnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResourceManager.html">ResourceManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/EdgeRole.html">EdgeRole</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeKind.html">NodeKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NodeRole.html">NodeRole</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Graph.html">Graph</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12abortMessage3msgySS_tF">abortMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule12errorMessage3msgySS_tF">errorMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13headerMessage3msgySS_tF">headerMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule13outputMessage3msgySS_tF">outputMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14successMessage3msgySS_tF">successMessage(msg:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:21ResourceManagerModule14warningMessage3msgySS_tF">warningMessage(msg:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DependencyEdge.html">DependencyEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/File.html">File</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NodeLocation.html">NodeLocation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProgramConfiguration.html">ProgramConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ProjectConfiguration.html">ProjectConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>DependencyGraph</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">DependencyGraph</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Graph</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Extension of <strong>SwiftGraph</strong>&lsquo;s <code>Graph</code> class that models a swift dependency graph</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC8verticesSayxGvp"></a>
+                    <a name="//apple_ref/swift/Property/vertices" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC8verticesSayxGvp">vertices</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">vertices</span><span class="p">:</span> <span class="p">[</span><span class="kt">V</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC5edgesSaySayAA0D4EdgeVGGvp"></a>
+                    <a name="//apple_ref/swift/Property/edges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC5edgesSaySayAA0D4EdgeVGGvp">edges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">edges</span><span class="p">:</span> <span class="p">[[</span><span class="kt"><a href="../Structs/DependencyEdge.html">DependencyEdge</a></span><span class="p">]]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC8groupMapSDySiACyAA4NodeCGGvp"></a>
+                    <a name="//apple_ref/swift/Property/groupMap" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC8groupMapSDySiACyAA4NodeCGGvp">groupMap</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">groupMap</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span> <span class="p">:</span> <span class="kt">DependencyGraph</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphCACyxGycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphCACyxGycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC8verticesACyxGSayxG_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(vertices:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC8verticesACyxGSayxG_tcfc">init(vertices:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">vertices</span><span class="p">:</span> <span class="p">[</span><span class="kt">V</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC8addGroup5groupSiACyAA4NodeCG_tF"></a>
+                    <a name="//apple_ref/swift/Method/addGroup(group:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC8addGroup5groupSiACyAA4NodeCG_tF">addGroup(group:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a new group of clustered nodes to the refined graph</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addGroup</span><span class="p">(</span><span class="nv">group</span><span class="p">:</span> <span class="kt">DependencyGraph</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>group</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The group of clustered nodes</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The groupID of the newly added group</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC7addEdge_8directedyAA0dG0V_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/addEdge(_:directed:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC7addEdge_8directedyAA0dG0V_SbtF">addEdge(_:<wbr>directed:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add an edge to the graph.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addEdge</span><span class="p">(</span><span class="n">_</span> <span class="nv">e</span><span class="p">:</span> <span class="kt"><a href="../Structs/DependencyEdge.html">DependencyEdge</a></span><span class="p">,</span> <span class="nv">directed</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>e</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The edge to add.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directed</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If false, undirected edges are created.
+                  If true, a reversed edge is also created.
+                  Default is false.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC9addVertexySixF"></a>
+                    <a name="//apple_ref/swift/Method/addVertex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC9addVertexySixF">addVertex(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add a vertex to the graph.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addVertex</span><span class="p">(</span><span class="n">_</span> <span class="nv">v</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>v</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The vertex to be added.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index where the vertex was added.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21ResourceManagerModule15DependencyGraphC11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21ResourceManagerModule15DependencyGraphC11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement <code>CustomStringConvertible</code> protocol</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Outputs the graph in <code>.dot</code> format
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

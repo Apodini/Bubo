@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>OperationsManagerModule  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a title="OperationsManagerModule  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">OperationsManagerModule Docs</a> (92% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">OperationsManagerModule Reference</a>
+        <img id="carat" src="img/carat.png" />
+        OperationsManagerModule  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/OperationsManager.html">OperationsManager</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <p align="center" href="">
+  <img width="200" src="./images/BuboLogo.png">
+</p>
+
+<p align="center">
+    <a href="https://apodini.github.io/Bubo/">
+        <img src="http://img.shields.io/badge/read_the-docs-2196f3.svg" alt="Documentation">
+    </a>
+    <a href="./LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
+    </a>
+    <a href="https://swift.org">
+        <img src="https://img.shields.io/badge/swift-5.2.4-brightgreen.svg" alt="Swift 5.2.4">
+    </a>
+</p>
+<h1 id='bubo' class='heading'>Bubo</h1>
+
+<p>Bubo is an opensource sourcecode analyser for <a href="https://github.com/apple/swift">Swift</a>. </p>
+
+<p>The tool has been developed to support developers in the endeavour of decomposing Swift server-side applications into microservices and provides an infrastructure to manage the decomposition process.</p>
+
+<p>Bubo is still under development and is <span style="color: red">not</span> stable! Contributions are welcome, please check the contributions section if you want to help out.</p>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<p>Bubo has been developed for the use with macOS 10.15.5 and Swift 5.2.4 and higher. </p>
+
+<p>As Bubo makes use of the clang compiler, it is required to run on the specified Swift version. </p>
+<h2 id='setup' class='heading'>Setup</h2>
+
+<p>Bubo can be build via the swift compiler:</p>
+
+<ol>
+<li>Clone bubo to your prefered directory
+<code>bash
+git clone &lt;url&gt;
+</code></li>
+<li>Move into the cloned repository
+<code>bash
+cd Bubo
+</code></li>
+<li>Build Bubo via the command line
+<code>bash
+swift build
+</code></li>
+</ol>
+
+<p>Due to a <a href="https://forums.swift.org/t/swiftsyntax-with-swift-5-1/29051/12">linker error</a> with SwiftSyntax, building from Xcode does not work out of the box. </p>
+
+<p>To solve this issue, you can create an alias to the corresponding library as follows: </p>
+<pre class="highlight shell"><code><span class="nb">ln</span> <span class="nt">-s</span> <span class="si">$(</span>xcode-select <span class="nt">-p</span><span class="si">)</span>/../Frameworks/lib_InternalSwiftSyntaxParser.dylib /usr/local/lib
+</code></pre>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>Bubo provides you with a comprehensive command line interface based on the <a href="https://github.com/apple/swift-argument-parser">swift-argument-parser</a>.</p>
+
+<p>As Bubo is still in its prototyping phase, you can use the executable generated in the <code>.build/debug</code> directory. </p>
+
+<p>To check if Bubo has been set up correctly, type:</p>
+<pre class="highlight shell"><code><span class="nv">$&gt;</span> ./.build/debug/Bubo status
+</code></pre>
+
+<p align="center" href="">
+  <img width="2500" src="./images/BuboStatus.gif">
+</p>
+
+<p>Bubo allows you to create projects and manage a set of services in a project. A service is any kind of Swift based program that forms an individual deployment unit in your system. </p>
+
+<p>For a full documentation on how to use Bubo, we refer you to Bubo&rsquo;s help pages: </p>
+<pre class="highlight shell"><code><span class="nv">$&gt;</span> ./.build/debug/Bubo <span class="nt">-h</span>
+</code></pre>
+
+<p align="center" href="">
+  <img width="2500" src="./images/BuboHelp.gif">
+</p>
+<h2 id='technical-background' class='heading'>Technical Background</h2>
+
+<p>Bubo uses <a href="https://github.com/apple/swift-syntax">SwiftSyntax</a> and the <a href="https://github.com/apple/swift-syntax">IndexStoreDB</a>, to generate structural dependency graphs for arbitrary Swift programs.</p>
+
+<p>These dependency graphs are the basis for analysis operations and feature location. </p>
+
+<p>The structural analyser is still work in progress.
+A semantic analyser and feature location component are planned. We will update this README, when we can provide you with more information on this. </p>
+<h2 id='contributing' class='heading'>Contributing</h2>
+
+<p>Contributions to this projects are welcome. Please make sure to read the <a href="https://github.com/Apodini/.github/blob/release/CONTRIBUTING.md">contribution guidelines</a> first.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>This project is licensed under the MIT License. See <a href="https://github.com/Apodini/Template-Repository/blob/release/LICENSE">License</a> for more information.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-08-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

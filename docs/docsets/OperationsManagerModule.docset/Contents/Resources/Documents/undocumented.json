@@ -1,0 +1,61 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/ServiceManager.swift",
+      "line": 35,
+      "symbol": "ServiceManager.init(service:pName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/Analyser/UpdateGraph.swift",
+      "line": 19,
+      "symbol": "StructuralAnalyser.updateGraph()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 16,
+      "symbol": "StructuralAnalyser",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 16,
+      "symbol": "StructuralAnalyser",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 16,
+      "symbol": "StructuralAnalyser",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 17,
+      "symbol": "StructuralAnalyser",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 17,
+      "symbol": "StructuralAnalyser",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo/Sources/ServiceAnalyserModule/StructuralAnalysis/StructuralAnalyser.swift",
+      "line": 38,
+      "symbol": "StructuralAnalyser.init(service:pName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/valentinhartig/Projects/Bachelor_Arbeit/Bubo"
+}
